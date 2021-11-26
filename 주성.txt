@@ -1,4 +1,0 @@
-TEST
-AAA
-BBB
-
