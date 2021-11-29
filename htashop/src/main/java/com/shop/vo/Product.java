@@ -1,5 +1,5 @@
 package com.shop.vo;
 
-public class Products {
+public class Product {
 
 }
