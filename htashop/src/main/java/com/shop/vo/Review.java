@@ -4,35 +4,18 @@ import java.util.Date;
 
 public class Review {
 	
-	private int ProductNo;
-	private int customerNo;
 	private int reviewNo;
-	private String answer;
-	private String review;
-	private String adminId;
-	private String Title;
-	private Date answerCreateDate;
-	private Date reviewCreateDate;
+	private int productNo;
+	private int customerNo;
+	private String adminNo;
+	private String title;
+	private String content;
+	private Date createdDate;
+	private int viewCount;
+	private String answerContent;
+	private Date answerCreatedDate;
 	
-	public Review() {
-
-	}
-
-	public int getProductNo() {
-		return ProductNo;
-	}
-
-	public void setProductNo(int productNo) {
-		ProductNo = productNo;
-	}
-
-	public int getCustomerNo() {
-		return customerNo;
-	}
-
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
-	}
+	public Review() {}
 
 	public int getReviewNo() {
 		return reviewNo;
@@ -42,55 +25,75 @@ public class Review {
 		this.reviewNo = reviewNo;
 	}
 
-	public String getAnswer() {
-		return answer;
+	public int getProductNo() {
+		return productNo;
 	}
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
 	}
 
-	public String getReview() {
-		return review;
+	public int getCustomerNo() {
+		return customerNo;
 	}
 
-	public void setReview(String review) {
-		this.review = review;
+	public void setCustomerNo(int customerNo) {
+		this.customerNo = customerNo;
+	}
+  
+	public String getAdminNo() {
+		return adminNo;
 	}
 
-	public String getAdminId() {
-		return adminId;
-	}
-
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
+	public void setAdminNo(String adminNo) {
+		this.adminNo = adminNo;
 	}
 
 	public String getTitle() {
-		return Title;
+		return title;
 	}
-	
+
 	public void setTitle(String title) {
-		Title = title;
+		this.title = title;
 	}
 
-	public Date getAnswerCreateDate() {
-		return answerCreateDate;
+	public String getContent() {
+		return content;
 	}
 
-	public void setAnswerCreateDate(Date answerCreateDate) {
-		this.answerCreateDate = answerCreateDate;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public Date getReviewCreateDate() {
-		return reviewCreateDate;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setReviewCreateDate(Date reviewCreateDate) {
-		this.reviewCreateDate = reviewCreateDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
-	
-	
-	
 
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public String getAnswerContent() {
+		return answerContent;
+	}
+
+	public void setAnswerContent(String answerContent) {
+		this.answerContent = answerContent;
+	}
+
+	public Date getAnswerCreatedDate() {
+		return answerCreatedDate;
+	}
+
+	public void setAnswerCreatedDate(Date answerCreatedDate) {
+		this.answerCreatedDate = answerCreatedDate;
+	}
 }

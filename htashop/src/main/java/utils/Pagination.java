@@ -1,9 +1,27 @@
 package utils;
 
-// TODO 차후 구현 예정
+/**
+ * 페이징처리를 지원하는 클래스다.<p>
+ * <ul>
+ * 	<li>현재 페이지번호</li>
+ * 	<li>현재 블록번호</li>
+ * 	<li>총 데이터 갯수</li>
+ * 	<li>총 페이지 갯수</li>
+ * 	<li>총 블록 갯수</li>
+ * 	<li>현재 블록의 시작 페이지번호</li>
+ * 	<li>현재 블록의 끝 페이지번호</li>
+ * 	<li>이전 블록의 페이지번호</li>
+ * 	<li>다음 블록의 페이지번호</li>
+ * 	<li>데이터조회 시작 순번</li>
+ * 	<li>데이터조회 끝 순번</li>
+ * <ul>
+ * @author
+ * 
+ */
 public class Pagination {
 
-	private int rowsPerPage = 5;			// 한 페이지당 표시할 데이터의 갯수
+
+	private int rowsPerPage = 10;			// 한 페이지당 표시할 데이터의 갯수
 	private int pagesPerBlock = 5;			// 한 블록당 표시할 페이지번호 숫자
 	private int currentPageNo;				// 현재 페이지번호
 	private int totalRecords;				// 총 데이터 갯수
