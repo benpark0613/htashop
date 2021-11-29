@@ -8,11 +8,46 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.shop.vo.Product;
 
 import utils.ConnectionUtil;
 
 public class ProductDao {
+	
+	private static ProductDao self = new ProductDao();
+	private ProductDao() {}
+	public static ProductDao getInstance() {
+		return self;
+	}
+	
+	
+	public Product getProductDetailById(int no) throws SQLException{
+		Product products = new Product();
+		
+		String sql = "select * from shop_products where product_no =? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			products = new Product();
+			products.setNo(rs.getInt("product_no"));
+			products.setName(rs.getString("product_name"));
+			products.setCategory(rs.getString("product_category"));
+			products.setPrice(rs.getInt("product_price"));
+			products.setStock(rs.getInt("product_stock"));
+			products.setSoldOut(rs.getBoolean("product_is_soldout"));
+			products.setSalesRate(rs.getInt("PRODUCT_SALES_RATE"));
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return products;
+	}
 	
 	/**
 	 * 모든 상품정보를 반환한다.
@@ -27,7 +62,7 @@ public class ProductDao {
 				+ "PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE "
 	            + "from shop_products ";
 		
-		Connection connection = ConnectionUtil.getConnection();
+		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -51,21 +86,6 @@ public class ProductDao {
 		
 		return productList;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 }
