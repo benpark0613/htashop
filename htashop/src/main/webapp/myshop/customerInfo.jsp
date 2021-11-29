@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!doctype html>
-<%@ include file="../navigation/nav.jsp" %>    
+<%@ include file="../common/navbar.jsp" %>
+<%@ include file="../common/left.jsp" %>  
 
 <html lang="ko">
 <head>
@@ -71,7 +72,7 @@
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="id" class="form-label">아이디</label>
-              <input type="text" class="form-control" id="id" name="id" placeholder="<%=customer.getId() %>" disabled>
+              <input type="text" class="form-control" id="id" name="id" placeholder="<%=loginedCustomerInfo.getCustomerId() %>" disabled>
             </div>
 
 
@@ -94,13 +95,13 @@
             <div class="col-12">
               <label for="name" class="form-label">이름</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="name" name="name" placeholder="<%=customer.getName() %>">
+                <input type="text" class="form-control" id="name" name="name" placeholder="<%=loginedCustomerInfo.getCustomerName() %>">
               </div>
             </div>
             
             <div class="col-12">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="<%=customer.getEmail() %>">
+              <input type="email" class="form-control" id="email" placeholder="<%=loginedCustomerInfo.getCustomerEmail() %>">
             </div>
 
             <div>전화번호</div>

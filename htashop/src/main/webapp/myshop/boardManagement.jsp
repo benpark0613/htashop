@@ -1,12 +1,12 @@
 <%@page import="com.shop.vo.Review"%>
 <%@page import="com.shop.vo.QABoard"%>
 <%@page import="com.shop.dao.QaBoardDao"%>
-<%@page import="com.shop.dto.BoardDto"%>
 <%@page import="com.shop.dao.ReviewDao"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../navigation/nav.jsp" %>
+<%@ include file="../common/navbar.jsp" %>
+<%@ include file="../common/left.jsp" %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -18,8 +18,8 @@
 <%
 	ReviewDao reviewDao = new ReviewDao();
 	QaBoardDao qaBoardDao = new QaBoardDao();
-	List<Review> reviewList = reviewDao.getAllReviewByCustomerNo(customer.getNo());
-	List<QABoard> QAList = qaBoardDao.getAllQAByCustomerNo(customer.getNo());
+	List<Review> reviewList = reviewDao.getAllReviewByCustomerNo(loginedCustomerInfo.getCustomerNo());
+	List<QABoard> QAList = qaBoardDao.getAllQAByCustomerNo(loginedCustomerInfo.getCustomerNo());
 	
 %>
 <body>
@@ -40,10 +40,10 @@
 	for(Review review : reviewList){
 %>	  
 	    <tr>
-	      <th scope="row"><%=customer.getNo() %></th>
+	      <th scope="row"><%=loginedCustomerInfo.getCustomerNo() %></th>
 	      <td>리뷰</td>
 	      <td><%=review.getTitle() %></td>
-	      <td><%=customer.getName() %></td>
+	      <td><%=loginedCustomerInfo.getCustomerName() %></td>
 	      <td><%=review.getCreatedDate() %></td>
 	      <td><%=review.getViewCount() %></td>
 	    </tr>
@@ -55,10 +55,10 @@
 	for(QABoard qa : QAList){
 %>	  
 	    <tr>
-	      <th scope="row"><%=customer.getNo() %></th>
+	      <th scope="row"><%=loginedCustomerInfo.getCustomerNo() %></th>
 	      <td>QA</td>
 	      <td><%=qa.getTitle() %></td>
-	      <td><%=customer.getName() %></td>
+	      <td><%=loginedCustomerInfo.getCustomerName() %></td>
 	      <td><%=qa.getRegDate() %></td>
 	      <td><%=qa.getViewCount() %></td>
 	    </tr>

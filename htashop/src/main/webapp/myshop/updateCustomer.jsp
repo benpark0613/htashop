@@ -4,7 +4,8 @@
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../navigation/nav.jsp" %>    
+<%@ include file="../common/navbar.jsp" %>
+<%@ include file="../common/left.jsp" %>  
 
 <%
 	String password = request.getParameter("password");
@@ -32,17 +33,18 @@
 	
 	String tel = tel1 +"-" + tel2 +"-" + tel3;
 	
-	//SimpleDateFormat formatter = new SimpleDateFormat("yyyymmdd");
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyymmdd");
 	
-	//Date birthDay = formatter.parse(strBirthDay);
+	Date birthDay = formatter.parse(strBirthDay);
 	
+	Customer customer = new Customer();
 	
-	customer.setPassword(secretPassword);
-	customer.setName(name);
-	//customer.setBirthday((java.sql.Date)birthDay);
-	customer.setAddress(region);
-	customer.setTel(tel);
-	customer.setEmail(email);
+	customer.setCustomerPassword(secretPassword);
+	customer.setCustomerName(name);
+	customer.setCustomerBirthday(birthDay);
+	customer.setCustomerAddress(region);
+	customer.setCustomerTel(tel);
+	customer.setCustomerEmail(email);
 	
 	CustomerDao customerDao = new CustomerDao();
 	customerDao.updateCustomer(customer);
@@ -74,6 +76,11 @@
 	
 	if(region == null){
 		response.sendRedirect("customerInfo.jsp?fail=region");
+		return;
+	}
+	
+	if(birthDay == null){
+		response.sendRedirect("customerInfo.jsp?fail=birthday");
 		return;
 	}
 	
