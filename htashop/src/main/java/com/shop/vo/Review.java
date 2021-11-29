@@ -40,7 +40,7 @@ public class Review {
 	public void setCustomerNo(int customerNo) {
 		this.customerNo = customerNo;
 	}
-
+  
 	public String getAdminNo() {
 		return adminNo;
 	}
@@ -96,8 +96,4 @@ public class Review {
 	public void setAnswerCreatedDate(Date answerCreatedDate) {
 		this.answerCreatedDate = answerCreatedDate;
 	}
-	
-	
-	
-
 }

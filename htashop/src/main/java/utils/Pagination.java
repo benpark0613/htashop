@@ -20,6 +20,7 @@ package utils;
  */
 public class Pagination {
 
+
 	private int rowsPerPage = 10;			// 한 페이지당 표시할 데이터의 갯수
 	private int pagesPerBlock = 5;			// 한 블록당 표시할 페이지번호 숫자
 	private int currentPageNo;				// 현재 페이지번호
