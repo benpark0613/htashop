@@ -25,7 +25,7 @@
 	// 생성한 Board객체에 제목, 작성자, 내용을 저장한다.
 	Review review = new Review();
 	review.setTitle(title);
-	review.setReview(content);
+	//review.setReview(content);
 	
 	// 게시글 관련 기능을 제공하는 BoardDao 객체를 획득한다.
 	ReviewDao reviewDao = ReviewDao.getInstance();
