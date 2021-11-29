@@ -6,18 +6,10 @@
 	// 로그인 전: <로그인, 조인,> 카트, 오더, 마이샵
 	
 	// 로그인 후: <로그아웃, 모디파이,> 카트, 오더, 마이샵
-
-<<<<<<< HEAD
-=======
 	
 	
 	
-
 	
-
-
-
->>>>>>> 6e2d1c9b3a4fd9e225af9f75ddcae8b670081077
 %>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3">
 	<div class="container">
@@ -46,5 +38,3 @@
 		</div>
 	</div>
 </nav>
-
-	
