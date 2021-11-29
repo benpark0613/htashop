@@ -102,5 +102,34 @@ public class CustomerDao {
 		return customer;
 	}
 	
+	public void updateCustomer(Customer customer)throws SQLException{
+		
+		String sql = "update SHOP_CUSTOMER "
+				   + "set "
+				   + "CUSTOMER_NAME = ?, "
+				   + "CUSTOMER_PASSWORD = ?, "
+				   + "CUSTOMER_BIRTHDAY = ?, "
+				   + "CUSTOMER_TEL = ?, "
+				   + "CUSTOMER_ADDRESS = ?, "
+				   + "CUSTOMER_EMAIL = ? "
+				   + "where customer_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		
+		pstmt.setString(1, customer.getCustomerName());
+		pstmt.setString(2, customer.getCustomerPassword());
+		pstmt.setString(3, customer.getCustomerTel());
+		pstmt.setString(4, customer.getCustomerAddress());
+		pstmt.setString(5, customer.getCustomerEmail());
+		pstmt.setString(6, customer.getCustomerBirthday().toString());
+		pstmt.setInt(7, customer.getCustomerNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	}
+	
 
 }

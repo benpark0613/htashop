@@ -4,7 +4,8 @@
 <%@page import="com.shop.dto.OrderDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../navigation/nav.jsp" %>    
+<%@ include file="../common/navbar.jsp" %>
+<%@ include file="../common/left.jsp" %>   
 <!doctype html>
 <html lang="ko">
 <head>
@@ -15,7 +16,7 @@
 </head>
 <%
 	OrderDao orderDao = new OrderDao();
-	Order order = orderDao.getOrdersByNo(customer.getNo());
+	Order order = orderDao.getOrdersByNo(loginedCustomerInfo.getCustomerNo());
 %>
 <body>
 	<div class="container">  
@@ -58,7 +59,7 @@
 	  </thead>
 	  <tbody>
 <%
-	List<OrderDto> orderList = orderDao.getOrderDetail(customer.getNo());
+	List<OrderDto> orderList = orderDao.getOrderDetail(loginedCustomerInfo.getCustomerNo());
 
 	for(OrderDto orders : orderList){
 %>	    

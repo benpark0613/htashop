@@ -3,7 +3,8 @@
 <%@page import="com.shop.dao.OrderDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../navigation/nav.jsp" %>    
+<%@ include file="../common/navbar.jsp" %>
+<%@ include file="../common/left.jsp" %>   
 <!doctype html>
 <html lang="ko">
 <head>
@@ -23,7 +24,7 @@
   <div class="row mb-3">
     <div class="col bg-light">
 		
-        <p>저희 쇼핑몰을 이용해 주셔서 감사합니다. <strong><%=customer.getName() %>님</strong>은 [<strong><%=customer.getGrade() %></strong>] 회원이십니다.</p>
+        <p>저희 쇼핑몰을 이용해 주셔서 감사합니다. <strong><%=loginedCustomerInfo.getCustomerName() %>님</strong>은 [<strong><%=loginedCustomerInfo.getCustomerGrade() %></strong>] 회원이십니다.</p>
     </div>
     </div>
 
@@ -34,7 +35,7 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">총 적립금 :[<%=customer.getPoint() %>]원 </h2>
+        <h2 class="featurette-heading">총 적립금 :[<%=loginedCustomerInfo.getCustomerPoint() %>]원 </h2>
 		<button type="button" class="btn btn-secondary">조회</button>
         <h2 class="featurette-heading">사용적립금 :[]원 </h2>
         <h2 class="featurette-heading">총주문 :[]원 </h2>
@@ -79,13 +80,13 @@
 	}
 */
 	OrderDao orderDao = new OrderDao();
-	int beforeDeposit = orderDao.countbeforeDeposit(customer.getNo());
-	int cancel = orderDao.countCancel(customer.getNo());
-	int exchange = orderDao.countExchange(customer.getNo());
-	int preparingDelevery = orderDao.countPreparingDelevery(customer.getNo());
-	int rtn = orderDao.countRtn(customer.getNo());
-	int shippedComplete = orderDao.countShippedComplete(customer.getNo());
-	int shipping = orderDao.countShipping(customer.getNo());
+	int beforeDeposit = orderDao.countbeforeDeposit(loginedCustomerInfo.getCustomerNo());
+	int cancel = orderDao.countCancel(loginedCustomerInfo.getCustomerNo());
+	int exchange = orderDao.countExchange(loginedCustomerInfo.getCustomerNo());
+	int preparingDelevery = orderDao.countPreparingDelevery(loginedCustomerInfo.getCustomerNo());
+	int rtn = orderDao.countRtn(loginedCustomerInfo.getCustomerNo());
+	int shippedComplete = orderDao.countShippedComplete(loginedCustomerInfo.getCustomerNo());
+	int shipping = orderDao.countShipping(loginedCustomerInfo.getCustomerNo());
 %>   
     
     <div class="row featurette">
