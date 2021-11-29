@@ -4,12 +4,13 @@ import java.util.Date;
 
 public class NoticeBoard {
 
-	int no;
-	String adminId;
-	String title;
-	String content;
-	Date regDate;
-	int viewCount;
+	private int no;
+	private String adminId;
+	private String title;
+	private String content;
+	private Date regDate;
+	private int viewCount;
+	
 	public int getNo() {
 		return no;
 	}
