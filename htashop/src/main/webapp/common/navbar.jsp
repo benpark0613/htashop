@@ -6,15 +6,6 @@
 	
 	// 로그인 후: <로그아웃, 모디파이,> 카트, 오더, 마이샵
 
-	
-	String menu = (String)pageContext.getAttribute("menu");
-	
-	
-
-	
-
-
-
 %>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3">
 	<div class="container">
