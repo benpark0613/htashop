@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="com.shop.dao.ProductsDao"%>
+<%@page import="com.shop.dao.ProductDao"%>
 <%@page import="com.shop.vo.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
