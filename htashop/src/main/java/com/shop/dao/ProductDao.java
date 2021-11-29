@@ -8,19 +8,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.shop.vo.Products;
+import com.shop.vo.Product;
 
 import utils.ConnectionUtil;
 
-public class ProductsDao {
+public class ProductDao {
 	
 	/**
 	 * 모든 상품정보를 반환한다.
 	 * @return 상품정보
 	 * @throws SQLException
 	 */
-	public List<Products> getAllProducts() throws SQLException {
-		List<Products> productList = new ArrayList<>();
+	public List<Product> getAllProducts() throws SQLException {
+		List<Product> productList = new ArrayList<>();
 		
 		String sql = "select PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, "
 				+ "PRODUCT_PRICE, PRODUCT_STOCK, PRODUCT_IS_SOLDOUT, "
@@ -32,7 +32,7 @@ public class ProductsDao {
 		ResultSet rs = pstmt.executeQuery();
 		
 		while (rs.next()) {
-			Products product = new Products();
+			Product product = new Product();
 			product.setNo(rs.getInt("PRODUCT_NO"));
 			product.setCategory(rs.getString("PRODUCT_CATEGORY"));
 			product.setName(rs.getString("PRODUCT_NAME"));
