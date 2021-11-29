@@ -8,6 +8,9 @@
     <title>HTA shop::로그인</title>
 </head>
 <body>
+<%
+	pageContext.setAttribute("menu", "login");
+%>
 <%@ include file="common/navbar.jsp" %>
 <div class="container">    
 	<div class="row justify-content-md-center">
