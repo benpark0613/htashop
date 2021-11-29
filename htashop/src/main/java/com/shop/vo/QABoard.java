@@ -1,23 +1,26 @@
 package com.shop.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
-public class QaBoard {
-	int no;
-	int productNo;
-	int customerNo;
-	String adminId;
-	String title;
-	String content;
-	Date regDate;
-	int viewCount;
-	String reply;
-	Date anserDate;
-	public int getNo() {
-		return no;
+public class QABoard {
+
+	private int QANo;
+	private int productNo;
+	private String AdminId;
+	private String title;
+	private String content;
+	private Date regDate;
+	private int viewCount;
+	private String reply;
+	private Date answerDate;
+	
+	public QABoard() {}
+	
+	public int getQANo() {
+		return QANo;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public void setQANo(int qANo) {
+		QANo = qANo;
 	}
 	public int getProductNo() {
 		return productNo;
@@ -25,17 +28,11 @@ public class QaBoard {
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
-	public int getCustomerNo() {
-		return customerNo;
-	}
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
-	}
 	public String getAdminId() {
-		return adminId;
+		return AdminId;
 	}
 	public void setAdminId(String adminId) {
-		this.adminId = adminId;
+		AdminId = adminId;
 	}
 	public String getTitle() {
 		return title;
@@ -67,10 +64,13 @@ public class QaBoard {
 	public void setReply(String reply) {
 		this.reply = reply;
 	}
-	public Date getAnserDate() {
-		return anserDate;
+	public Date getAnswerDate() {
+		return answerDate;
 	}
-	public void setAnserDate(Date anserDate) {
-		this.anserDate = anserDate;
+	public void setAnswerDate(Date answerDate) {
+		this.answerDate = answerDate;
 	}
+	
+	
+	
 }
