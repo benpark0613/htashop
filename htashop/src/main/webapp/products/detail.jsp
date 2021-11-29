@@ -16,14 +16,14 @@
 </head>
 <body>
 <%@ include file="../common/navbar.jsp" %>
-
+		<div  class="col-sm-2">
+			<%@ include file="../common/left.jsp" %>
+		</div>
 
 
 <%
-
 	int no = Integer.parseInt(request.getParameter("no"));
 
-	
 	// 게시글 정보를 제공하는 BoardDao객체를 획득한다.
 	ProductDao productDao = ProductDao.getInstance();	
 	
@@ -39,11 +39,13 @@
 
 			  <img src="../resources/images/<%=product.getName() %>.jpg" style="width:500px; height:500px">
 		</div>
+		
 		<div class="col">
 				<h3>상품명</h3>
 				<p>카테고리</p>
 				<p>상세정보 들어감</p>
 			<table class="table">
+
 				<tbody>
 					<tr class="d-flex">
 						<th class="col-2">카테고리</th>
@@ -84,10 +86,14 @@
 		<label for="size">사이즈</label> 
 		<select class="form-select form-select-sm" id="size" name="size" size="1">
      <optgroup label="사이즈를 선택하세요">
-        <option value="100">100</option>
-        <option value="95">95</option>	
+        <option value="s">S</option>
+        <option value="m">M</option>	
+        <option value="m">L</option>	
+        <option value="m">XL</option>	
      </optgroup>
      </select> <br>
+
+     
 		<label for="quantity">수량</label> 
 		<select class="form-select form-select-sm" id="quantity" name="quantity" size="1">
      <optgroup label="수량을 선택하세요">
@@ -97,13 +103,15 @@
         <option value="4">4</option> 	
         <option value="5">5</option> 	
      </optgroup>     	
-		</select>  <br>
+		</select>  <br> 
 	
+ 	<input type="hidden" id="no" name="no" value="<%=product.getNo()%>"> 
 	
-	<button class="btn btn-outline-primary" name="no">구매하기</button>
-<!-- 	<button class="btn btn-outline-dark">장바구니 담기</button> -->
-
+	<input class="btn btn-outline-primary" type='submit' id="no" value='구매'> 
+  	<input class="btn btn-outline-dark" type='submit' value='장바구니' onclick='return submit2(this.form);'>
 	</form>
+
+
 
 		</div>
 	</div>
@@ -191,6 +199,15 @@
 		</div>
 	</div>	 --%>						
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js">
+
+</script>
+<script> 
+function submit2(frm) { 
+    frm.action='exindex.jsp'; 
+    frm.submit(); 
+    return true; 
+}
+</script> 
 </body>
 </html>
