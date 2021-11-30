@@ -39,7 +39,7 @@ public class Review {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-
+  
 	public String getTitle() {
 		return title;
 	}

@@ -14,16 +14,16 @@ import com.shop.vo.QABoard;
 public class QaBoardDao {
 
 	
-	public List<QABoard> getAllQAByCustomerNo(int customerNo)throws SQLException{
+	public List<QABoard> getAllQAByUserNo(int userNo)throws SQLException{
 		
 		String sql = "select QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
 				+ "from SHOP_QABOARD "
-				+ "where CUSTOMER_NO = ? ";
+				+ "where USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		
-		pstmt.setInt(1, customerNo);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		List<QABoard> QAList = new ArrayList<>();
 		

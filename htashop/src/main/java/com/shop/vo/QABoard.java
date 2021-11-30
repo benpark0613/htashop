@@ -6,7 +6,7 @@ public class QABoard {
 
 	private int QANo;
 	private int productNo;
-	private String AdminId;
+	private int userNo;
 	private String title;
 	private String content;
 	private Date regDate;
@@ -15,6 +15,13 @@ public class QABoard {
 	private Date answerDate;
 	
 	public QABoard() {}
+	
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
 	
 	public int getQANo() {
 		return QANo;
@@ -27,12 +34,6 @@ public class QABoard {
 	}
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
-	}
-	public String getAdminId() {
-		return AdminId;
-	}
-	public void setAdminId(String adminId) {
-		AdminId = adminId;
 	}
 	public String getTitle() {
 		return title;
