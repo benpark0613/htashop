@@ -1,3 +1,4 @@
+<%@page import="com.shop.dto.NoticeBoardDto"%>
 <%@page import="utils.Pagination"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@page import="java.util.List"%>
@@ -31,7 +32,8 @@
 <%
 	String pageNo = request.getParameter("pageNo");
 	NoticeBoardDao noticeBoardDao = new NoticeBoardDao();
-	List<NoticeBoard> noticeBoardList = noticeBoardDao.getNoticeBoardList();
+	NoticeBoardDto noticeBoardDto = new NoticeBoardDto();
+	List<NoticeBoard> noticeBoardList = noticeBoardDto.getNoticeBoardList();
 	int totalRecords = noticeBoardDao.getTotalRecords();
 	Pagination pagination = new Pagination(pageNo, totalRecords);
 %>
@@ -61,7 +63,7 @@
 								<tr>
 									<td class="col-2"><%=noticeBoard.getNo() %></td>
 									<td class="col-6"><a href="detail.jsp?no=<%=noticeBoard.getNo() %>&pageNo=<%=pagination.getPageNo()%>"><%=noticeBoard.getTitle() %></a></td>
-									<td class="col-2"><%= %></td>
+									<td class="col-2"><%=loginedCustomerInfo.getId() %></td>
 									<td class="col-2"><%=noticeBoard.getViewCount() %></td>
 								</tr>
 		<%
@@ -86,9 +88,15 @@
 							<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>"><a class="page-link" href="list?pageNo=<%=pagination.getNextPage() %>">다음</a></li>
 						</ul>
 					</div>
+<%
+	if (loginedCustomerInfo != null && "admin".equals(loginedCustomerInfo.getUserType())) {
+%>
 					<div class="col-3" id="board_write">
 						<a href="form.jsp" class="btn btn-outline-primary">새 글</a>
 					</div>
+<%
+	}
+%>
 				</div>
 				<div class="row">
 					<div class="col d-flex justify-content-center" id="board_search">
