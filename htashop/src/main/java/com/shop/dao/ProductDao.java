@@ -11,7 +11,6 @@ import java.util.List;
 
 import com.shop.vo.Product;
 
-import utils.ConnectionUtil;
 
 public class ProductDao {
 	

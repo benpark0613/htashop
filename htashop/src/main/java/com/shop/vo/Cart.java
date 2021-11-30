@@ -3,7 +3,7 @@ package com.shop.vo;
 public class Cart {
 
 	private int cartNo;
-	private int customerNo;
+	private int userNo;
 	private int productNo;
 	private int quantity;
 	
@@ -15,12 +15,14 @@ public class Cart {
 	public void setCartNo(int cartNo) {
 		this.cartNo = cartNo;
 	}
-	public int getCustomerNo() {
-		return customerNo;
+	public int getUserNo() {
+		return userNo;
 	}
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
+	
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
+	
 	public int getProductNo() {
 		return productNo;
 	}
