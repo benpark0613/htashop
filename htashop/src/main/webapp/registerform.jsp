@@ -21,7 +21,36 @@
 	</div>
 	<div class="row justify-content-md-center">
 		<div class="col-5">
-			<form class="border p-3 bg-light" method="post" action="join.jsp">
+		
+<%
+	// 이제 걸러야지
+	
+	// register.jsp에서 쿼리스트링(name=value)
+	String warning = request.getParameter("warning");
+	
+	// 아이디 중복
+	// "문자".equals(변수명)
+	if ("id".equals(warning)) {
+%>
+		<div class="alert alert-danger text-center">
+			<p>
+				이미 사용중인 아이디입니다.<br>
+				다른 아이디를 입력해주세요.
+			</p>
+		</div>
+<%
+	} else if ("email".equals(warning)) {
+%>
+		<div class="alert alert-danger text-center">
+			<p>
+				이미 사용중인 이메일입니다.<br>
+				다른 이메일을 입력해주세요.
+			</p>
+		</div>
+<%
+	}
+%>
+			<form class="border p-3 bg-light" method="post" action="register.jsp">
 				<div class="mb-3">
 					<label class="form-label" for="user-id">아이디</label>
 					<input type="text" class="form-control" name="id" id="user-id">
@@ -46,7 +75,7 @@
 				<div class="mb-3">
 					<label class="form-label" for="user-address">주소</label>
 					<select class="form-select" name="address" id="user-address">
-  						<option selected>거주하는 도시를 선택해주세요.</option>
+  						<option selected disabled>--- 거주하는 도시를 선택하세요. ---</option>
   						<option value="서울">서울</option>
   						<option value="인천">인천</option>
   						<option value="경기">경기</option>

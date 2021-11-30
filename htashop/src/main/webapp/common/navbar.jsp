@@ -10,14 +10,14 @@
 	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 
 %>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3">
+<nav class="navbar navbar-expand-sm bg-light navbar-light mb-3">
 	<div class="container">
 		<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-1">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbar-1">
 			<ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-				<li class="nav-item"><a href="/htashop/index.jsp" class="nav-link <%="home".equals(menu) ? "active" : "" %>">HOME</a></li>
+				<li class="nav-item"><a href="/htashop/index.jsp" class="nav-link <%="home".equals(menu) ? "active" : "" %>">HTA shop</a></li>
 			</ul>
 			<ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 <%
@@ -44,7 +44,7 @@
 				<li class="nav-item"><a href="/htashop/myshop/index.jsp" class="nav-link <%="myshop".equals(menu) ? "active" : "" %>">MYSHOP</a></li>
 			</ul>
 			<form class="d-flex" method="post" action="result.jsp">
-      			<input type="search" name="search">
+      			<input type="search" name="search" placeholder="검색">
       			<button class="btn btn-primary btn-sm" type="submit" >검색</button>
     		</form>
 		</div>
