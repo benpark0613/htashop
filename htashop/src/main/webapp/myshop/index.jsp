@@ -1,4 +1,4 @@
-<%@page import="com.shop.vo.Order"%>
+
 <%@page import="java.util.List"%>
 <%@page import="com.shop.dao.OrderDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -31,8 +31,8 @@
 
 				<!-- 1번 컨텐츠 -->
 				<div class="row border">
-					<span> 저희 쇼핑몰을 이용해 주셔서 감사합니다. <strong><%=loginedCustomerInfo.getCustomerName()%>님</strong>은
-						[<strong><%=loginedCustomerInfo.getCustomerGrade()%></strong>]
+					<span> 저희 쇼핑몰을 이용해 주셔서 감사합니다. <strong><%=loginedUserInfo.getName()%>님</strong>은
+						[<strong><%=loginedUserInfo.getGrade()%></strong>]
 						회원이십니다.
 					</span>
 				</div>
@@ -40,7 +40,7 @@
 				<!-- 2번 -->
 				<div class="row-mb-3 border">
 					<h2 class="featurette-heading">
-						총 적립금 :[<%=loginedCustomerInfo.getCustomerPoint()%>]원
+						총 적립금 :[<%=loginedUserInfo.getPoint()%>]원
 					</h2>
 					<button type="button" class="btn btn-secondary">조회</button>
 					<h2 class="featurette-heading">사용적립금 :[]원</h2>
@@ -81,13 +81,13 @@
 					}
 				*/
 				OrderDao orderDao = new OrderDao();
-				int beforeDeposit = orderDao.countbeforeDeposit(loginedCustomerInfo.getCustomerNo());
-				int cancel = orderDao.countCancel(loginedCustomerInfo.getCustomerNo());
-				int exchange = orderDao.countExchange(loginedCustomerInfo.getCustomerNo());
-				int preparingDelevery = orderDao.countPreparingDelevery(loginedCustomerInfo.getCustomerNo());
-				int rtn = orderDao.countRtn(loginedCustomerInfo.getCustomerNo());
-				int shippedComplete = orderDao.countShippedComplete(loginedCustomerInfo.getCustomerNo());
-				int shipping = orderDao.countShipping(loginedCustomerInfo.getCustomerNo());
+				int beforeDeposit = orderDao.countbeforeDeposit(loginedUserInfo.getUserNo());
+				int cancel = orderDao.countCancel(loginedUserInfo.getUserNo());
+				int exchange = orderDao.countExchange(loginedUserInfo.getUserNo());
+				int preparingDelevery = orderDao.countPreparingDelevery(loginedUserInfo.getUserNo());
+				int rtn = orderDao.countRtn(loginedUserInfo.getUserNo());
+				int shippedComplete = orderDao.countShippedComplete(loginedUserInfo.getUserNo());
+				int shipping = orderDao.countShipping(loginedUserInfo.getUserNo());
 				%>
 				<!-- 환영합니다~ ~님 ~회원 -->
 				<div class="row border">
@@ -175,3 +175,4 @@
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+			
