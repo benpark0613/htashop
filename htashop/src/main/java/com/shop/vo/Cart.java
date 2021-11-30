@@ -15,10 +15,10 @@ public class Cart {
 	public void setCartNo(int cartNo) {
 		this.cartNo = cartNo;
 	}
-	public int getCustomerNo() {
+	public int getUserrNo() {
 		return userNo;
 	}
-	public void setCustomerNo(int customerNo) {
+	public void setUserNo(int customerNo) {
 		this.userNo = customerNo;
 	}
 	public int getProductNo() {
