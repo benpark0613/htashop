@@ -10,6 +10,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shop.vo.User;
+import com.shop.vo.Customer;
+
+import utils.ConnectionUtil;
+
+public class CustomerDao {
+	
+	public void updateCustomer(Customer customer)throws SQLException{
+		
+		String sql = "update SHOP_CUSTOMER "
+				   + "set "
+				   + "CUSTOMER_NAME = ?, "
+				   + "CUSTOMER_PASSWORD = ?, "
+				   + "CUSTOMER_BIRTHDAY = ?, "
+				   + "CUSTOMER_TEL = ?, "
+				   + "CUSTOMER_ADDRESS = ?, "
+				   + "CUSTOMER_EMAIL = ? "
+				   + "where customer_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		
+		pstmt.setString(1, customer.getCustomerName());
+		pstmt.setString(2, customer.getCustomerPassword());
+		pstmt.setString(3, customer.getCustomerTel());
+		pstmt.setString(4, customer.getCustomerAddress());
+		pstmt.setString(5, customer.getCustomerEmail());
+		pstmt.setString(6, customer.getCustomerBirthday().toString());
+		pstmt.setInt(7, customer.getCustomerNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	}
+	
+
+}
+
 
 public class UserDao {
 
@@ -66,7 +104,7 @@ public class UserDao {
       ResultSet rs = pstmt.executeQuery();
       
       if (rs.next()) {
-         rowToUser(rs);
+         user = rowToUser(rs);
       }
       
       rs.close();
@@ -99,7 +137,7 @@ public class UserDao {
       ResultSet rs = pstmt.executeQuery();
       
       if (rs.next()) {
-         rowToUser(rs);
+         user = rowToUser(rs);
       }
       
       rs.close();
@@ -130,7 +168,7 @@ public class UserDao {
 	  ResultSet rs = pstmt.executeQuery();
 	  
 	  if (rs.next()) {
-		  rowToUser(rs);
+		  user = rowToUser(rs);
 	  }
 	  
       rs.close();
@@ -140,6 +178,10 @@ public class UserDao {
 	  return user;
    }
    
+  
+  
+  
+  
    private User rowToUser(ResultSet rs) throws SQLException {
       User user = new User();
       user.setUserNo(rs.getInt("USER_NO"));
@@ -160,4 +202,5 @@ public class UserDao {
    }
    
 }
+
 
