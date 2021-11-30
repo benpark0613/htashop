@@ -6,8 +6,7 @@ public class Review {
 	
 	private int reviewNo;
 	private int productNo;
-	private int customerNo;
-	private String adminNo;
+	private int userNo;
 	private String title;
 	private String content;
 	private Date createdDate;
@@ -33,22 +32,14 @@ public class Review {
 		this.productNo = productNo;
 	}
 
-	public int getCustomerNo() {
-		return customerNo;
+	public int getUserNo() {
+		return userNo;
 	}
-
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
+	
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
   
-	public String getAdminNo() {
-		return adminNo;
-	}
-
-	public void setAdminNo(String adminNo) {
-		this.adminNo = adminNo;
-	}
-
 	public String getTitle() {
 		return title;
 	}

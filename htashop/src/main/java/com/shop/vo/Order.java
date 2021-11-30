@@ -5,7 +5,7 @@ import java.util.Date;
 public class Order {
 
 	private int orderNo;
-	private int customerNo;
+	private int userNo;
 	private Date orderDate;
 	private String state;
 	private int totalPrice;
@@ -22,14 +22,12 @@ public class Order {
 		this.orderNo = orderNo;
 	}
 
-	public int getCustomerNo() {
-		return customerNo;
+	public int getUserNo() {
+		return userNo;
 	}
-
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
-
 	public Date getOrderDate() {
 		return orderDate;
 	}

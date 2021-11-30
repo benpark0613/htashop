@@ -9,21 +9,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shop.vo.Customer;
+import com.shop.vo.User;
 import com.shop.vo.Review;
 import com.shop.vo.Review;
 public class ReviewDao {
 	
-	public List<Review> getAllReviewByCustomerNo(int customerNo)throws SQLException{
+	public List<Review> getAllReviewByUserNo(int userNo)throws SQLException{
 		
 		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
 				+ "from SHOP_REVIEW "
-				+ "where CUSTOMER_NO = ? ";
+				+ "where USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		
-		pstmt.setInt(1, customerNo);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		List<Review> reviewList = new ArrayList<>();
 		

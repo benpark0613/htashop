@@ -2,7 +2,7 @@ package com.shop.vo;
 
 import java.util.Date;
 
-public class Customer {
+public class User {
 	
 	private int customerNo;
 	private String customerId;
@@ -18,7 +18,7 @@ public class Customer {
 	private boolean customerInOut;
 	private String customerGrade;
 	
-	public Customer() {}
+	public User() {}
 
 	public int getCustomerNo() {
 		return customerNo;
