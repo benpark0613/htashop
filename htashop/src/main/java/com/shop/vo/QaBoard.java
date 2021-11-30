@@ -3,16 +3,21 @@ package com.shop.vo;
 import java.sql.Date;
 
 public class QaBoard {
-	int no;
-	int productNo;
-	int customerNo;
-	String adminId;
-	String title;
-	String content;
-	Date regDate;
-	int viewCount;
-	String reply;
-	Date anserDate;
+	private int no;
+	private int productNo;
+	private int userNo;
+	private String adminId;
+	private String title;
+	private String content;
+	private Date regdate;
+	private int viewCount;
+	private String reply;
+	private Date answerDate;
+	private String customerId;
+	private String customerName;
+	
+	public QaBoard() {}
+	
 	public int getNo() {
 		return no;
 	}
@@ -25,12 +30,7 @@ public class QaBoard {
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
-	public int getCustomerNo() {
-		return customerNo;
-	}
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
-	}
+	
 	public String getAdminId() {
 		return adminId;
 	}
@@ -49,11 +49,11 @@ public class QaBoard {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
-		return regDate;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	public int getViewCount() {
 		return viewCount;
@@ -67,10 +67,33 @@ public class QaBoard {
 	public void setReply(String reply) {
 		this.reply = reply;
 	}
-	public Date getAnserDate() {
-		return anserDate;
+	public Date getAnswerDate() {
+		return answerDate;
 	}
-	public void setAnserDate(Date anserDate) {
-		this.anserDate = anserDate;
+	public void setAnswerDate(Date answerDate) {
+		this.answerDate = answerDate;
 	}
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	
 }
