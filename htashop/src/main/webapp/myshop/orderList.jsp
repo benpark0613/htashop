@@ -16,7 +16,7 @@
 </head>
 <%
 	OrderDao orderDao = new OrderDao();
-	List<OrderDto> orderList = orderDao.getOrderDetail(loginedCustomerInfo.getCustomerNo());
+	List<OrderDto> orderList = orderDao.getOrderDetail(loginedUserInfo.getUserNo());
 %>
 <body>
 <div class="container">  

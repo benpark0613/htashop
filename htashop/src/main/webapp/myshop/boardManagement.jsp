@@ -18,8 +18,8 @@
 <%
 	ReviewDao reviewDao = new ReviewDao();
 	QaBoardDao qaBoardDao = new QaBoardDao();
-	List<Review> reviewList = reviewDao.getAllReviewByCustomerNo(loginedCustomerInfo.getCustomerNo());
-	List<QABoard> QAList = qaBoardDao.getAllQAByCustomerNo(loginedCustomerInfo.getCustomerNo());
+	List<Review> reviewList = reviewDao.getAllReviewByUserNo((loginedUserInfo.getUserNo()));
+	List<QABoard> QAList = qaBoardDao.getAllQAByUserNo((loginedUserInfo.getUserNo()));
 	
 %>
 <body>
@@ -40,10 +40,10 @@
 	for(Review review : reviewList){
 %>	  
 	    <tr>
-	      <th scope="row"><%=loginedCustomerInfo.getCustomerNo() %></th>
+	      <th scope="row"><%=loginedUserInfo.getUserNo() %></th>
 	      <td>리뷰</td>
 	      <td><%=review.getTitle() %></td>
-	      <td><%=loginedCustomerInfo.getCustomerName() %></td>
+	      <td><%=loginedUserInfo.getName() %></td>
 	      <td><%=review.getCreatedDate() %></td>
 	      <td><%=review.getViewCount() %></td>
 	    </tr>
@@ -55,10 +55,10 @@
 	for(QABoard qa : QAList){
 %>	  
 	    <tr>
-	      <th scope="row"><%=loginedCustomerInfo.getCustomerNo() %></th>
+	      <th scope="row"><%=loginedUserInfo.getUserNo() %></th>
 	      <td>QA</td>
 	      <td><%=qa.getTitle() %></td>
-	      <td><%=loginedCustomerInfo.getCustomerName() %></td>
+	      <td><%=loginedUserInfo.getName() %></td>
 	      <td><%=qa.getRegDate() %></td>
 	      <td><%=qa.getViewCount() %></td>
 	    </tr>

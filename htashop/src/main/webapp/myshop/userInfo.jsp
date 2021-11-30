@@ -68,11 +68,11 @@
         
         <hr class="featurette-divider">
         
-        <form class="needs-validation" method="post" action="updateCustomer.jsp">
+        <form class="needs-validation" method="post" action="updateUser.jsp">
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="id" class="form-label">아이디</label>
-              <input type="text" class="form-control" id="id" name="id" placeholder="<%=loginedCustomerInfo.getCustomerId() %>" disabled>
+              <input type="text" class="form-control" id="id" name="id" placeholder="<%=loginedUserInfo.getId() %>" disabled>
             </div>
 
 
@@ -95,13 +95,13 @@
             <div class="col-12">
               <label for="name" class="form-label">이름</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="name" name="name" placeholder="<%=loginedCustomerInfo.getCustomerName() %>">
+                <input type="text" class="form-control" id="name" name="name" placeholder="<%=loginedUserInfo.getName() %>">
               </div>
             </div>
             
             <div class="col-12">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="<%=loginedCustomerInfo.getCustomerEmail() %>">
+              <input type="email" class="form-control" id="email" placeholder="<%=loginedUserInfo.getEmail() %>">
             </div>
 
             <div>전화번호</div>
