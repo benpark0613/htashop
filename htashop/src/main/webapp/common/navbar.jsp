@@ -1,3 +1,4 @@
+<%@page import="com.shop.vo.Admin"%>
 <%@page import="com.shop.vo.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
