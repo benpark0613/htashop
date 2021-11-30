@@ -61,7 +61,7 @@
 								<tr>
 									<td class="col-2"><%=noticeBoard.getNo() %></td>
 									<td class="col-6"><a href="detail.jsp?no=<%=noticeBoard.getNo() %>&pageNo=<%=pagination.getPageNo()%>"><%=noticeBoard.getTitle() %></a></td>
-									<td class="col-2"><%=noticeBoard.getAdminId() %></td>
+									<td class="col-2"><%= %></td>
 									<td class="col-2"><%=noticeBoard.getViewCount() %></td>
 								</tr>
 		<%
