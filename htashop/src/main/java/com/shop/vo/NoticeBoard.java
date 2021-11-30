@@ -4,12 +4,14 @@ import java.util.Date;
 
 public class NoticeBoard {
 
-	private int noticeNo;
+
+	private int no;
 	private int userNo;
-	private String noticeTitle;
-	private String noticeContent;
-	private Date noticeRegDate;
-	private int noticeViewCount;
+	private String title;
+	private String content;
+	private Date regDate;
+	private int viewCount;
+
 	
 	public NoticeBoard() {}
 
@@ -60,6 +62,7 @@ public class NoticeBoard {
 	public void setNoticeViewCount(int noticeViewCount) {
 		this.noticeViewCount = noticeViewCount;
 	}
+	
 	
 	
 }

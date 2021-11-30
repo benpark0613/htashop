@@ -15,13 +15,14 @@ public class Cart {
 	public void setCartNo(int cartNo) {
 		this.cartNo = cartNo;
 	}
+
 	public int getUserNo() {
 		return userNo;
 	}
 	
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
-	}
+  }
 	
 	public int getProductNo() {
 		return productNo;

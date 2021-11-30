@@ -14,18 +14,18 @@ import static utils.ConnectionUtil.getConnection;
 
 public class OrderDao {
 
-	public Order getOrdersByNo(int customerNo)throws SQLException{
+	public Order getOrdersByNo(int userNo)throws SQLException{
 		
 		
-		String sql = "select ORDER_NO, CUSTOMER_NO, ORDER_DATE, ORDER_STATE, ORDER_TOTAL_PRICE, "
+		String sql = "select ORDER_NO, USER_NO, ORDER_DATE, ORDER_STATE, ORDER_TOTAL_PRICE, "
 				+ "POINT_USED, EXPECTED_POINT "
 				+ "from SHOP_ORDER "
-				+ "where customer_no = ? ";
+				+ "where USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, customerNo);
+		pstmt.setInt(1, userNo);
 		
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -34,7 +34,7 @@ public class OrderDao {
 			order = new Order();
 			
 			order.setOrderNo(rs.getInt("ORDER_NO"));
-			order.setCustomerNo(rs.getInt("CUSTOMER_NO"));
+			order.setUserNo(rs.getInt("USER_NO"));
 			order.setOrderDate(rs.getDate("ORDER_DATE"));
 			order.setState(rs.getString("ORDER_STATE"));
 			order.setTotalPrice(rs.getInt("ORDER_TOTAL_PRICE"));
@@ -50,7 +50,7 @@ public class OrderDao {
 		return order;
 	}
 	
-	public int countShippedComplete(int customerNo)throws SQLException{
+	public int countShippedComplete(int userNo)throws SQLException{
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
@@ -66,7 +66,7 @@ public class OrderDao {
 		connection.close();
 		return cnt;
 	}
-	public int countbeforeDeposit(int customerNo)throws SQLException{
+	public int countbeforeDeposit(int userNo)throws SQLException{
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
@@ -82,7 +82,7 @@ public class OrderDao {
 		connection.close();
 		return cnt;
 	}
-	public int countPreparingDelevery(int customerNo)throws SQLException{
+	public int countPreparingDelevery(int userNo)throws SQLException{
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
@@ -98,7 +98,7 @@ public class OrderDao {
 		connection.close();
 		return cnt;
 	}
-	public int countShipping(int customerNo)throws SQLException{
+	public int countShipping(int userNo)throws SQLException{
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
@@ -114,7 +114,7 @@ public class OrderDao {
 		connection.close();
 		return cnt;
 	}
-	public int countCancel(int customerNo)throws SQLException{
+	public int countCancel(int userNo)throws SQLException{
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
@@ -130,7 +130,7 @@ public class OrderDao {
 		connection.close();
 		return cnt;
 	}
-	public int countExchange(int customerNo)throws SQLException{
+	public int countExchange(int userNo)throws SQLException{
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
@@ -146,7 +146,7 @@ public class OrderDao {
 		connection.close();
 		return cnt;
 	}
-	public int countRtn(int customerNo)throws SQLException{
+	public int countRtn(int userNo)throws SQLException{
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
@@ -164,16 +164,16 @@ public class OrderDao {
 	}
 
 	
-	public List<OrderDto> getOrderDetail(int customerNo)throws SQLException{
+	public List<OrderDto> getOrderDetail(int userNo)throws SQLException{
 		
 		String sql = "select O.ORDER_NO, P.PRODUCT_NAME, OL.ORDER_COUNT, O.ORDER_TOTAL_PRICE, O.ORDER_STATE, O.POINT_USED, O.EXPECTED_POINT "
 				   + "from SHOP_ORDER O, SHOP_ORDERLIST OL, SHOP_PRODUCTS P "
 				   + "where O.ORDER_NO = OL.ORDER_NO "
 				   + "AND OL.PRODUCT_NO = P.PRODUCT_NO "
-				   + "AND O.CUSTOMER_NO = ? ";
+				   + "AND O.USER_NO = ? ";
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, customerNo);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		List<OrderDto> orderList = new ArrayList<>();
 		if(rs.next()) {

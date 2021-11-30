@@ -20,7 +20,7 @@ public class NoticeBoardDao {
 	 * @throws SQLException
 	 */
 	public List<NoticeBoard> getNoticeBoardList() throws SQLException {
-		String sql = "select notice_no, admin_id, notice_title, notice_content, notice_regdate, notice_viewcount "
+		String sql = "select notice_no, user_no, notice_title, notice_content, notice_regdate, notice_viewcount "
 				   + "from shop_noticeboard ";
 
 		List<NoticeBoard> noticeBoardList = new ArrayList<NoticeBoard>();
@@ -33,7 +33,7 @@ public class NoticeBoardDao {
 			NoticeBoard noticeBoard = new NoticeBoard();
 			
 			noticeBoard.setNo(rs.getInt("notice_no"));
-			noticeBoard.setAdminId(rs.getString("admin_id"));
+			noticeBoard.setUserNo(rs.getInt("user_no"));
 			noticeBoard.setTitle(rs.getString("notice_title"));
 			noticeBoard.setContent(rs.getString("notice_content"));
 			noticeBoard.setRegDate(rs.getDate("notice_regdate"));
@@ -56,7 +56,7 @@ public class NoticeBoardDao {
 	 * @throws SQLException
 	 */
 	public NoticeBoard getNoticeBoardDetailByNo(int no) throws SQLException {
-		String sql = "select notice_no, admin_id, notice_title, notice_content, notice_regdate, notice_viewcount "
+		String sql = "select notice_no, user_no, notice_title, notice_content, notice_regdate, notice_viewcount "
 				   + "from shop_noticeboard " 
 				   + "where notice_no = ? ";
 
@@ -71,7 +71,7 @@ public class NoticeBoardDao {
 			noticeBoard = new NoticeBoard();
 			
 			noticeBoard.setNo(rs.getInt("notice_no"));
-			noticeBoard.setAdminId(rs.getString("admin_id"));
+			noticeBoard.setUserNo(rs.getInt("user_no"));
 			noticeBoard.setTitle(rs.getString("notice_title"));
 			noticeBoard.setContent(rs.getString("notice_content"));
 			noticeBoard.setRegDate(rs.getDate("notice_regdate"));
@@ -91,12 +91,12 @@ public class NoticeBoardDao {
 	 * @throws SQLException
 	 */
 	public void insertNoticeBoard(NoticeBoard noticeBoard) throws SQLException {
-		String sql = "insert into shop_noticeboard (notice_no, admin_id, notice_title, notice_content) "
+		String sql = "insert into shop_noticeboard (notice_no, user_no, notice_title, notice_content) "
 				   + "values (shop_notice_seq.nextval, ?, ?, ?) ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setString(1, noticeBoard.getAdminId());
+		pstmt.setInt(1, noticeBoard.getUserNo());
 		pstmt.setString(2, noticeBoard.getTitle());
 		pstmt.setString(3, noticeBoard.getContent());
 		

@@ -47,7 +47,7 @@ pageContext.setAttribute("menu", "notice");
 						<th class="col-2">제목</th>
 						<td class="col-4"><%=noticeBoard.getTitle() %></td>
 						<th class="col-2">작성자</th>
-						<td class="col-4"><%=noticeBoard.getAdminId() %></td>
+						<td class="col-4"><%= %></td>
 					</tr>
 					<tr class="d-flex">
 						<th class="col-2">조회수</th>

@@ -9,21 +9,46 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shop.vo.Customer;
-import com.shop.vo.Review;
+
+import com.shop.vo.User;
+import com.sample.board.vo.Board;
 import com.shop.vo.Review;
 public class ReviewDao {
 	
-	public List<Review> getAllReviewByCustomerNo(int customerNo)throws SQLException{
+
+	/**
+	 * 지정된 게시글 정보를 테이블에 저장한다.
+	 * @param board 게시글 정보
+	 * @throws SQLException
+	 */
+	public void insertBoard(Review review) throws SQLException {
+		String sql = "insert into tb_comm_boards (board_no, board_title, board_writer_no, board_content) "
+				   + "values (comm_board_seq.nextval, ?, ?, ?)";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, board.getTitle());
+		pstmt.setInt(2, board.getWriter().getNo());
+		pstmt.setString(3, board.getContent());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
+	
+	public List<Review> getAllReviewByUserNo(int userNo)throws SQLException{
+
 		
 		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
 				+ "from SHOP_REVIEW "
-				+ "where CUSTOMER_NO = ? ";
+				+ "where USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		
-		pstmt.setInt(1, customerNo);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		List<Review> reviewList = new ArrayList<>();
 		

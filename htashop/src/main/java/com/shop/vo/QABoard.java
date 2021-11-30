@@ -16,6 +16,13 @@ public class QABoard {
 	
 	public QABoard() {}
 	
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+	
 	public int getQANo() {
 		return QANo;
 	}
@@ -28,15 +35,7 @@ public class QABoard {
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
-	
-	public int getUserNo() {
-		return userNo;
-	}
-	
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}
-	
+
 	public String getTitle() {
 		return title;
 	}
