@@ -1,4 +1,4 @@
-<%@page import="com.shop.dto.NoticeBoardDto"%>
+<%@page import="com.shop.dto.NoticeBoardListDto"%>
 <%@page import="utils.Pagination"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@page import="java.util.List"%>
@@ -18,7 +18,13 @@
 	pageContext.setAttribute("leftMenu", "notice");
 %>
 <%@ include file="../common/navbar.jsp"%>
-
+<%
+	String pageNo = request.getParameter("pageNo");
+	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
+	List<NoticeBoardListDto> noticeBoards = noticeBoardDao.getNoticeBoardList(); 
+	int totalRecords = noticeBoardDao.getTotalRecords();
+	Pagination pagination = new Pagination(pageNo, totalRecords);
+%>
 	<div class="container">
 		<div class="row mb-3">
 			<div class="col-2">
@@ -29,14 +35,6 @@
 					<div class="col">
 						<h1 class="fs-3">NOTICE | 공지사항입니다.</h1>
 					</div>
-<%
-	String pageNo = request.getParameter("pageNo");
-	NoticeBoardDao noticeBoardDao = new NoticeBoardDao();
-	NoticeBoardDto noticeBoardDto = new NoticeBoardDto();
-	List<NoticeBoard> noticeBoardList = noticeBoardDto.getNoticeBoardList();
-	int totalRecords = noticeBoardDao.getTotalRecords();
-	Pagination pagination = new Pagination(pageNo, totalRecords);
-%>
 				</div>
 				<div class="row mb-3" id="board_list">
 					<div class="col">
@@ -51,20 +49,20 @@
 							</thead>
 							<tbody>
 <%
-	if (noticeBoardList.isEmpty()) {
+	if (noticeBoards.isEmpty()) {
 %>
 								<tr>
 									<td class="text-center" colspan="6">게시글이 존재하지 않습니다.</td>
 								</tr>
 <%
 	} else {
-		for (NoticeBoard noticeBoard : noticeBoardList) {
+		for (NoticeBoardListDto dto : noticeBoards) {
 %>
 								<tr>
-									<td class="col-2"><%=noticeBoard.getNo() %></td>
-									<td class="col-6"><a href="detail.jsp?no=<%=noticeBoard.getNo() %>&pageNo=<%=pagination.getPageNo()%>"><%=noticeBoard.getTitle() %></a></td>
-									<td class="col-2"><%=loginedCustomerInfo.getId() %></td>
-									<td class="col-2"><%=noticeBoard.getViewCount() %></td>
+									<td class="col-2"><%=dto.getNoticeNo() %></td>
+									<td class="col-6"><a href="detail.jsp?no=<%=dto.getNoticeNo() %>&pageNo=<%=pagination.getPageNo()%>"><%=dto.getNoticeTitle() %></a></td>
+									<td class="col-2"><%=dto.getNoticeWriter() %></td>
+									<td class="col-2"><%=dto.getNoticeViewCount() %></td>
 								</tr>
 		<%
 				}
@@ -89,7 +87,7 @@
 						</ul>
 					</div>
 <%
-	if (loginedCustomerInfo != null && "admin".equals(loginedCustomerInfo.getUserType())) {
+	if (loginedUserInfo != null && "admin".equals(loginedUserInfo.getUserType())) {
 %>
 					<div class="col-3" id="board_write">
 						<a href="form.jsp" class="btn btn-outline-primary">새 글</a>

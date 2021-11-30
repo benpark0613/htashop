@@ -9,7 +9,7 @@
    <li class="list-group-item"><a href="" class="list-rink">BOTTOM</a></li>
 </ul>
 <ul class="list-group mt-3">
-   <li class="list-group-item"><a href="/htashop/notice-board/list.jsp" class="list-rink">NOTICE</a></li>
-   <li class="list-group-item"><a href="" class="list-rink">Q&A</a></li>
-   <li class="list-group-item"><a href="" class="list-rink">REVIEW</a></li>
+	<li class="list-group-item"><a href="/htashop/notice-board/list.jsp" class="list-rink">NOTICE</a></li>
+	<li class="list-group-item"><a href="" class="list-rink">Q&A</a></li>
+	<li class="list-group-item"><a href="" class="list-rink">REVIEW</a></li>
 </ul>

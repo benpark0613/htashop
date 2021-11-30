@@ -1,10 +1,10 @@
 <%@page import="com.shop.vo.NoticeBoard"%>
-<%@page import="com.shop.dto.NoticeBoardDto"%>
+<%@page import="com.shop.dto.NoticeBoardListDto"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@page import="com.shop.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	int no = Integer.parseInt(request.getParameter("no"));
+int no = Integer.parseInt(request.getParameter("no"));
 	String pageNo = request.getParameter("pageNo");
 	
 	User loginedCustomerInfo  = (User)session.getAttribute("logined_user_info");
@@ -14,7 +14,7 @@
 		return;
 	}
 	
-	NoticeBoardDto noticeBoardDto = new NoticeBoardDto();
+	NoticeBoardListDto noticeBoardDto = new NoticeBoardListDto();
 	NoticeBoard noticeBoard = noticeBoardDto.getNoticeBoardDetailByNo(no);
 	
 	if (noticeBoard.getNo() != loginedCustomerInfo.getUserNo()) {

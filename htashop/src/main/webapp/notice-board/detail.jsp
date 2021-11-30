@@ -1,5 +1,5 @@
 <%@page import="com.shop.dao.UserDao"%>
-<%@page import="com.shop.dto.NoticeBoardDto"%>
+<%@page import="com.shop.dto.NoticeBoardListDto"%>
 <%@page import="com.shop.vo.NoticeBoard"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -26,11 +26,11 @@ pageContext.setAttribute("menu", "notice");
 		</div>
 	</div>
 <%
-	int no = Integer.parseInt(request.getParameter("no"));
+int no = Integer.parseInt(request.getParameter("no"));
 	String pageNo = request.getParameter("pageNo");
 	String error = request.getParameter("error");
 	
-	NoticeBoardDto noticeBoardDto = new NoticeBoardDto();
+	NoticeBoardListDto noticeBoardDto = new NoticeBoardListDto();
 	NoticeBoard noticeBoard = noticeBoardDto.getNoticeBoardDetailByNo(no);
 	noticeBoard.setViewCount(noticeBoard.getViewCount() + 1);
 	

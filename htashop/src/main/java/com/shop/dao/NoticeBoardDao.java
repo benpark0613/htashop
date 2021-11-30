@@ -9,9 +9,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.dto.NoticeBoardListDto;
 import com.shop.vo.NoticeBoard;
 
 public class NoticeBoardDao {
+
+	private static NoticeBoardDao self = new NoticeBoardDao();
+	private NoticeBoardDao() {}
+	public static NoticeBoardDao getInstance() {
+		return self;
+	}
 	
 	/**
 	 * 모든 공지사항 게시글 정보를 반환한다.
@@ -19,37 +26,65 @@ public class NoticeBoardDao {
 	 * @return 공지게시글 목록
 	 * @throws SQLException
 	 */
-	public List<NoticeBoard> getNoticeBoardList() throws SQLException {
-		String sql = "select N.notice_no, U.user_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount"
+	public List<NoticeBoardListDto> getNoticeBoardList() throws SQLException {
+		String sql = "select N.notice_no, U.user_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount, "
 				   + "U.user_id "
 				   + "from shop_noticeboard N, shop_user U "
 				   + "where N.user_no = U.user_no ";
 
-		List<NoticeBoard> noticeBoardList = new ArrayList<NoticeBoard>();
+		List<NoticeBoardListDto> noticeBoards = new ArrayList<NoticeBoardListDto>();
 
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 
 		while (rs.next()) {
-			NoticeBoard noticeBoard = new NoticeBoard();
-			
-			noticeBoard.setNo(rs.getInt("notice_no"));
-			noticeBoard.setUserNo(rs.getInt("user_no"));
-			noticeBoard.setTitle(rs.getString("notice_title"));
-			noticeBoard.setContent(rs.getString("notice_content"));
-			noticeBoard.setRegDate(rs.getDate("notice_regdate"));
-			noticeBoard.setViewCount(rs.getInt("notice_viewcount"));
-
-			noticeBoardList.add(noticeBoard);
+			NoticeBoardListDto noticeBoardListDto = new NoticeBoardListDto();
+			noticeBoardListDto.setNoticeNo(rs.getInt("notice_no"));
+			noticeBoardListDto.setNoticeTitle(rs.getString("notice_title"));
+			noticeBoardListDto.setNoticeWriter(rs.getString("user_id"));
+			noticeBoardListDto.setNoticeRegDate(rs.getDate("notice_regdate"));
+			noticeBoardListDto.setNoticeViewCount(rs.getInt("notice_viewcount"));
 		}
 
 		rs.close();
 		pstmt.close();
 		connection.close();
 
-		return noticeBoardList;
+		return noticeBoards;
 	}
+	
+//	public List<NoticeBoard> getNoticeBoardList() throws SQLException {
+//		String sql = "select N.notice_no, U.user_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount"
+//				   + "U.user_id "
+//				   + "from shop_noticeboard N, shop_user U "
+//				   + "where N.user_no = U.user_no ";
+//
+//		List<NoticeBoard> noticeBoardList = new ArrayList<NoticeBoard>();
+//
+//		Connection connection = getConnection();
+//		PreparedStatement pstmt = connection.prepareStatement(sql);
+//		ResultSet rs = pstmt.executeQuery();
+//
+//		while (rs.next()) {
+//			NoticeBoard noticeBoard = new NoticeBoard();
+//			
+//			noticeBoard.setNo(rs.getInt("notice_no"));
+//			noticeBoard.setUserNo(rs.getInt("user_no"));
+//			noticeBoard.setTitle(rs.getString("notice_title"));
+//			noticeBoard.setContent(rs.getString("notice_content"));
+//			noticeBoard.setRegDate(rs.getDate("notice_regdate"));
+//			noticeBoard.setViewCount(rs.getInt("notice_viewcount"));
+//
+//			noticeBoardList.add(noticeBoard);
+//		}
+//
+//		rs.close();
+//		pstmt.close();
+//		connection.close();
+//
+//		return noticeBoardList;
+//	}
 	
 	/**
 	 * 지정된 번호의 공지게시글을 반환한다.
