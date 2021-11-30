@@ -42,7 +42,26 @@
 					<label class="form-label" for="user-email">이메일</label>
 					<input type="text" class="form-control" name="email" id="user-email">
 				</div>
-				<!-- 주소... -->
+				
+				<div class="mb-3">
+					<label class="form-label" for="user-address">주소</label>
+					<select class="form-select" name="address" id="user-address">
+  						<option selected>거주하는 도시를 선택해주세요.</option>
+  						<option value="서울">서울</option>
+  						<option value="인천">인천</option>
+  						<option value="경기">경기</option>
+  						<option value="강원">강원</option>
+  						<option value="충청">충청</option>
+  						<option value="경남">경남</option>
+  						<option value="경북">경북</option>
+  						<option value="대전">대전</option>
+  						<option value="전남">전남</option>
+  						<option value="전북">전북</option>
+  						<option value="세종">세종</option>
+  						<option value="제주">제주</option>
+					</select>
+				</div>
+
 				<div class="mb-3 text-end">
 					<button type="submit" class="btn btn-primary">회원가입</button>
 				</div>
