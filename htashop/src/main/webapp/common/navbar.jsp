@@ -1,5 +1,5 @@
-<%@page import="com.shop.vo.Admin"%>
-<%@page import="com.shop.vo.Customer"%>
+
+<%@page import="com.shop.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// 클릭한 메뉴만 활성화되도록
@@ -7,7 +7,7 @@
 
 	// 로그인 전: [로그인, 조인,] 카트, 오더, 마이샵
 	// 로그인 후: [로그아웃, 모디파이,] 카트, 오더, 마이샵
-	Customer loginedCustomerInfo  = (Customer)session.getAttribute("logined_customer_info");
+	User loginedCustomerInfo  = (User)session.getAttribute("logined_user_info");
 %>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3">
 	<div class="container">
@@ -27,7 +27,7 @@
 <%
 	} else {
 %>			
-				<li class="nav-item"><a href="/htashop/index.jsp" class="nav-link">LOGOUT</a></li>
+				<li class="nav-item"><a href="/htashop/logout.jsp" class="nav-link">LOGOUT</a></li>
 				<li class="nav-item"><a href="/htashop/myshop/modify.jsp" class="nav-link <%="modify".equals(menu) ? "active" : "" %>">MODIFY</a></li>
 <%
 	}

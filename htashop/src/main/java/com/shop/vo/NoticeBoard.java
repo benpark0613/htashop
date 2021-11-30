@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class NoticeBoard {
 
+
 	private int no;
 	private int userNo;
 	private String title;
@@ -47,7 +48,5 @@ public class NoticeBoard {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	
-	
-	
+
 }

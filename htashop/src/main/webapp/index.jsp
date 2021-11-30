@@ -20,7 +20,11 @@
 		<div  class="col-sm-2">
 			<%@ include file="common/left.jsp" %>
 		</div>
-		
+<%
+	ProductDao productDao = ProductDao.getInstance();
+
+	List<Product> productList = productDao.getAllProducts();
+%>		
 		
 		<div class="col-sm-10 align-self-end">
 		
@@ -36,98 +40,8 @@
 							</p>
 						</div>
 					</div>
+					
 				</div>
-				<div class="col-4">
-					<div class="card mt-3">
-						<img src="resources/images/갈색코트.jpg" class="card-img-top" />
-						<div class="card-body">
-							<h5 class="card-title text-center">상품이름</h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold">상품가격</strong> 원
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card mt-3">
-						<img src="resources/images/검정롱코트.jpg" class="card-img-top" />
-						<div class="card-body">
-							<h5 class="card-title text-center">상품이름</h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold">상품가격</strong> 원
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card mt-3">
-						<img src="resources/images/검정바지1.jpg" class="card-img-top" />
-						<div class="card-body">
-							<h5 class="card-title text-center">상품이름</h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold">상품가격</strong> 원
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card mt-3">
-						<img src="resources/images/검정상의.jpg" class="card-img-top" />
-						<div class="card-body">
-							<h5 class="card-title text-center">상품이름</h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold">상품가격</strong> 원
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card mt-3">
-						<img src="resources/images/검정코트.jpg" class="card-img-top" />
-						<div class="card-body">
-							<h5 class="card-title text-center">상품이름</h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold">상품가격</strong> 원
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card mt-3">
-						<img src="resources/images/검정폴로셔츠.jpg" class="card-img-top" />
-						<div class="card-body">
-							<h5 class="card-title text-center">상품이름</h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold">상품가격</strong> 원
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card mt-3">
-						<img src="resources/images/깃없는자켓.jpg" class="card-img-top" />
-						<div class="card-body">
-							<h5 class="card-title text-center">상품이름</h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold">상품가격</strong> 원
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="card mt-3">
-						<img src="resources/images/남검정면바지.jpg" class="card-img-top" />
-						<div class="card-body">
-							<h5 class="card-title text-center">상품이름</h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold">상품가격</strong> 원
-							</p>
-						</div>
-					</div>
-				</div>
-			
-			
-			
 			</div>
 			
 			

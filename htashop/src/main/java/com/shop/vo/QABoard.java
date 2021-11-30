@@ -35,6 +35,7 @@ public class QABoard {
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
+
 	public String getTitle() {
 		return title;
 	}
