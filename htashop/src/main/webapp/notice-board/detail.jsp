@@ -1,3 +1,5 @@
+<%@page import="com.shop.dao.UserDao"%>
+<%@page import="com.shop.dto.NoticeBoardDto"%>
 <%@page import="com.shop.vo.NoticeBoard"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -28,10 +30,15 @@ pageContext.setAttribute("menu", "notice");
 	String pageNo = request.getParameter("pageNo");
 	String error = request.getParameter("error");
 	
-	NoticeBoardDao noticeBoardDao = new NoticeBoardDao();
-	NoticeBoard noticeBoard = noticeBoardDao.getNoticeBoardDetailByNo(no);
+	NoticeBoardDto noticeBoardDto = new NoticeBoardDto();
+	NoticeBoard noticeBoard = noticeBoardDto.getNoticeBoardDetailByNo(no);
 	noticeBoard.setViewCount(noticeBoard.getViewCount() + 1);
+	
+	NoticeBoardDao noticeBoardDao = new NoticeBoardDao();
 	noticeBoardDao.updateNoticeBoard(noticeBoard);
+	
+	UserDao userDao = new UserDao();
+	User user = userDao.getUserByNo(noticeBoard.getUserNo());
 %>
 	<div class="row mb-3">
 		<div class="col">
@@ -47,7 +54,7 @@ pageContext.setAttribute("menu", "notice");
 						<th class="col-2">제목</th>
 						<td class="col-4"><%=noticeBoard.getTitle() %></td>
 						<th class="col-2">작성자</th>
-						<td class="col-4"><%=noticeBoard.getAdminId() %></td>
+						<td class="col-4"><%=user.getId() %></td>
 					</tr>
 					<tr class="d-flex">
 						<th class="col-2">조회수</th>
@@ -65,12 +72,24 @@ pageContext.setAttribute("menu", "notice");
 		<div class="col">
 			<div class="d-flex justify-content-between">
 				<div>
-					<a href="delete_complete.jsp" class="btn btn-danger">삭제</a> 
+<%
+	if (loginedCustomerInfo != null && "admin".equals(loginedCustomerInfo.getUserType())) {
+%>
+					<a href="delete.jsp?no=<%=noticeBoard.getNo() %>&pageNo=<%=pageNo %>" class="btn btn-danger">삭제</a> 
 					<a href="form.jsp" class="btn btn-warning">수정</a>
+<%
+	}
+%>
 				</div>
 				<div>
-					<a href="list.jsp?pageNo=<%=pageNo %>" class="btn btn-primary">목록</a> 
+					<a href="list.jsp?pageNo=<%=pageNo %>" class="btn btn-primary">목록</a>
+<%
+	if (loginedCustomerInfo != null && "admin".equals(loginedCustomerInfo.getUserType())) {
+%>
 					<a href="form.jsp" class="btn btn-success">글쓰기</a>
+<%
+	}
+%> 
 				</div>
 			</div>
 		</div>

@@ -1,3 +1,4 @@
+
 package com.shop.vo;
 
 public class Cart {
@@ -33,6 +34,5 @@ public class Cart {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
 	
 }

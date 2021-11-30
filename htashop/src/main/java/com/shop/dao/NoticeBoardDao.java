@@ -12,7 +12,7 @@ import java.util.List;
 import com.shop.vo.NoticeBoard;
 
 public class NoticeBoardDao {
-
+	
 	/**
 	 * 모든 공지사항 게시글 정보를 반환한다.
 	 * 
@@ -20,8 +20,10 @@ public class NoticeBoardDao {
 	 * @throws SQLException
 	 */
 	public List<NoticeBoard> getNoticeBoardList() throws SQLException {
-		String sql = "select notice_no, admin_id, notice_title, notice_content, notice_regdate, notice_viewcount "
-				   + "from shop_noticeboard ";
+		String sql = "select N.notice_no, U.user_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount"
+				   + "U.user_id "
+				   + "from shop_noticeboard N, shop_user U "
+				   + "where N.user_no = U.user_no ";
 
 		List<NoticeBoard> noticeBoardList = new ArrayList<NoticeBoard>();
 
@@ -33,7 +35,7 @@ public class NoticeBoardDao {
 			NoticeBoard noticeBoard = new NoticeBoard();
 			
 			noticeBoard.setNo(rs.getInt("notice_no"));
-			noticeBoard.setAdminId(rs.getString("admin_id"));
+			noticeBoard.setUserNo(rs.getInt("user_no"));
 			noticeBoard.setTitle(rs.getString("notice_title"));
 			noticeBoard.setContent(rs.getString("notice_content"));
 			noticeBoard.setRegDate(rs.getDate("notice_regdate"));
@@ -48,7 +50,7 @@ public class NoticeBoardDao {
 
 		return noticeBoardList;
 	}
-
+	
 	/**
 	 * 지정된 번호의 공지게시글을 반환한다.
 	 * @param no 공지게시글 번호
@@ -56,9 +58,10 @@ public class NoticeBoardDao {
 	 * @throws SQLException
 	 */
 	public NoticeBoard getNoticeBoardDetailByNo(int no) throws SQLException {
-		String sql = "select notice_no, admin_id, notice_title, notice_content, notice_regdate, notice_viewcount "
-				   + "from shop_noticeboard " 
-				   + "where notice_no = ? ";
+		String sql = "select N.notice_no, U.user_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount "
+				   + "from shop_noticeboard N, shop_user U "
+				   + "where N.user_no = U.user_no "
+				   + "where N.notice_no = ? ";
 
 		NoticeBoard noticeBoard = null;
 		
@@ -71,7 +74,7 @@ public class NoticeBoardDao {
 			noticeBoard = new NoticeBoard();
 			
 			noticeBoard.setNo(rs.getInt("notice_no"));
-			noticeBoard.setAdminId(rs.getString("admin_id"));
+			noticeBoard.setUserNo(rs.getInt("user_no"));
 			noticeBoard.setTitle(rs.getString("notice_title"));
 			noticeBoard.setContent(rs.getString("notice_content"));
 			noticeBoard.setRegDate(rs.getDate("notice_regdate"));
@@ -84,19 +87,19 @@ public class NoticeBoardDao {
 		
 		return noticeBoard;
 	}
-	
+
 	/**
 	 * 지정된 공지게시글 정보를 테이블에 저장한다.
 	 * @param noticeBoard 공지게시글 정보
 	 * @throws SQLException
 	 */
 	public void insertNoticeBoard(NoticeBoard noticeBoard) throws SQLException {
-		String sql = "insert into shop_noticeboard (notice_no, admin_id, notice_title, notice_content) "
+		String sql = "insert into shop_noticeboard (notice_no, user_no, notice_title, notice_content) "
 				   + "values (shop_notice_seq.nextval, ?, ?, ?) ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setString(1, noticeBoard.getAdminId());
+		pstmt.setInt(1, noticeBoard.getUserNo());
 		pstmt.setString(2, noticeBoard.getTitle());
 		pstmt.setString(3, noticeBoard.getContent());
 		
@@ -104,26 +107,6 @@ public class NoticeBoardDao {
 		
 		pstmt.close();
 		connection.close();
-	}
-	
-	public int getTotalRecords() throws SQLException {
-		String sql = "select count(*) cnt "
-				   + "from shop_noticeboard ";
-		
-		int totalRecords = 0;
-		
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		ResultSet rs = pstmt.executeQuery();
-		
-		rs.next();
-		totalRecords = rs.getInt("cnt");
-		
-		rs.close();
-		pstmt.close();
-		connection.close();
-		
-		return totalRecords;
 	}
 	
 	/**
@@ -151,6 +134,47 @@ public class NoticeBoardDao {
 		pstmt.close();
 		connection.close();
 	}
+	
+	public void deleteNoticeBoard(int no) throws SQLException {
+		String sql = "delete from shop_noticeboard "
+				   + "where notice_no = ? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
+	/**
+	 * 공지게시글의 갯수를 반환한다.
+	 * @return 공지게시글 갯수
+	 * @throws SQLException
+	 */
+	public int getTotalRecords() throws SQLException {
+		String sql = "select count(*) cnt "
+				   + "from shop_noticeboard ";
+		
+		int totalRecords = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		totalRecords = rs.getInt("cnt");
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return totalRecords;
+	}
+	
+
 	
 }
 

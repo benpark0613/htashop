@@ -22,14 +22,14 @@ public class Order {
 		this.orderNo = orderNo;
 	}
 
-	public int getCustomerNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-
-	public void setCustomerNo(int customerNo) {
-		this.userNo = customerNo;
+  
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
-
+  
 	public Date getOrderDate() {
 		return orderDate;
 	}

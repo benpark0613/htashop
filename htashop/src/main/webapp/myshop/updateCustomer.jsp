@@ -8,82 +8,81 @@
 <%@ include file="../common/left.jsp" %>  
 
 <%
-	String password = request.getParameter("password");
+  String password = request.getParameter("password");
 
-	String secretPassword = (String)DigestUtils.sha256Hex(password);
+  	String secretPassword = (String)DigestUtils.sha256Hex(password);
 
-	String name = request.getParameter("name");
-	
-	String year = request.getParameter("year");
-	
-	String email = request.getParameter("email");
-	
-	String month = request.getParameter("month");
-	
-	String day = request.getParameter("day");
-	
-	String strBirthDay = year + month + day;
-	
-	String region = request.getParameter("region");
-	
-	
-	String tel1 = request.getParameter("tel1");
-	String tel2 = request.getParameter("tel2");
-	String tel3 = request.getParameter("tel3");
-	
-	String tel = tel1 +"-" + tel2 +"-" + tel3;
-	
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyymmdd");
-	
-	Date birthDay = formatter.parse(strBirthDay);
-	
-	Customer customer = new Customer();
-	
-	customer.setCustomerPassword(secretPassword);
-	customer.setCustomerName(name);
-	customer.setCustomerBirthday(birthDay);
-	customer.setCustomerAddress(region);
-	customer.setCustomerTel(tel);
-	customer.setCustomerEmail(email);
-	
-	CustomerDao customerDao = new CustomerDao();
-	customerDao.updateCustomer(customer);
-	if(password == null){
-		response.sendRedirect("customerInfo.jsp?fail=password");
-		return;
-	}
-	if(name == null){
-		response.sendRedirect("customerInfo.jsp?fail=name");
-		return;
-	}
-	if(email == null){
-		response.sendRedirect("customerInfo.jsp?fail=email");
-		return;
-	}
-	
-	if(tel1 == null){
-		response.sendRedirect("customerInfo.jsp?fail=tel");
-		return;
-	}
-	if(tel2 == null){
-		response.sendRedirect("customerInfo.jsp?fail=tel");
-		return;
-	}
-	if(tel3 == null){
-		response.sendRedirect("customerInfo.jsp?fail=tel");
-		return;
-	}
-	
-	if(region == null){
-		response.sendRedirect("customerInfo.jsp?fail=region");
-		return;
-	}
-	
-	if(birthDay == null){
-		response.sendRedirect("customerInfo.jsp?fail=birthday");
-		return;
-	}
-	
-	response.sendRedirect("customerInfo.jsp");
-	
-%>
+  	String name = request.getParameter("name");
+  	
+  	String year = request.getParameter("year");
+  	
+  	String email = request.getParameter("email");
+  	
+  	String month = request.getParameter("month");
+  	
+  	String day = request.getParameter("day");
+  	
+  	String strBirthDay = year + month + day;
+  	
+  	String region = request.getParameter("region");
+  	
+  	
+  	String tel1 = request.getParameter("tel1");
+  	String tel2 = request.getParameter("tel2");
+  	String tel3 = request.getParameter("tel3");
+  	
+  	String tel = tel1 +"-" + tel2 +"-" + tel3;
+  	
+  	SimpleDateFormat formatter = new SimpleDateFormat("yyyymmdd");
+  	
+  	Date birthDay = formatter.parse(strBirthDay);
+  	
+  	User customer = new User();
+  	
+  	customer.setCustomerPassword(secretPassword);
+  	customer.setCustomerName(name);
+  	customer.setCustomerBirthday(birthDay);
+  	customer.setCustomerAddress(region);
+  	customer.setCustomerTel(tel);
+  	customer.setCustomerEmail(email);
+  	
+  	CustomerDao customerDao = new CustomerDao();
+  	customerDao.updateCustomer(customer);
+  	if(password == null){
+  		response.sendRedirect("customerInfo.jsp?fail=password");
+  		return;
+  	}
+  	if(name == null){
+  		response.sendRedirect("customerInfo.jsp?fail=name");
+  		return;
+  	}
+  	if(email == null){
+  		response.sendRedirect("customerInfo.jsp?fail=email");
+  		return;
+  	}
+  	
+  	if(tel1 == null){
+  		response.sendRedirect("customerInfo.jsp?fail=tel");
+  		return;
+  	}
+  	if(tel2 == null){
+  		response.sendRedirect("customerInfo.jsp?fail=tel");
+  		return;
+  	}
+  	if(tel3 == null){
+  		response.sendRedirect("customerInfo.jsp?fail=tel");
+  		return;
+  	}
+  	
+  	if(region == null){
+  		response.sendRedirect("customerInfo.jsp?fail=region");
+  		return;
+  	}
+  	
+  	if(birthDay == null){
+  		response.sendRedirect("customerInfo.jsp?fail=birthday");
+  		return;
+  	}
+  	
+  	response.sendRedirect("customerInfo.jsp");
+  %>

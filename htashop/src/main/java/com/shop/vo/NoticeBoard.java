@@ -4,8 +4,9 @@ import java.util.Date;
 
 public class NoticeBoard {
 
+
 	private int no;
-	private String adminId;
+	private int userNo;
 	private String title;
 	private String content;
 	private Date regDate;
@@ -17,11 +18,11 @@ public class NoticeBoard {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public String getAdminId() {
-		return adminId;
+	public int getUserNo() {
+		return userNo;
 	}
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 	public String getTitle() {
 		return title;
@@ -47,6 +48,5 @@ public class NoticeBoard {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	
-	
+
 }

@@ -45,6 +45,9 @@ public class Pagination {
 	public Pagination(String pageNo, int totalRecords) {
 		// 총 페이지 갯수를 계산해서 멤버변수 totalPages에 대입한다.
 		totalPages = (int)(Math.ceil((double)totalRecords/rowsPerPage));
+		if (totalPages <= 0) {
+			totalPages = 1;
+		}
 		// 총 블록 갯수를 계산해서 멤버변수 totalBlocks에 대입한다.
 		totalBlocks = (int)(Math.ceil((double)totalPages/pagesPerBlock));
 		
