@@ -4,48 +4,63 @@ import java.util.Date;
 
 public class NoticeBoard {
 
+
 	private int no;
 	private int userNo;
 	private String title;
 	private String content;
 	private Date regDate;
 	private int viewCount;
+
 	
-	public int getNo() {
-		return no;
+	public NoticeBoard() {}
+
+	public int getNoticeNo() {
+		return noticeNo;
 	}
-	public void setNo(int no) {
-		this.no = no;
+
+	public void setNoticeNo(int noticeNo) {
+		this.noticeNo = noticeNo;
 	}
+
 	public int getUserNo() {
 		return userNo;
 	}
+
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public String getTitle() {
-		return title;
+
+	public String getNoticeTitle() {
+		return noticeTitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
 	}
-	public String getContent() {
-		return content;
+
+	public String getNoticeContent() {
+		return noticeContent;
 	}
-	public void setContent(String content) {
-		this.content = content;
+
+	public void setNoticeContent(String noticeContent) {
+		this.noticeContent = noticeContent;
 	}
-	public Date getRegDate() {
-		return regDate;
+
+	public Date getNoticeRegDate() {
+		return noticeRegDate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+
+	public void setNoticeRegDate(Date noticeRegDate) {
+		this.noticeRegDate = noticeRegDate;
 	}
-	public int getViewCount() {
-		return viewCount;
+
+	public int getNoticeViewCount() {
+		return noticeViewCount;
 	}
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
+
+	public void setNoticeViewCount(int noticeViewCount) {
+		this.noticeViewCount = noticeViewCount;
 	}
 	
 	

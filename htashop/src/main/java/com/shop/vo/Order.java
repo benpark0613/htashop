@@ -21,15 +21,15 @@ public class Order {
 	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
 	}
-  
+
 	public int getUserNo() {
 		return userNo;
 	}
   
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
-
 	}
+  
 	public Date getOrderDate() {
 		return orderDate;
 	}
