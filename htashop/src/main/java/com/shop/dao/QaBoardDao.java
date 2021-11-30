@@ -62,6 +62,7 @@ public class QaBoardDao {
 		pstmt.setInt(3, qaboard.getUserNo());
 		pstmt.setDate(4, qaboard.getRegdate());
 		
+		
 		pstmt.executeUpdate();
 		
 		pstmt.close();
