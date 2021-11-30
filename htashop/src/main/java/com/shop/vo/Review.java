@@ -35,7 +35,7 @@ public class Review {
 	public int getUserNo() {
 		return userNo;
 	}
-	
+
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
@@ -87,4 +87,6 @@ public class Review {
 	public void setAnswerCreatedDate(Date answerCreatedDate) {
 		this.answerCreatedDate = answerCreatedDate;
 	}
+
+	
 }

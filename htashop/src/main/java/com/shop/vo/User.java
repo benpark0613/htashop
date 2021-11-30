@@ -4,124 +4,133 @@ import java.util.Date;
 
 public class User {
 	
-	private int customerNo;
-	private String customerId;
-	private String customerPassword;
-	private String customerEmail;
-	private String customerName;
-	private Date customerBirthday;
-	private String customerTel;
-	private String customerGender;
-	private String customerAddress;
-	private Date customerCreatedDate;
-	private int customerPoint;
-	private boolean customerInOut;
-	private String customerGrade;
+	private int userNo;
+	private String userType;
+	private String id;
+	private String password;
+	private String email;
+	private String name;
+	private Date birthday;
+	private String tel;
+	private String gender;
+	private String address;
+	private Date createdDate;
+	private int point;
+	private String inOut;
+	private String grade;
 	
 	public User() {}
 
-	public int getCustomerNo() {
-		return customerNo;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
-	public String getCustomerId() {
-		return customerId;
+	public String getUserType() {
+		return userType;
 	}
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
-	public String getCustomerPassword() {
-		return customerPassword;
+	public String getId() {
+		return id;
 	}
 
-	public void setCustomerPassword(String customerPassword) {
-		this.customerPassword = customerPassword;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getCustomerEmail() {
-		return customerEmail;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setCustomerEmail(String customerEmail) {
-		this.customerEmail = customerEmail;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getCustomerName() {
-		return customerName;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public Date getCustomerBirthday() {
-		return customerBirthday;
+	public String getName() {
+		return name;
 	}
 
-	public void setCustomerBirthday(Date customerBirthday) {
-		this.customerBirthday = customerBirthday;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getCustomerTel() {
-		return customerTel;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setCustomerTel(String customerTel) {
-		this.customerTel = customerTel;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
-	public String getCustomerGender() {
-		return customerGender;
+	public String getTel() {
+		return tel;
 	}
 
-	public void setCustomerGender(String customerGender) {
-		this.customerGender = customerGender;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
-	public String getCustomerAddress() {
-		return customerAddress;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setCustomerAddress(String customerAddress) {
-		this.customerAddress = customerAddress;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public Date getCustomerCreatedDate() {
-		return customerCreatedDate;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setCustomerCreatedDate(Date customerCreatedDate) {
-		this.customerCreatedDate = customerCreatedDate;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public int getCustomerPoint() {
-		return customerPoint;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setCustomerPoint(int customerPoint) {
-		this.customerPoint = customerPoint;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
-	public boolean isCustomerInOut() {
-		return customerInOut;
+	public int getPoint() {
+		return point;
 	}
 
-	public void setCustomerInOut(boolean customerInOut) {
-		this.customerInOut = customerInOut;
+	public void setPoint(int point) {
+		this.point = point;
 	}
 
-	public String getCustomerGrade() {
-		return customerGrade;
+	public String getInOut() {
+		return inOut;
 	}
 
-	public void setCustomerGrade(String customerGrade) {
-		this.customerGrade = customerGrade;
+	public void setInOut(String inOut) {
+		this.inOut = inOut;
 	}
-	
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
 }
