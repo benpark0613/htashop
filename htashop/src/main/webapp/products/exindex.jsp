@@ -28,7 +28,7 @@
 			</div>
 			
 <%
-	ProductDao productDao = ProductDao.getInstance();
+	ProductDao productDao = new ProductDao();
 	
 	List<Product> productList = productDao.getAllProducts();
 %>		
@@ -60,3 +60,4 @@ for (Product product : productList){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
