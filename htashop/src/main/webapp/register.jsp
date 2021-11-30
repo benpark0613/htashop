@@ -10,7 +10,7 @@
 	// 동일한 이메일 가입불가
 	
 	// 가입폼에서 입력받은 값 꺼내오기
-	// 아이디, 비밀번호, 이름, 전화번호, 이메일, (주소)
+	// 아이디, 비밀번호, 이름, 전화번호, 이메일, 주소
 	String id = request.getParameter("id");
 	String password = request.getParameter("password");
 	String secretPassword = DigestUtils.sha256Hex(password);	// 비밀번호는 암호화
@@ -29,33 +29,34 @@
 	newUser.setTel(tel);
 	newUser.setEmail(email);
 	newUser.setAddress(address);
+		
 	
-	
-	// 신규회원정보를 기존회원정보(oldCustomer)와 비교하기
+	// 입력받은 값과 기존회원정보(oldCustomer)와 비교하기
 	// 회원가입조건: 동일한 아이디 가입불가, 동일한 이메일 가입불가
 	// 				getCustomerById		 getCustomerByEmail
-	User oldUser = new User();
 	UserDao userDao = new UserDao();
 	
-	
 	// 1. 입력폼에서 입력받은 아이디로 기존회원 검색
-	oldUser = userDao.getUserById(id);
+	User oldUser = userDao.getUserById(id);
 	
 	// 그 결과가 null이 아님 = 이미 동일한 아이디로 가입한 기존회원이 있음
 	if (oldUser != null) {
-		response.sendRedirect("registerform,jsp?fail=id");
+		response.sendRedirect("registerform.jsp?warning=id");
+		return;
 	}
 	
 	// 2. 입력폼에서 입력받은 이메일로 기존회원 검색
 	oldUser = userDao.getUserByEmail(email);
 	// 결과가 null이 아니면 이미 동일한 이메일이 존재한다는 의미
 	if (oldUser != null) {
-		response.sendRedirect("registerform.jsp?fail=email");
+		response.sendRedirect("registerform.jsp?warning=email");
+		return;
 	}
 	
 	
 	// 조건을 모두 통과했으면 가입성공!
+	userDao.insertNewUser(newUser);
 	
-	
+	response.sendRedirect("index.jsp?register=success");
 	
 %>
