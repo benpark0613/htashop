@@ -13,8 +13,8 @@ public class QaBoard {
 	private int viewCount;
 	private String reply;
 	private Date answerDate;
-	private String customerId;
-	private String customerName;
+	private String userId;
+	private String userName;
 	
 	public QaBoard() {}
 	
@@ -52,8 +52,8 @@ public class QaBoard {
 	public Date getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setRegdate(Date regDate) {
+		this.regdate = regDate;
 	}
 	public int getViewCount() {
 		return viewCount;
@@ -73,12 +73,7 @@ public class QaBoard {
 	public void setAnswerDate(Date answerDate) {
 		this.answerDate = answerDate;
 	}
-	public String getCustomerId() {
-		return customerId;
-	}
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
+	
 
 	public int getUserNo() {
 		return userNo;
@@ -88,12 +83,22 @@ public class QaBoard {
 		this.userNo = userNo;
 	}
 
-	public String getCustomerName() {
-		return customerName;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	
 	
 }
