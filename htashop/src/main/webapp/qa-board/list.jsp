@@ -50,7 +50,7 @@
 						<td><%=qaBoard.getProductNo() %></td>
 						<td><%=qaBoard.getTitle() %></td>
 						<td><%=qaBoard.getUserNo() %></td>
-						<td><%=qaBoard.getRegDate() %></td>
+						<td><%=qaBoard.getRegdate() %></td>
 					</tr>
 <%
 	}

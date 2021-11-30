@@ -57,9 +57,9 @@ public class QaBoardDao {
 	
 		Connection connection = ConnectionUtil.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		//pstmt.setInt(1, qaboard.getProductNo());
+		pstmt.setInt(1, qaboard.getProductNo());
 		pstmt.setString(2, qaboard.getTitle());
-		//pstmt.setInt(3, qaboard.getUserNo());
+		pstmt.setInt(3, qaboard.getUserNo());
 		pstmt.setDate(4, qaboard.getRegdate());
 		
 		pstmt.executeUpdate();
