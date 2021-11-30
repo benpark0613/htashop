@@ -27,7 +27,7 @@ int no = Integer.parseInt(request.getParameter("no"));
 
 
 // 게시글 정보를 제공하는 BoardDao객체를 획득한다.
-ProductDao productDao = ProductDao.getInstance();	
+ProductDao productDao = new ProductDao();	
 
 // 게시글 번호에 해당하는 글 정보를 조회한다.
 Product product = productDao.getProductDetailById(no);
@@ -45,21 +45,17 @@ int total = price * quantity;
 				<thead>
 					<tr class="d-flex">
 						<th class="col-3 text-center">구매물품</th>
-						<th class="col-2 text-center">색상</th>
-						<th class="col-2 text-center">사이즈</th>
 						<th class="col-2 text-center">가격</th>						
-						<th class="col-1 text-center">수량</th>
-						<th class="col-2 text-center">총금액</th>
+						<th class="col-2 text-center">수량</th>
+						<th class="col-3 text-center">총금액</th>
 					</tr>
 				</thead>
 				<tbody>							
 					<tr class="d-flex">
 						<td class="col-3 text-center"><%=name %></td>
-						<td class="col-2 text-center"> <%=color %></td>
-						<td class="col-2 text-center"><%=size %> </td>
 						<td class="col-2 text-center"><%=price %> </td>
-						<td class="col-1 text-center"><%=quantity %></td>
-						<td class="col-2 text-center"><%=total %></td>
+						<td class="col-2 text-center"><%=quantity %></td>
+						<td class="col-3 text-center"><%=total %></td>
 					</tr>					
 				</tbody>				
 			</table>

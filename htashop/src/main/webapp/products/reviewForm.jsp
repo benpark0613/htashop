@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%-- <%
+ <%
 	// include 시킨 navbar의 nav-item 중에서 페이지에 해당하는 nav-item를 active 시키기위해서 "menu"라는 이름으로 페이지이름을 속성으로 저장한다.
 	// pageContext에 menu라는 이름으로 설정한 속성값은 navbar.jsp의 6번째 라인에서 조회해서 navbar의 메뉴들 중 하나를 active 시키기 위해서 읽어간다.
-	pageContext.setAttribute("menu", "board");
-%> --%>
+	pageContext.setAttribute("menu", "register");
+%> 
 <%@ include file="../common/navbar.jsp" %>
 <%-- <%
 	//로그인한 사용자정보가 세션에 존재하지 않으면 입력폼을 요청할 수 없다.
