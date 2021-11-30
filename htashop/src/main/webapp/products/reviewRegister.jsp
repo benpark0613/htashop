@@ -28,7 +28,7 @@
 	//review.setReview(content);
 	
 	// 게시글 관련 기능을 제공하는 BoardDao 객체를 획득한다.
-	ReviewDao reviewDao = ReviewDao.getInstance();
+	ReviewDao reviewDao = new ReviewDao();
 	
 	// 게시글 정보를 테이블에 저장시킨다.
 	reviewDao.insertReview(review);
