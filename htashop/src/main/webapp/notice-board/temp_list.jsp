@@ -20,8 +20,6 @@
 %>
 <%@ include file="../common/navbar.jsp"%>
 <%
-
-
 	String pageNo = request.getParameter("pageNo");
 
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
@@ -103,28 +101,25 @@
 	}
 %>
 				</div>
-
 				<div class="row mb-3">
-					<div class="col" id="board_search">
-						<form class="d-flex justify-content-center offset-1" name="search" method="get" 
-						action="list.jsp">
-							<div class="col-2">
-								<select class="form-select" name="searchField">
+					<div class="col d-flex justify-content-center" id="board_search">
+						<form class="row row-cols-md-auto g-2 align-items-center" method="post" action="list.jsp">
+							<div class="col-12">
+								<select class="form-select" name="type" id="">
 									<option value="title">제목</option>
 									<option value="content">내용</option>
 									<option value="writer">글쓴이</option>
 								</select>
 							</div>
-							<div class="col-3">
-								<input class="form-control" type="text" placeholder="검색어(필수)" name="searchText" />
+							<div class="col-12">
+								<input type="text" value="검색어(필수)" class="form-control" />
 							</div>
-							<div class="col-2">
+							<div class="col-12">
 								<input type="submit" value="검색" class="btn btn-primary" />
 							</div>
 						</form>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</div>

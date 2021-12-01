@@ -12,10 +12,34 @@ import java.util.List;
 import com.shop.vo.User;
 
 
-
-
 public class UserDao {
 
+	/**
+	 * 신규 사용자 정보를 테이블에 저장한다.
+	 * @param newUser 신규 사용자 정보
+	 * @throws SQLException
+	 */
+	public void insertNewUser(User user) throws SQLException {
+		String sql = "insert into shop_user "
+				+ "(USER_NO, USER_ID, USER_PASSWORD, USER_EMAIL, USER_NAME, USER_TEL, USER_ADDRESS )"
+				+ "values(shop_user_seq.nextval, ?, ?, ?, ?, ?, ? )";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, user.getId());
+		pstmt.setString(2, user.getPassword());
+		pstmt.setString(3, user.getEmail());
+		pstmt.setString(4, user.getName());
+		pstmt.setString(5, user.getTel());
+		pstmt.setString(6, user.getAddress());
+		
+		pstmt.executeQuery();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
+	
    /**
     * 모든 사용자 정보를 반환한다.
     * @return 사용자 정보 리스트
@@ -87,7 +111,7 @@ public class UserDao {
     * @return 사용자 정보
     * @throws SQLException
     */
-   public User getUserByPassword(String email) throws SQLException {
+   public User getUserByEmail(String email) throws SQLException {
       User user = null;
       
       String sql = "select USER_NO, USER_TYPE, USER_ID, USER_PASSWORD, USER_EMAIL, USER_NAME, "

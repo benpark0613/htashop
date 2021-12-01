@@ -56,7 +56,7 @@
 				</div>
 				
 				<div class="mb-3 text-end">
-					<a href="register.jsp" class="btn btn-primary " type="button">회원가입</a>
+					<a href="registerform.jsp" class="btn btn-primary " type="button">회원가입</a>
 					<button type="submit" class="btn btn-primary">로그인</button>
 				</div>
 				

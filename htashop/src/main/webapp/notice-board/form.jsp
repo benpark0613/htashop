@@ -12,28 +12,57 @@
 	pageContext.setAttribute("menu", "notice");
 %>
 <%@ include file="../common/navbar.jsp"%>
+<%
+	if (loginedUserInfo == null) {
+		response.sendRedirect("../loginform.jsp?error=login-required");
+	}
+%>
+
 	<div class="container">
 		<div class="row mb-3">
-			<div class="col">
-				<h2>공지사항 글쓰기</h2>
+			<div class="col-2">
+				<%@ include file="../common/left.jsp" %>
 			</div>
-		</div>
-		<div class="row mb-3">
-			<div class="col">
-				<form class="border p-3 bg-light" method="post" action="register.jsp">
-					<div class="mb-3">
-						<label class="form-label" for="noticeboard-title">제목</label>
-						<input type="text" class="form-control" name="title" id="noticeboard-title" />
+			<div class="col-10">
+				<h2>공지사항 글쓰기</h2>
+				<div class="row mb-3">
+					<div class="col">
+<%
+	String error = request.getParameter("error");	
+	if ("empty-title".equals(error)) {
+%>
+						<div class="alert alert-danger">
+							<strong>게시글 등록 실패</strong> 게시글 제목은 필수입력값입니다.
+						</div>
+<%
+	} else if ("empty-content".equals(error)) {
+%>
+						<div class="alert alert-danger">
+							<strong>게시글 등록 실패</strong> 게시글 내용은 필수입력값입니다.
+						</div>
+<%
+	}
+%>
+						<form class="border p-3 bg-light" method="post" action="register.jsp">
+							<div class="mb-3">
+								<label class="form-label" for="noticeboard-writer">작성자</label>
+								<input type="text" class="form-control" name="writer" id="noticeboard-writer" value="<%=loginedUserInfo.getId() %>" disabled="disabled" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label" for="noticeboard-title">제목</label>
+								<input type="text" class="form-control" name="title" id="noticeboard-title" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label" for="noticeboard-content">내용</label>
+								<textarea class="form-control" rows="10" name="content"></textarea>
+							</div>
+							<div class="mb-3 text-end">
+								<button type="submit" class="btn btn-primary">등록</button>
+								<a href="list.jsp" class="btn btn-secondary">취소</a>
+							</div>
+						</form>
 					</div>
-					<div class="mb-3">
-						<label class="form-label" for="noticeboard-content">내용</label>
-						<textarea class="form-control" rows="10" name="content"></textarea>
-					</div>
-					<div class="mb-3">
-						<a href="list.jsp" class="btn btn-secondary">취소</a>
-						<button type="submit" class="btn btn-primary">등록</button>
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
