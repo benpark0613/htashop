@@ -1,19 +1,21 @@
-<%@page import="com.shop.vo.User"%>
+<%@page import="com.shop.dto.NoticeBoardDetailDto"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@page import="com.shop.vo.NoticeBoard"%>
+<%@page import="com.shop.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-
+	int no = Integer.parseInt(request.getParameter("no"));
+	String pageNo = request.getParameter("pageNo");
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
 	
 	if (title != null && title.isBlank()) {
-		response.sendRedirect("form.jsp?error=empty-title");
+		response.sendRedirect("modify.jsp?no="+no+"&pageNo"+pageNo+"&error=empty-title");
 		return;
 	}
 	
 	if (content != null && content.isBlank()) {
-		response.sendRedirect("form.jsp?error=empty-content");
+		response.sendRedirect("modify.jsp?no="+no+"&pageNo"+pageNo+"&error=empty-content");
 		return;
 	}
 	
@@ -23,25 +25,12 @@
 		response.sendRedirect("../loginform.jsp?error=login-required");
 	}
 	
-	NoticeBoard noticeBoard = new NoticeBoard();
-	noticeBoard.setUserNo(loginedUserInfo.getUserNo());
-	noticeBoard.setTitle(title);
-	noticeBoard.setContent(content);
-	
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
-	noticeBoardDao.insertNoticeBoard(noticeBoard);
-	response.sendRedirect("list.jsp");
+	NoticeBoardDetailDto dto = noticeBoardDao.getNoticeBoardDetailByNo(no);
+	dto.setNoticeTitle(title);
+	dto.setNoticeContent(content);
+	
+	noticeBoardDao.updateNoticeBoard(dto);
+	
+	response.sendRedirect("detail.jsp?no="+no+"&pageNo="+pageNo);
 %>
-
-
-
-
-
-
-
-
-
-
-
-
-

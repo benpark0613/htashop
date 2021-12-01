@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.dto.NoticeBoardDetailDto;
 import com.shop.dto.NoticeBoardListDto;
 import com.shop.vo.NoticeBoard;
 
@@ -26,16 +27,21 @@ public class NoticeBoardDao {
 	 * @return 공지게시글 목록
 	 * @throws SQLException
 	 */
-	public List<NoticeBoardListDto> getNoticeBoardList() throws SQLException {
-		String sql = "select N.notice_no, U.user_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount, "
-				   + "U.user_id "
-				   + "from shop_noticeboard N, shop_user U "
-				   + "where N.user_no = U.user_no ";
+	public List<NoticeBoardListDto> getNoticeBoardList(int begin, int end) throws SQLException {
+		String sql = "select notice_no, notice_title, notice_regdate, notice_viewcount, user_no, user_id "
+				   + "from (select row_number() over (order by N.notice_no desc) rn, "
+				   + "			   N.notice_no, N.notice_title, N.notice_regdate, N.notice_viewcount, "
+				   + "             U.user_no, U.user_id "
+				   + "      from shop_noticeboard N, shop_user U "
+				   + "		where N.user_no = U.user_no) "
+				   + "where rn >=? and rn <= ? ";
 
 		List<NoticeBoardListDto> noticeBoards = new ArrayList<NoticeBoardListDto>();
 
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, begin);
+		pstmt.setInt(2, end);
 		ResultSet rs = pstmt.executeQuery();
 
 		while (rs.next()) {
@@ -45,6 +51,8 @@ public class NoticeBoardDao {
 			noticeBoardListDto.setNoticeWriter(rs.getString("user_id"));
 			noticeBoardListDto.setNoticeRegDate(rs.getDate("notice_regdate"));
 			noticeBoardListDto.setNoticeViewCount(rs.getInt("notice_viewcount"));
+			
+			noticeBoards.add(noticeBoardListDto);
 		}
 
 		rs.close();
@@ -54,51 +62,20 @@ public class NoticeBoardDao {
 		return noticeBoards;
 	}
 	
-//	public List<NoticeBoard> getNoticeBoardList() throws SQLException {
-//		String sql = "select N.notice_no, U.user_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount"
-//				   + "U.user_id "
-//				   + "from shop_noticeboard N, shop_user U "
-//				   + "where N.user_no = U.user_no ";
-//
-//		List<NoticeBoard> noticeBoardList = new ArrayList<NoticeBoard>();
-//
-//		Connection connection = getConnection();
-//		PreparedStatement pstmt = connection.prepareStatement(sql);
-//		ResultSet rs = pstmt.executeQuery();
-//
-//		while (rs.next()) {
-//			NoticeBoard noticeBoard = new NoticeBoard();
-//			
-//			noticeBoard.setNo(rs.getInt("notice_no"));
-//			noticeBoard.setUserNo(rs.getInt("user_no"));
-//			noticeBoard.setTitle(rs.getString("notice_title"));
-//			noticeBoard.setContent(rs.getString("notice_content"));
-//			noticeBoard.setRegDate(rs.getDate("notice_regdate"));
-//			noticeBoard.setViewCount(rs.getInt("notice_viewcount"));
-//
-//			noticeBoardList.add(noticeBoard);
-//		}
-//
-//		rs.close();
-//		pstmt.close();
-//		connection.close();
-//
-//		return noticeBoardList;
-//	}
-	
 	/**
-	 * 지정된 번호의 공지게시글을 반환한다.
+	 * 지정된 공지게시글 번호의 글을 반환한다.
 	 * @param no 공지게시글 번호
-	 * @return 게시글 정보
+	 * @return 공지게시글
 	 * @throws SQLException
 	 */
-	public NoticeBoard getNoticeBoardDetailByNo(int no) throws SQLException {
-		String sql = "select N.notice_no, U.user_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount "
+	public NoticeBoardDetailDto getNoticeBoardDetailByNo(int no) throws SQLException {
+		String sql = "select N.notice_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount, "
+				   + "U.user_no, U.user_id "
 				   + "from shop_noticeboard N, shop_user U "
 				   + "where N.user_no = U.user_no "
-				   + "where N.notice_no = ? ";
-
-		NoticeBoard noticeBoard = null;
+				   + "and N.notice_no = ? ";
+		
+		NoticeBoardDetailDto noticeBoardDetailDto = null;
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -106,21 +83,20 @@ public class NoticeBoardDao {
 		ResultSet rs = pstmt.executeQuery();
 		
 		while (rs.next()) {
-			noticeBoard = new NoticeBoard();
-			
-			noticeBoard.setNo(rs.getInt("notice_no"));
-			noticeBoard.setUserNo(rs.getInt("user_no"));
-			noticeBoard.setTitle(rs.getString("notice_title"));
-			noticeBoard.setContent(rs.getString("notice_content"));
-			noticeBoard.setRegDate(rs.getDate("notice_regdate"));
-			noticeBoard.setViewCount(rs.getInt("notice_viewcount"));
+			noticeBoardDetailDto = new NoticeBoardDetailDto();
+			noticeBoardDetailDto.setNoticeNo(rs.getInt("notice_no"));
+			noticeBoardDetailDto.setNoticeTitle(rs.getString("notice_title"));
+			noticeBoardDetailDto.setNoticeContent(rs.getString("notice_content"));
+			noticeBoardDetailDto.setNoticeRegDate(rs.getDate("notice_regdate"));
+			noticeBoardDetailDto.setNoticeViewCount(rs.getInt("notice_viewcount"));
+			noticeBoardDetailDto.setNoticeWriter(rs.getString("user_id"));
 		}
 		
 		rs.close();
 		pstmt.close();
 		connection.close();
 		
-		return noticeBoard;
+		return noticeBoardDetailDto;
 	}
 
 	/**
@@ -145,11 +121,11 @@ public class NoticeBoardDao {
 	}
 	
 	/**
-	 * 수정된 정보가 포함된 공지게시글 정보를 테이블에 반영한다.
-	 * @param noticeBoard
+	 * 수정된 게시글 정보를 테이블에 입력한다.
+	 * @param noticeBoardDetailDto 수정할 게시글 상세정보 
 	 * @throws SQLException
 	 */
-	public void updateNoticeBoard(NoticeBoard noticeBoard) throws SQLException {
+	public void updateNoticeBoard(NoticeBoardDetailDto noticeBoardDetailDto) throws SQLException {
 		String sql = "update shop_noticeboard "
 				   + "set "
 				   + "	notice_title = ?, "
@@ -159,17 +135,22 @@ public class NoticeBoardDao {
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setString(1, noticeBoard.getTitle());
-		pstmt.setString(2, noticeBoard.getContent());
-		pstmt.setInt(3, noticeBoard.getViewCount());
-		pstmt.setInt(4, noticeBoard.getNo());
+		pstmt.setString(1, noticeBoardDetailDto.getNoticeTitle());
+		pstmt.setString(2, noticeBoardDetailDto.getNoticeContent());
+		pstmt.setInt(3, noticeBoardDetailDto.getNoticeViewCount());
+		pstmt.setInt(4, noticeBoardDetailDto.getNoticeNo());
 		
 		pstmt.executeUpdate();
 		
 		pstmt.close();
 		connection.close();
 	}
-	
+
+	/**
+	 * 지정된 번호의 게시글을 삭제한다.
+	 * @param no 지정된 게시글의 번호
+	 * @throws SQLException
+	 */
 	public void deleteNoticeBoard(int no) throws SQLException {
 		String sql = "delete from shop_noticeboard "
 				   + "where notice_no = ? ";
@@ -208,7 +189,6 @@ public class NoticeBoardDao {
 		
 		return totalRecords;
 	}
-	
 
 	
 }
