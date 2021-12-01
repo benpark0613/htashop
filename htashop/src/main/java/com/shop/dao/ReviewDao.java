@@ -15,6 +15,37 @@ import com.shop.vo.Review;
 import com.shop.vo.User;
 public class ReviewDao {
 	
+	
+	
+	
+	/**
+	 * 수정된 정보가 포함된 게시글 정보를 테이블에 반영한다.
+	 * @param board
+	 * @throws SQLException
+	 */
+	public void updateReview(ReviewDto reviewDto) throws SQLException {
+		String sql = "update shop_review "
+				   + "set "
+				   + "review_title = ?, "
+				   + "review_content = ?, "
+				   + "review_view_count = ? "
+				   + "where review_no = ? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, reviewDto.getTitle());
+		pstmt.setString(2, reviewDto.getReviewContent());
+		pstmt.setInt(3, reviewDto.getViewCount());
+		pstmt.setInt(4, reviewDto.getReviewNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
+	
+	
 	/**
 	 * 지정된 게시글 정보를 테이블에 저장한다.
 	 * @param board 게시글 정보
@@ -41,31 +72,16 @@ public class ReviewDao {
 	
 	
 	public List<ReviewDto> getReviewList(int begin, int end) throws SQLException{
-		String sql = "select board_no, board_title, user_no, user_id, user_name, board_content, "
-				   + "       board_view_count, board_like_count, board_deleted, "
-				   + "		 board_deleted_date, board_updated_date, board_created_date "
-				   + "from (select row_number() over (order by B.board_no desc) rn, "
-				   + "             B.board_no, B.board_title, U.user_no, U.user_id, U.user_name, B.board_content,  "
-				   + "             B.board_view_count, B.board_like_count, B.board_deleted, "
-				   + "			   B.board_deleted_date, B.board_updated_date, B.board_created_date "
-				   + "      from tb_comm_boards B, tb_comm_users U "
-				   + "      where B.board_writer_no = U.user_no) "
+		String sql = "select review_no, user_no, product_no, review_title, user_name, review_content, answer_content, answer_created_date, "      
+				   + "		 review_view_count, REVIEW_CREATED_DATE "
+				   + "from (select row_number() over (order by R.review_no desc) rn, "
+				   + "             R.review_no, R.review_title,U.user_no, P.product_no, R.answer_content, U.user_name, R.review_content, "
+				   + "			   R.review_view_count, R.REVIEW_CREATED_DATE, R.answer_created_date "
+				   + "      from SHOP_REVIEW R, SHOP_USER U, SHOP_PRODUCTS P "
+				   + "      where U.user_no = R.USER_NO "
+				   + "      and P.PRODUCT_NO = R.PRODUCT_NO) "
 				   + "where rn >= ? and rn <= ? ";
-		
-		//TODO 게시물 조회 및 페이지네이션 작업
-		/**
-		 *  select review_no, review_title, user_no, review_content, 
-				          board_view_count, review_created_date, answer_created_date 
-				   from (select row_number() over (order by B.board_no desc) rn, 
-				                B.board_no, B.board_title, U.user_no, U.user_id, U.user_name, B.board_content,  
-				                B.board_view_count, B.board_like_count, B.board_deleted, 
-				   			   B.board_deleted_date, B.board_updated_date, B.board_created_date 
-				         from tb_comm_boards B, tb_comm_users U 
-				         where B.board_writer_no = U.user_no) 
-				    "where rn >= ? and rn <= ? ";
-				    
-		 * 
-		 */
+	
 		List<ReviewDto> reviewList = new ArrayList<>();
 		
 		Connection connection = getConnection();
@@ -78,6 +94,7 @@ public class ReviewDao {
 			
 			reviewDto.setReviewNo(rs.getInt("review_no"));
 			reviewDto.setUserNo(rs.getInt("user_no"));
+			reviewDto.setUserName(rs.getString("user_name"));
 			reviewDto.setProductNo(rs.getInt("product_no"));
 			reviewDto.setTitle(rs.getString("review_title"));
 			reviewDto.setReviewContent(rs.getString("review_content"));
@@ -117,26 +134,61 @@ public class ReviewDao {
 		return totalRecords;
 	}
 
-	public ReviewDto getReviewDetail(int no) {
+	public ReviewDto getReviewDetailByNo(int no) throws SQLException {
 		
 		ReviewDto reviewDto = new ReviewDto();
+		
+		String sql ="select R.review_no, P.product_name, R.product_no, R.user_no, U.user_name, R.review_Title, R.review_content, R.REVIEW_CREATED_DATE, "
+					+ "R.REVIEW_VIEW_COUNT, R.answer_content, R.answer_created_date "
+					+ "from shop_review R, shop_products P, shop_user U "
+					+ "where R.product_no = P.product_no "
+					+ "and R.user_no = U.user_no "
+					+ "and review_no = ? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		
+		while(rs.next()) {
+			reviewDto = new ReviewDto();
+			
+			reviewDto.setReviewNo(rs.getInt("review_no"));
+			reviewDto.setProductNo(rs.getInt("product_no"));
+			reviewDto.setProductName(rs.getString("product_name"));
+			reviewDto.setUserNo(rs.getInt("user_no"));
+			reviewDto.setUserName(rs.getString("user_name"));
+			reviewDto.setTitle(rs.getString("review_Title"));
+			reviewDto.setReviewContent(rs.getString("review_content"));
+			reviewDto.setReviewCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
+			reviewDto.setViewCount(rs.getInt("REVIEW_VIEW_COUNT"));		
+			reviewDto.setAnswerContent(rs.getString("answer_content"));
+			reviewDto.setAnswerCreatedDate(rs.getDate("answer_created_date"));
+			
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return reviewDto;
 	}
 	
 	
 	
 	
-	public List<ReviewDto> getReviewList(int productNo)throws SQLException{
+	public List<ReviewDto> getReviewList(int reviewNo)throws SQLException{
 			
-		String sql = "select U.user_name, P.PRODUCT_NAME, R.REVIEW_CONTENT "
+		String sql = "select R.review_no, P.product_no, U.user_name, R.REVIEW_CONTENT, R.review_created_date, R.review_title "
 				+ "from SHOP_REVIEW R, SHOP_USER U, SHOP_PRODUCTS P "
 				+ "where U.user_no = R.USER_NO "
 				+ "and P.PRODUCT_NO = R.PRODUCT_NO "
-				+ "and r.product_no = ? ";
+				+ "and r.review_no = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		
-		pstmt.setInt(1, productNo);
+		pstmt.setInt(1, reviewNo);
 		ResultSet rs = pstmt.executeQuery();
 		List<ReviewDto> reviewList = new ArrayList<>();
 		
@@ -145,9 +197,13 @@ public class ReviewDao {
 			ReviewDto reviewDto = new ReviewDto();
 			
 			reviewDto.setReviewNo(rs.getInt("REVIEW_NO"));
+			reviewDto.setProductNo(rs.getInt("product_no"));
+			reviewDto.setUserName(rs.getString("USER_NAME"));
+//			reviewDto.setProductName(rs.getString("product_name"));
 			reviewDto.setTitle(rs.getString("REVIEW_TITLE"));
 			reviewDto.setReviewCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
 			reviewDto.setViewCount(rs.getInt("REVIEW_VIEW_COUNT"));
+
 			
 			reviewList.add(reviewDto);
 		}

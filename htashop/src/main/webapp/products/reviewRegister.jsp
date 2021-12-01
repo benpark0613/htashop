@@ -11,19 +11,19 @@
 	// 클라이언트에게 게시글 정보를 입력하는 form.jsp를 재요청하는 응답을 보낸다.
 	// 재요청 URL에 사용자인증 실패원인을 포함시킨다.
 	if (title != null && title.isBlank()) {
-		response.sendRedirect("form.jsp?error=empty-title");
+		response.sendRedirect("reviewform.jsp?error=empty-title");
 		return;
 	}
 	// 입력값 content가 없거나 비어있으면 게시글을 등록할 수 없다.
 	// 클라이언트에게 게시글 정보를 입력하는 form.jsp를 재요청하는 응답을 보낸다.
 	// 재요청 URL에 사용자인증 실패원인을 포함시킨다.
 	if (content != null && content.isBlank()) {
-		response.sendRedirect("form.jsp?error=empty-content");
+		response.sendRedirect("reviewform.jsp?error=empty-content");
 		return;
 	}
 	
 	// 세션객체에서 "LOGIN_USER_INFO"로 저장된 속성(사용자 인증이 완료된 사용자정보)을 조회하기
-	User loginUserInfo = (User)session.getAttribute("LOGIN_USER_INFO");
+	User loginedUserInfo = (User)session.getAttribute("logined_user_info");
 	
 	// 로그인한 사용자정보가 세션에 존재하지 않으면 게시글을 등록할 수 없다.
 	// 클라이언트에게 로그인 정보를 입력하는 loginform.jsp를 재요청하는 응답을 보낸다.

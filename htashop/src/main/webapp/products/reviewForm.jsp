@@ -1,36 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+<%@page import="com.shop.dao.ProductDao"%>
+<%@page import="com.shop.vo.Product"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!doctype html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>HTA shop::메인페이지</title>
 </head>
 <body>
- <%
-	// include 시킨 navbar의 nav-item 중에서 페이지에 해당하는 nav-item를 active 시키기위해서 "menu"라는 이름으로 페이지이름을 속성으로 저장한다.
-	// pageContext에 menu라는 이름으로 설정한 속성값은 navbar.jsp의 6번째 라인에서 조회해서 navbar의 메뉴들 중 하나를 active 시키기 위해서 읽어간다.
-	pageContext.setAttribute("menu", "register");
-%> 
-<%@ include file="../common/navbar.jsp" %>
-<%-- <%
-	//로그인한 사용자정보가 세션에 존재하지 않으면 입력폼을 요청할 수 없다.
-	// 클라이언트에게 로그인 정보를 입력하는 loginform.jsp를 재요청하는 응답을 보낸다.
-	// 재요청 URL에 오류원인을 포함시킨다.
-	if (loginUserInfo == null) {
-		response.sendRedirect("../loginform.jsp?error=login-required");
-		return;
-	}
-%> --%>
-<div class="container">    
-	<div class="row mb-3">
-		<div class="col">
-			<h1 class="fs-3">게시글 등록폼</h1>
+<%
+	pageContext.setAttribute("menu", "home");
+%>
+<%@include file="../common/navbar.jsp"%>
+<div class="container">
+	<div class="row justify-content-end">
+		<div  class="col-sm-2">
+			<%@ include file="../common/left.jsp" %>
 		</div>
-	</div>
-	<div class="row mb-3">
-		<div class="col">
+<%
+	ProductDao productDao = new ProductDao();
+	List<Product> productList = productDao.getAllProducts();
+%>		
+		<div class="col-sm-10 align-self-end mt-4">
+			<div class="row mb-3">
 <%
 	// form.jsp에서는 요청객체에서 요청파라미터값 error을 조회한다.
 	// 새 글 링크를 눌러서 form.jsp를 요청하는 경우에는 요청파라미터 error값이 존재하지 않는다.
@@ -40,13 +35,13 @@
 	if ("empty-title".equals(error)) {
 %>
 			<div class="alert alert-danger">
-				<strong>리뷰 등록 실패!!</strong> 리뷰 제목은 필수입력값입니다.
+				<strong>게시글 등록 실패!!</strong> 게시글 제목은 필수입력값입니다.
 			</div>
 <%
 	} else if ("empty-content".equals(error)) {
 %>
 			<div class="alert alert-danger">
-				<strong>리뷰 등록 실패!!</strong> 리뷰 내용은 필수입력값입니다.
+				<strong>게시글 등록 실패!!</strong> 게시글 내용은 필수입력값입니다.
 			</div>
 <%
 	}
@@ -57,23 +52,24 @@
 				register.jsp에서 게시글을 등록하고, 오류가 발생하면 이 페이지를 재요청하는 URL을 응답으로 보낸다.
 				register.jsp에서 게시글 등록이 완료되면, list.jsp를 재요청하는 URL을 클라이언트에 응답으로 보낸다. 
 			 -->
-			<form class="border p-3 bg-light" method="post" action="reviewRegister.jsp">
+			<form class="border p-3 bg-light" method="post" action="register.jsp">
 				<div class="mb-3">
-					<label class="form-label" for="review-title">제목</label>
-					<input type="text" class="form-control" name="title" id="review-title">
+					<label class="form-label" for="board-title">제목</label>
+					<input type="text" class="form-control" name="title" id="board-title">
 				</div>
 				<div class="mb-3">
-					<label class="form-label" for="review-content">내용</label>
+					<label class="form-label" for="board-content">내용</label>
 					<textarea rows="6" class="form-control" name="content"></textarea>
 				</div>
 				<div class="mb-3 text-end">
-					<a href="detail.jsp" class="btn btn-secondary">취소</a>
+					<a href="list.jsp" class="btn btn-secondary">취소</a>
 					<button type="submit" class="btn btn-primary">등록</button>
 				</div>
 			</form>
+			</div>
 		</div>
 	</div>
-</div>
+</div>				
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
