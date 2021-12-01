@@ -13,15 +13,14 @@ import com.shop.vo.Product;
 
 
 public class ProductDao {
+
 	private static ProductDao  self = new ProductDao ();
 	private ProductDao () {}
 	public static ProductDao getInstance() {
 		return self;
-		}
+	}
 	
-
 	/**
-
 	 * 지정된 범위에 속하는 상품리스트를 반환한다.
 	 * @param begin 시작번호
 	 * @param end 끝번호

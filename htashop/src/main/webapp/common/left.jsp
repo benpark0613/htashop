@@ -3,7 +3,7 @@
 <%
    String leftMenu = (String)pageContext.getAttribute("leftMenu");
 %>    
-<ul class="list-group mt-5">
+<ul class="list-group mt-4">
    <li class="list-group-item"><a href="" class="list-rink">BEST 20</a></li>
    <li class="list-group-item"><a href="" class="list-rink">TOP</a></li>
    <li class="list-group-item"><a href="" class="list-rink">BOTTOM</a></li>

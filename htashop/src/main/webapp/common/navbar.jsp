@@ -43,10 +43,11 @@
 				<li class="nav-item"><a href="/htashop/order/main.jsp" class="nav-link <%="order".equals(menu) ? "active" : "" %>">ORDER</a></li>
 				<li class="nav-item"><a href="/htashop/myshop/index.jsp" class="nav-link <%="myshop".equals(menu) ? "active" : "" %>">MYSHOP</a></li>
 			</ul>
-			<form class="d-flex" method="post" action="result.jsp">
-      			<input type="search" name="search" placeholder="검색">
-      			<button class="btn btn-primary btn-sm" type="submit" >검색</button>
-    		</form>
+			
+			<div>
+      			<a href="search-product.jsp" class="btn btn-light"  type="button">검색</a>
+    		</div>
+    		
 		</div>
 	</div>
 </nav>

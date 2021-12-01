@@ -1,3 +1,4 @@
+<%@page import="utils.Pagination_index"%>
 <%@page import="com.shop.dao.ProductDao"%>
 <%@page import="com.shop.vo.Product"%>
 <%@page import="java.util.List"%>
@@ -22,11 +23,9 @@
 			<%@ include file="common/left.jsp" %>
 		</div>
 <%
-	ProductDao productDao = new ProductDao();
+	ProductDao productDao = ProductDao.getInstance();
 	List<Product> productList = productDao.getAllProducts();
 %>		
-
-		
 		<div class="col-sm-10 align-self-end">
 		
 	<!-- 로그인 안하고 MYSHOP 접근했을 때 오류 표시 -->	
@@ -38,9 +37,7 @@
 <%
 	}
 %>
-		
-
-			<div class="row mb-3">
+			<div class="row mt-2">
 <%
 	// 페이징 처리하기
 	
@@ -52,17 +49,17 @@
 	int totalProductsRecord = productDao.getTotalRecords();
 	
 	// 페이지네이션 객체 생성: 조회한 현재 페이지 번호, 전체 데이터 갯수
-	Pagination pagination = new Pagination(pageNo, totalProductsRecord);
+	Pagination_index paginationIndex = new Pagination_index(pageNo, totalProductsRecord);
 
 	// productDao의 getProductListByRN메소드 호출
 	// 페이지네이션 안에서 현재 페이지 번호에 해당하는 범위를 계산함
-	List<Product> products = productDao.getProductListByRN(pagination.getBegin(), pagination.getEnd());
+	List<Product> products = productDao.getProductListByRN(paginationIndex.getBegin(), paginationIndex.getEnd());
 	
 	// 이제 products에 들어있는 상품정보를 화면에 출력
 	for (Product product : products) {
 %>
 				<div class="col-sm-4 mb-3">
-					<div class="card mt-4">
+					<div class="card mt-3">
 						<img src="resources/images/<%=product.getName() %>.jpg" class="card-img-top" />
 						<div class="card-body">
 							<!-- 클릭하면 상품상세정보페이지로 이동 -->
@@ -78,30 +75,29 @@
 %>					
 			</div>
 		</div>
-<!-- 페이지네이션........ -->
+		<!-- 페이지네이션 -->
 		<div class="row mt-5 mb-3">
 			<div class="col-6 offset-3">
 				<ul class="pagination justify-content-center">
-					<!-- 이전 -->
-    				<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : "" %>">
-      					<a class="page-link" href="index.jsp?pageNo=<%=pagination.getPrevPage() %>" aria-label="Previous">
+					<!-- 이전버튼 -->
+    				<li class="page-item <%=!paginationIndex.isExistPrev() ? "disabled" : "" %>">
+      					<a class="page-link" href="index.jsp?pageNo=<%=paginationIndex.getPrevPage() %>" aria-label="Previous">
         				<span aria-hidden="true">&laquo;</span>
       					</a>
     				</li>
 <%
-	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+	for (int num = paginationIndex.getBeginPage(); num <= paginationIndex.getEndPage(); num++) {
 %>
-    				<li class="page-item <%=pagination.getPageNo() == num ? "active" : "" %>"><a class="page-link" href="index.jsp?pageNo=<%=num%>"><%=num %></a></li>
+    				<li class="page-item <%=paginationIndex.getPageNo() == num ? "active" : "" %>"><a class="page-link" href="index.jsp?pageNo=<%=num%>"><%=num %></a></li>
 <%
 	}
 %>
-    				<!-- 다음 -->
-    				<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>">
-      					<a class="page-link" href="index.jsp?pageNo=<%=pagination.getNextPage() %>" aria-label="Next">
+    				<!-- 다음버튼 -->
+    				<li class="page-item <%=!paginationIndex.isExistNext() ? "disabled" : "" %>">
+      					<a class="page-link" href="index.jsp?pageNo=<%=paginationIndex.getNextPage() %>" aria-label="Next">
         				<span aria-hidden="true">&raquo;</span>
       					</a>
     				</li>
-    				
   				</ul>
 			</div>
 		</div>
