@@ -1,5 +1,5 @@
+<%@page import="com.shop.vo.QaBoard"%>
 <%@page import="com.shop.vo.Review"%>
-<%@page import="com.shop.vo.QABoard"%>
 <%@page import="com.shop.dao.QaBoardDao"%>
 <%@page import="com.shop.dao.ReviewDao"%>
 <%@page import="java.util.List"%>
@@ -19,7 +19,7 @@
 	ReviewDao reviewDao = new ReviewDao();
 	QaBoardDao qaBoardDao = new QaBoardDao();
 	List<Review> reviewList = reviewDao.getAllReviewByUserNo((loginedUserInfo.getUserNo()));
-	List<QABoard> QAList = qaBoardDao.getAllQAByUserNo((loginedUserInfo.getUserNo()));
+	List<QaBoard> QAList = qaBoardDao.getAllQAByUserNo((loginedUserInfo.getUserNo()));
 	
 %>
 <body>
@@ -52,14 +52,14 @@
 %>	    
 
 <%
-	for(QABoard qa : QAList){
+	for(QaBoard qa : QAList){
 %>	  
 	    <tr>
 	      <th scope="row"><%=loginedUserInfo.getUserNo() %></th>
 	      <td>QA</td>
 	      <td><%=qa.getTitle() %></td>
 	      <td><%=loginedUserInfo.getName() %></td>
-	      <td><%=qa.getRegDate() %></td>
+	      <td><%=qa.getRegdate() %></td>
 	      <td><%=qa.getViewCount() %></td>
 	    </tr>
 <%
