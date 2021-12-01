@@ -1,5 +1,10 @@
 package utils;
 
+
+// 인덱스용 페이지네이션
+// 인덱스에는 한 행에 이미지가 3개씩 표시되기 때문에 rowsPerPage를 9로 변경함
+
+
 /**
  * 페이징처리를 지원하는 클래스다.<p>
  * <ul>
@@ -18,10 +23,10 @@ package utils;
  * @author
  * 
  */
-public class Pagination {
+public class Pagination_index {
 
 
-	private int rowsPerPage = 10;			// 한 페이지당 표시할 데이터의 갯수
+	private int rowsPerPage = 9;			// 한 페이지당 표시할 데이터의 갯수
 	private int pagesPerBlock = 5;			// 한 블록당 표시할 페이지번호 숫자
 	private int currentPageNo;				// 현재 페이지번호
 	private int totalRecords;				// 총 데이터 갯수
@@ -42,7 +47,7 @@ public class Pagination {
 	 * @param pageNo 요청한 페이지 번호
 	 * @param totalRecords 총 데이터 갯수
 	 */
-	public Pagination(String pageNo, int totalRecords) {
+	public Pagination_index(String pageNo, int totalRecords) {
 		// 총 페이지 갯수를 계산해서 멤버변수 totalPages에 대입한다.
 		totalPages = (int)(Math.ceil((double)totalRecords/rowsPerPage));
 		if (totalPages <= 0) {
