@@ -2,32 +2,24 @@ package com.shop.vo;
 
 import java.util.Date;
 
-public class QABoard {
-
-	private int QANo;
+public class QaBoard {
+	private int no;
 	private int productNo;
 	private int userNo;
+	private String adminId;
 	private String title;
 	private String content;
-	private Date regDate;
+	private Date regdate;
 	private int viewCount;
 	private String reply;
 	private Date answerDate;
-	
-	public QABoard() {}
-	
-	public int getUserNo() {
-		return userNo;
+	private String userId;
+	private String userName;
+	public int getNo() {
+		return no;
 	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}
-	
-	public int getQANo() {
-		return QANo;
-	}
-	public void setQANo(int qANo) {
-		QANo = qANo;
+	public void setNo(int no) {
+		this.no = no;
 	}
 	public int getProductNo() {
 		return productNo;
@@ -35,7 +27,18 @@ public class QABoard {
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
-
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+	public String getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -48,11 +51,11 @@ public class QABoard {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
-		return regDate;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	public int getViewCount() {
 		return viewCount;
@@ -72,7 +75,18 @@ public class QABoard {
 	public void setAnswerDate(Date answerDate) {
 		this.answerDate = answerDate;
 	}
-	
-	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	
 }
+		
