@@ -29,7 +29,7 @@
 	qaBoard = qaBoardDao.getQuestionDetail(no);
 	
 %>	
-	<table class="table">
+			<table class="table">
 				<tbody>
 					<tr class="d-flex">
 						<th class="col-2">제목</th>
@@ -50,15 +50,32 @@
 				</tbody>				
 			</table>
 <%
+//여기서부터 @@@@
 			if("admin".equals(loginedUserInfo.getId()) ){
+				if(qaBoard.getAnswer() != null && qaBoard.getAnswer().isBlank()){
 %>
-				<form action="">
-					<label class="col-1 col-form-label text-front" for="qa-productNo">댓글</label>
-					<input class="form-control" name="productNo" id="productNo"></input>
+				<form action="qnswer.jsp">
+					<label class="col-1 col-form-label text-front" for="qa-answer">댓글</label>
+					<input class="form-control" name="qa-answer" id="qa-answer"></input>
+					<button type="submit" class="btn btn-primary" name="select" value="insert">등록</button>
 				</form>
 				
-<%						
+<%					
+				}else{
+%>					<form action="answer.jsp">
+						<table class="table">
+							<tr class="d-flex">
+								<th class="col-2">댓글</th>
+								<td class="col-4"><%=qaBoard.getAnswer() %></td>
+							</tr>
+						</table>
+						<a href="answer.jsp" class="btn btn-primary " name="select" type="button" value="delete">삭제</a>
+						<button type="submit" class="btn btn-primary" name="select" value="modify">수정</button>
+					</form>
+<%				
+				}
 			}
+//@@@여기까지 완전 다시해야함
 %>		
 		</div>
 	</div>

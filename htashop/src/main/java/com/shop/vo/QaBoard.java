@@ -15,6 +15,8 @@ public class QaBoard {
 	private Date answerDate;
 	private String userId;
 	private String userName;
+	private String answer;
+	
 	public int getNo() {
 		return no;
 	}
@@ -86,6 +88,12 @@ public class QaBoard {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 	
 }
