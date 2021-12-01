@@ -1,5 +1,5 @@
+<%@page import="com.shop.vo.QaBoard"%>
 <%@page import="com.shop.vo.Review"%>
-<%@page import="com.shop.vo.QABoard"%>
 <%@page import="com.shop.dao.QaBoardDao"%>
 <%@page import="com.shop.dao.ReviewDao"%>
 <%@page import="java.util.List"%>
@@ -15,10 +15,12 @@
 <title></title>
 </head>
 <%
+
 ReviewDao reviewDao = new ReviewDao();
 QaBoardDao qaBoardDao = new QaBoardDao();
 List<Review> reviewList = reviewDao.getAllReviewByUserNo(loginedUserInfo.getUserNo());
 List<QABoard> QAList = qaBoardDao.getAllQAByUserNo(loginedUserInfo.getUserNo());
+
 %>
 <body>
 	<div class="container">
@@ -27,6 +29,7 @@ List<QABoard> QAList = qaBoardDao.getAllQAByUserNo(loginedUserInfo.getUserNo());
 				<%@ include file="../common/left.jsp"%>
 			</div>
 			<div class="col-11">
+
 
 			<div class="container">
 				<table class="table">
@@ -75,6 +78,7 @@ List<QABoard> QAList = qaBoardDao.getAllQAByUserNo(loginedUserInfo.getUserNo());
 				</table>
 				</div>
 			</div>
+
 
 		</div>
 	</div>
