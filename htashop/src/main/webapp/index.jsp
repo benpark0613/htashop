@@ -24,6 +24,16 @@
 		
 		<div class="col-sm-10 align-self-end">
 		
+	<!-- 로그인 안하고 MYSHOP 접근했을 때 오류 표시 -->	
+<%
+	String failReason = request.getParameter("fail");
+	if("unlogined".equals(failReason)){
+%>
+	<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
+<%
+	}
+%>
+		
 			<div class="row mb-3">
 				<div class="col-sm-4 mb-3">
 				

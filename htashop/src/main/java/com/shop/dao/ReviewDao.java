@@ -117,10 +117,6 @@ public class ReviewDao {
 		return totalRecords;
 	}
 
-	public ReviewDto getReviewDetail(int no) {
-		
-		ReviewDto reviewDto = new ReviewDto();
-	}
 	
 	
 	
@@ -159,5 +155,36 @@ public class ReviewDao {
 		return reviewList;
 	}
 	
+	public List<Review> getAllReviewByUserNo(int userNo)throws SQLException{
+
+
+		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
+				+ "from SHOP_REVIEW "
+				+ "where USER_NO = ? ";
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, userNo);
+		ResultSet rs = pstmt.executeQuery();
+		List<Review> reviewList = new ArrayList<>();
+
+		while(rs.next()) {
+			Review review = new Review();
+			review.setReviewNo(rs.getInt("REVIEW_NO"));
+			review.setTitle(rs.getString("REVIEW_TITLE"));
+			review.setCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
+			review.setViewCount(rs.getInt("REVIEW_VIEW_COUNT"));
+
+			reviewList.add(review);
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+
+
+		return reviewList;
+	}
+
 
 }

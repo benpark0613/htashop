@@ -10,43 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shop.vo.User;
-import com.shop.vo.Customer;
 
-import utils.ConnectionUtil;
 
-public class CustomerDao {
-	
-	public void updateCustomer(Customer customer)throws SQLException{
-		
-		String sql = "update SHOP_CUSTOMER "
-				   + "set "
-				   + "CUSTOMER_NAME = ?, "
-				   + "CUSTOMER_PASSWORD = ?, "
-				   + "CUSTOMER_BIRTHDAY = ?, "
-				   + "CUSTOMER_TEL = ?, "
-				   + "CUSTOMER_ADDRESS = ?, "
-				   + "CUSTOMER_EMAIL = ? "
-				   + "where customer_no = ? ";
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		
-		pstmt.setString(1, customer.getCustomerName());
-		pstmt.setString(2, customer.getCustomerPassword());
-		pstmt.setString(3, customer.getCustomerTel());
-		pstmt.setString(4, customer.getCustomerAddress());
-		pstmt.setString(5, customer.getCustomerEmail());
-		pstmt.setString(6, customer.getCustomerBirthday().toString());
-		pstmt.setInt(7, customer.getCustomerNo());
-		
-		pstmt.executeUpdate();
-		
-		pstmt.close();
-		connection.close();
-		
-	}
-	
-
-}
 
 
 public class UserDao {
@@ -200,7 +165,37 @@ public class UserDao {
       user.setGrade(rs.getString("USER_GRADE"));
       return user;
    }
-   
+
+   // MYSHOP 회원정보 변경에 이용됨
+   public void updateUser(User user)throws SQLException{
+
+	   String sql = "update SHOP_USER "
+			   + "set "
+			   + "USER_NAME = ?, "
+			   + "USER_PASSWORD = ?, "
+			   + "USER_BIRTHDAY = ?, "
+			   + "USER_TEL = ?, "
+			   + "USER_ADDRESS = ?, "
+			   + "USER_EMAIL = ? "
+			   + "where USER_NO = ? ";
+	   Connection connection = getConnection();
+	   PreparedStatement pstmt = connection.prepareStatement(sql);
+
+	   pstmt.setString(1, user.getName());
+	   pstmt.setString(2, user.getPassword());
+	   pstmt.setDate(3, user.getBirthday());
+	   pstmt.setString(4, user.getTel());
+	   pstmt.setString(5, user.getAddress());
+	   pstmt.setString(6, user.getEmail());
+	   pstmt.setInt(7, user.getUserNo());
+
+	   pstmt.executeUpdate();
+
+	   pstmt.close();
+	   connection.close();
+
+   }
+
 }
 
 
