@@ -20,13 +20,10 @@ public class CartDao {
 		return self;
 	}
 	
-	//장바구니리스트 모든 정보 반환
-	//public List<Cart> selectAllCarts() throws SQLException{
-		//List<Cart> cart = new ArrayList<>();}
+	
+	// 지정한 상품번호를 장바구니에 담는다.
 	
 	
-	
-
 	//고객번호(userNo)로 장바구니 정보 반환
 	public List<Cart> selectCartByUserNo(int userNo) throws SQLException {
 		List<Cart> cart = new ArrayList<>();
@@ -52,20 +49,21 @@ public class CartDao {
 		return cart;
 	}
 	
+	//  지정된 상품번호로 카트의 선택상품을 삭제한다.
 	
+	// 카트의 저장된 전체상품을 삭제한다.
+	
+	// 장바구니 담은 수량 변경 ????
 	
 	private Cart rowToCart(ResultSet rs) throws SQLException {
 	Cart cart = new Cart();
+	User user = new User();
 	cart.setCartNo(rs.getInt("CART_NO"));
-	cart.setUserNo(rs.getInt("USER_NO"));
 	cart.setProductNo(rs.getInt("PRODUCT_NO"));
 	cart.setQuantity(rs.getInt("CART_QUANTITY"));
 	
+	user.setUserNo(rs.getInt("USER_NO"));
+	
 	return cart;
-	}
-	
-	
-	
-	
-	//
+    }
 }
