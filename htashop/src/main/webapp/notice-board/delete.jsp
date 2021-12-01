@@ -1,4 +1,3 @@
-<%@page import="com.shop.dto.NoticeBoardDetailDto"%>
 <%@page import="com.shop.vo.NoticeBoard"%>
 <%@page import="com.shop.dto.NoticeBoardListDto"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
@@ -16,7 +15,7 @@
 	}
 	
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
-    NoticeBoardDetailDto dto = noticeBoardDao.getNoticeBoardDetailByNo(no);
+	NoticeBoardListDto dto = noticeBoardDao.getNoticeBoardByNo(no);
 	
 	if (!dto.getNoticeWriter().equals(loginedUserInfo.getId())) {
 		response.sendRedirect("detail.jsp?no="+no+"&pageNo="+pageNo+"&error=deny-delete");

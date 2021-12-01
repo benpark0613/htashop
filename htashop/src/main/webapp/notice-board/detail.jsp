@@ -1,4 +1,3 @@
-<%@page import="com.shop.dto.NoticeBoardDetailDto"%>
 <%@page import="com.shop.dao.UserDao"%>
 <%@page import="com.shop.dto.NoticeBoardListDto"%>
 <%@page import="com.shop.vo.NoticeBoard"%>
@@ -23,7 +22,7 @@
 	String error = request.getParameter("error");
 	
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
-	NoticeBoardDetailDto dto = noticeBoardDao.getNoticeBoardDetailByNo(no);
+	NoticeBoardListDto dto = noticeBoardDao.getNoticeBoardByNo(no);
 	dto.setNoticeViewCount(dto.getNoticeViewCount() + 1);
 	noticeBoardDao.updateNoticeBoard(dto);
 %>

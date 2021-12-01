@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shop.dto.NoticeBoardDetailDto;
 import com.shop.dto.NoticeBoardListDto;
 import com.shop.vo.NoticeBoard;
 
@@ -68,14 +67,14 @@ public class NoticeBoardDao {
 	 * @return 공지게시글
 	 * @throws SQLException
 	 */
-	public NoticeBoardDetailDto getNoticeBoardDetailByNo(int no) throws SQLException {
+	public NoticeBoardListDto getNoticeBoardByNo(int no) throws SQLException {
 		String sql = "select N.notice_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount, "
 				   + "U.user_no, U.user_id "
 				   + "from shop_noticeboard N, shop_user U "
 				   + "where N.user_no = U.user_no "
 				   + "and N.notice_no = ? ";
 		
-		NoticeBoardDetailDto noticeBoardDetailDto = null;
+		NoticeBoardListDto noticeBoardDto = null;
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -83,20 +82,20 @@ public class NoticeBoardDao {
 		ResultSet rs = pstmt.executeQuery();
 		
 		while (rs.next()) {
-			noticeBoardDetailDto = new NoticeBoardDetailDto();
-			noticeBoardDetailDto.setNoticeNo(rs.getInt("notice_no"));
-			noticeBoardDetailDto.setNoticeTitle(rs.getString("notice_title"));
-			noticeBoardDetailDto.setNoticeContent(rs.getString("notice_content"));
-			noticeBoardDetailDto.setNoticeRegDate(rs.getDate("notice_regdate"));
-			noticeBoardDetailDto.setNoticeViewCount(rs.getInt("notice_viewcount"));
-			noticeBoardDetailDto.setNoticeWriter(rs.getString("user_id"));
+			noticeBoardDto = new NoticeBoardListDto();
+			noticeBoardDto.setNoticeNo(rs.getInt("notice_no"));
+			noticeBoardDto.setNoticeTitle(rs.getString("notice_title"));
+			noticeBoardDto.setNoticeContent(rs.getString("notice_content"));
+			noticeBoardDto.setNoticeRegDate(rs.getDate("notice_regdate"));
+			noticeBoardDto.setNoticeViewCount(rs.getInt("notice_viewcount"));
+			noticeBoardDto.setNoticeWriter(rs.getString("user_id"));
 		}
 		
 		rs.close();
 		pstmt.close();
 		connection.close();
 		
-		return noticeBoardDetailDto;
+		return noticeBoardDto;
 	}
 
 	/**
@@ -125,7 +124,7 @@ public class NoticeBoardDao {
 	 * @param noticeBoardDetailDto 수정할 게시글 상세정보 
 	 * @throws SQLException
 	 */
-	public void updateNoticeBoard(NoticeBoardDetailDto noticeBoardDetailDto) throws SQLException {
+	public void updateNoticeBoard(NoticeBoardListDto noticeBoardDto) throws SQLException {
 		String sql = "update shop_noticeboard "
 				   + "set "
 				   + "	notice_title = ?, "
@@ -135,10 +134,10 @@ public class NoticeBoardDao {
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setString(1, noticeBoardDetailDto.getNoticeTitle());
-		pstmt.setString(2, noticeBoardDetailDto.getNoticeContent());
-		pstmt.setInt(3, noticeBoardDetailDto.getNoticeViewCount());
-		pstmt.setInt(4, noticeBoardDetailDto.getNoticeNo());
+		pstmt.setString(1, noticeBoardDto.getNoticeTitle());
+		pstmt.setString(2, noticeBoardDto.getNoticeContent());
+		pstmt.setInt(3, noticeBoardDto.getNoticeViewCount());
+		pstmt.setInt(4, noticeBoardDto.getNoticeNo());
 		
 		pstmt.executeUpdate();
 		

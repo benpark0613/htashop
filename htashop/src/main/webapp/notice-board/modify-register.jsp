@@ -1,4 +1,4 @@
-<%@page import="com.shop.dto.NoticeBoardDetailDto"%>
+<%@page import="com.shop.dto.NoticeBoardListDto"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@page import="com.shop.vo.NoticeBoard"%>
 <%@page import="com.shop.vo.User"%>
@@ -26,7 +26,7 @@
 	}
 	
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
-	NoticeBoardDetailDto dto = noticeBoardDao.getNoticeBoardDetailByNo(no);
+	NoticeBoardListDto dto = noticeBoardDao.getNoticeBoardByNo(no);
 	dto.setNoticeTitle(title);
 	dto.setNoticeContent(content);
 	

@@ -1,4 +1,4 @@
-<%@page import="com.shop.dto.NoticeBoardDetailDto"%>
+<%@page import="com.shop.dto.NoticeBoardListDto"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
 	String pageNo = request.getParameter("pageNo");
 	
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
-	NoticeBoardDetailDto dto = noticeBoardDao.getNoticeBoardDetailByNo(no);
+	NoticeBoardListDto dto = noticeBoardDao.getNoticeBoardByNo(no);
 %>
 	<div class="container">
 		<div class="row mb-3">
