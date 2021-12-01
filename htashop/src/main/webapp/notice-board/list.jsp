@@ -106,8 +106,7 @@
 
 				<div class="row mb-3">
 					<div class="col" id="board_search">
-						<form class="d-flex justify-content-center offset-1" name="search" method="get" 
-						action="list.jsp">
+						<form class="d-flex justify-content-center offset-1" name="search" method="post" action="list.jsp">
 							<div class="col-2">
 								<select class="form-select" name="searchField">
 									<option value="title">제목</option>
