@@ -10,8 +10,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shop.vo.QaBoard;
+import com.shop.vo.User;
 
 public class QaBoardDao {
+	
+public List<QaBoard> getAllQuestions() throws SQLException{
+		
+		String sql = " select qa_no, product_no, qa_title, "
+					+" user_no, qa_regdate "
+					+" from shop_qaboard ";
+		
+		List<QaBoard> qaboardList = new ArrayList<>();
+		
+		Connection connection =getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			QaBoard qaboard = new QaBoard();
+			
+			qaboard.setNo(rs.getInt("qa_no"));
+			qaboard.setProductNo(rs.getInt("product_no"));
+			qaboard.setTitle(rs.getString("qa_title"));
+			qaboard.setUserNo(rs.getInt("user-no"));
+			qaboard.setRegdate(rs.getDate("qa_regdate"));
+			
+			qaboardList.add(qaboard);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return qaboardList;
+	}
+	
+	//	User에서 user정보를 거ㅏ져와서 박아야함
+	public void insertQaBoard(QaBoard qaboard) throws SQLException{
+		String sql = "insert into shop_qaboard (qa_no, product_no, qa_title, user_no, qa_regdate ) "
+					+"values (SHOP_QA_SEQ.nextval, ?, ?, ?, sysdate )";
+	
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, qaboard.getProductNo());
+		pstmt.setString(2, qaboard.getTitle());
+		pstmt.setInt(3, qaboard.getUserNo());
+		
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	
+	}
 
 	
 	public List<QaBoard> getAllQAByUserNo(int userNo)throws SQLException{
@@ -42,5 +94,35 @@ public class QaBoardDao {
 		
 		
 		return QAList;
+	}
+	
+	public QaBoard getQuestionDetail(int no) throws SQLException {
+		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no "
+				   + "from shop_qaboard q, shop_user U "
+				   + "where q.user_no = U.user_no "
+				   + "and B.board_no = ? ";
+		
+		QaBoard qaBoard = null;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			qaBoard = new QaBoard();
+			User user = new User();
+			
+			qaBoard.setNo(rs.getInt("qa_no"));
+			qaBoard.setTitle(rs.getString("qa_title"));
+			qaBoard.setContent(rs.getString("qa_content"));
+			qaBoard.setRegdate(rs.getDate("qa_regdate"));
+			qaBoard.setUserName(rs.getString("user_name"));
+			
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return qaBoard;
 	}
 }

@@ -31,7 +31,7 @@
 				<thead>
 					<tr>
 						<th>번호</th>
-						<th>상품정보</th>
+						<th>상품명</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
@@ -41,18 +41,27 @@
 <%
 	QaBoardDao qaBoardDao = new QaBoardDao();
 	List<QaBoard> qaBoardList = qaBoardDao.getAllQuestions();
-%>					
+	
+	if(qaBoardList.isEmpty()){
+		
+%>
+		<tr>
+			<td class="text-center" colspan="6">게시글이 존재하지 않습니다.</td>
+		</tr>				
 <%
-	for(QaBoard qaBoard : qaBoardList) {
+	}else{
+		for(QaBoard qaBoard : qaBoardList) {
+		
 %>						
 					<tr>
-						<td><%=qaBoard.getNo() %></td>
+						<a href="detail.jsp?no=<%=qaBoard.getNo()%>"><%=qaBoard.getNo() %></a>
 						<td><%=qaBoard.getProductNo() %></td>
 						<td><%=qaBoard.getTitle() %></td>
 						<td><%=qaBoard.getUserNo() %></td>
 						<td><%=qaBoard.getRegdate() %></td>
 					</tr>
 <%
+		}
 	}
 %>					
 				</tbody>			

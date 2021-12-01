@@ -1,3 +1,4 @@
+<%@page import="com.shop.vo.User"%>
 <%@page import="com.shop.dao.QaBoardDao"%>
 <%@page import="com.shop.vo.QaBoard"%>
 <%@page import="org.apache.commons.codec.digest.DigestUtils"%>
@@ -6,6 +7,7 @@
 	// loginform.jsp에서 제출한 폼입력값을 조호한다.
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
+	int productNo = Integer.parseInt(request.getParameter("productNo"));
 
 	if (title != null && title.isBlank()) {
 		response.sendRedirect("loginform.jsp?error=emptyTitle");
@@ -16,20 +18,22 @@
 		response.sendRedirect("loginform.jsp?error=emptytPassword");
 		return;
 	}
-	//User loginUserInfo = (User)session.getAttribute("LOGIN_USER_INFO");
+	User loginUserInfo = (User)session.getAttribute("LOGIN_USER_INFO");
 	
-	//if (loginUserInfo == null) {
-	//	response.sendRedirect("../loginform.jsp?error=login-required");
-	//	return;
-	//}
+	if (loginUserInfo == null) {
+		response.sendRedirect("../loginform.jsp?error=login-required");
+		return;
+	}
 	
 	QaBoard qaBoard = new QaBoard();
-	QaBoardDao qaBoardDao = new QaBoardDao();
-	
 	
 	qaBoard.setTitle(title);
 	qaBoard.setContent(content);
+	qaBoard.setProductNo(productNo);
+	qaBoard.setUserNo(loginUserInfo.getUserNo());
 	
+	
+	QaBoardDao qaBoardDao = new QaBoardDao();
 	qaBoardDao.insertQaBoard(qaBoard);
 	
 	// 클라이언트에 index.jsp를 재요청하는 URL을 응답으로 보낸다.

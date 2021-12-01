@@ -73,11 +73,18 @@
 					</select>
 				</div>
 				
+				<div class="mb-3">
+					<label class="col-1 col-form-label text-front" for="qa-productNo">상품번호</label>
+					<input class="form-control" name="productNo" id="productNo"></input>
+				</div>
+				
 				
 				<div class="mb-3">
 					<label class="col-1 col-form-label text-front" for="qa-content">내용</label>
 					<textarea rows="6" class="form-control" name="content" id="content"></textarea>
 				</div>
+				
+				
 				<div class="row mb-3">
 					<div class="col">
 					<div class="mb-3 text-end">
