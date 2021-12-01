@@ -13,7 +13,13 @@ import com.shop.vo.Product;
 
 
 public class ProductDao {
+	private static ProductDao  self = new ProductDao ();
+	private ProductDao () {}
+	public static ProductDao getInstance() {
+		return self;
+		}
 	
+
 	
 	public Product getProductDetailById(int no) throws SQLException{
 		Product products = new Product();
