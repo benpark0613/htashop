@@ -1,6 +1,7 @@
 <%@page import="com.shop.dao.ProductDao"%>
 <%@page import="com.shop.vo.Product"%>
 <%@page import="java.util.List"%>
+<%@page import="utils.Pagination" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="ko">
@@ -24,15 +25,47 @@
 	ProductDao productDao = new ProductDao();
 	List<Product> productList = productDao.getAllProducts();
 %>		
-		<div class="col-sm-10 align-self-end mt-4">
+
+		
+		<div class="col-sm-10 align-self-end">
+		
+	<!-- 로그인 안하고 MYSHOP 접근했을 때 오류 표시 -->	
+<%
+	String failReason = request.getParameter("fail");
+	if("unlogined".equals(failReason)){
+%>
+	<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
+<%
+	}
+%>
+		
+
 			<div class="row mb-3">
 <%
-	for (Product product : productList) {
+	// 페이징 처리하기
+	
+	// 인덱스에서 페이지부분을 누를때마다 pageNo라는 이름으로 현재페이지번호를 보낸다.
+	// 페이지번호가 없으면 1로 되게 페이지네이션 유틸에 구현되어 있음
+	String pageNo = request.getParameter("pageNo");
+	
+	// productdao 생성하고 전체 데이터 갯수 구하기
+	int totalProductsRecord = productDao.getTotalRecords();
+	
+	// 페이지네이션 객체 생성: 조회한 현재 페이지 번호, 전체 데이터 갯수
+	Pagination pagination = new Pagination(pageNo, totalProductsRecord);
+
+	// productDao의 getProductListByRN메소드 호출
+	// 페이지네이션 안에서 현재 페이지 번호에 해당하는 범위를 계산함
+	List<Product> products = productDao.getProductListByRN(pagination.getBegin(), pagination.getEnd());
+	
+	// 이제 products에 들어있는 상품정보를 화면에 출력
+	for (Product product : products) {
 %>
 				<div class="col-sm-4 mb-3">
 					<div class="card mt-4">
 						<img src="resources/images/<%=product.getName() %>.jpg" class="card-img-top" />
 						<div class="card-body">
+							<!-- 클릭하면 상품상세정보페이지로 이동 -->
 							<h5 class="card-title text-center"><%=product.getName() %></h5>
 							<p class="card-text text-danger text-center">
 								<strong class="fw-bold"><%=product.getPrice() %></strong> 원
@@ -46,22 +79,25 @@
 			</div>
 		</div>
 <!-- 페이지네이션........ -->
-		<div class="row mb-5">
+		<div class="row mt-5 mb-3">
 			<div class="col-6 offset-3">
 				<ul class="pagination justify-content-center">
-				
-    				<li class="page-item">
-      					<a class="page-link" href="#" aria-label="Previous">
+					<!-- 이전 -->
+    				<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : "" %>">
+      					<a class="page-link" href="index.jsp?pageNo=<%=pagination.getPrevPage() %>" aria-label="Previous">
         				<span aria-hidden="true">&laquo;</span>
       					</a>
     				</li>
-    				
-    				<li class="page-item"><a class="page-link" href="#">1</a></li>
-    				<li class="page-item"><a class="page-link" href="#">2</a></li>
-    				<li class="page-item"><a class="page-link" href="#">3</a></li>
-    				
-    				<li class="page-item">
-      					<a class="page-link" href="#" aria-label="Next">
+<%
+	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+%>
+    				<li class="page-item <%=pagination.getPageNo() == num ? "active" : "" %>"><a class="page-link" href="index.jsp?pageNo=<%=num%>"><%=num %></a></li>
+<%
+	}
+%>
+    				<!-- 다음 -->
+    				<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>">
+      					<a class="page-link" href="index.jsp?pageNo=<%=pagination.getNextPage() %>" aria-label="Next">
         				<span aria-hidden="true">&raquo;</span>
       					</a>
     				</li>
