@@ -8,6 +8,8 @@ public class ReviewDto {
 	private int reviewNo;
 	private int productNo;
 	private int userNo;
+	private String userName;
+	private String productName;
 	private String Title;
 	private String reviewContent;
 	private Date reviewCreatedDate;
@@ -40,6 +42,14 @@ public class ReviewDto {
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getTitle() {
@@ -88,5 +98,13 @@ public class ReviewDto {
 
 	public void setAnswerCreatedDate(Date answerCreatedDate) {
 		this.answerCreatedDate = answerCreatedDate;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 }

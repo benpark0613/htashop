@@ -1,4 +1,3 @@
-
 <%@page import="com.shop.dto.ReviewDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.lang.reflect.Array"%>
@@ -19,26 +18,40 @@
 </head>
 <body>
 <%
-	pageContext.setAttribute("menu", "detail");
+	pageContext.setAttribute("menu", "review");
+//	pageContext.setAttribute("leftMenu", "notice");
 %>
-
-
-
+<%@include file="../common/navbar.jsp"%>
+<div class="container">
+	<div class="row justify-content-end">
+		<div  class="col-sm-2">
+			<%@ include file="../common/left.jsp" %>
+		</div>	
+		<div class="col-sm-10 align-self-end mt-4">
+			<div class="row mb-3">
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
 
-	// 게시글 정보를 제공하는 BoardDao객체를 획득한다.
 	ProductDao productDao = new ProductDao();	
+
+	Product product = productDao.getProductDetailById(no);
+
+	String pageNo = request.getParameter("pageNo");
+
+	ReviewDao reviewDao = new ReviewDao();	
+
+	int totalRecords = reviewDao.getTotalRecords();
+
+	Pagination pagination = new Pagination(pageNo, totalRecords);
+	ReviewDto reviewDto = new ReviewDto();
 	
-	// 게시글 번호에 해당하는 글 정보를 조회한다.
-	Product product = productDao.getProductDetailById(no); 
-	
-	
+	// 현재 페이지번호에 해당하는 게시글 목록을 조회한다.
+//	List<ReviewDto> reviewList = reviewDao.getReviewList(no);
+//	List<OrderDto> orderList = orderDao.getOrderDetail(loginedCustomerInfo.getCustomerNo());
+
+//	List<ReviewDto> reviewList = reviewDao.getReviewList(loginedUserInfo.getUserNo());
+	List<ReviewDto> reviewList = reviewDao.getReviewList(pagination.getBegin(), pagination.getEnd());
 %> 
-<%@ include file="../common/navbar.jsp" %>
-		<div  class="col-sm-2">
-			<%@ include file="../common/left.jsp" %>
-		</div>
 	<div class="container">	
 	<div class="row">
 		<div class="col">
@@ -67,10 +80,6 @@
 					</tr>
 				</tbody>				
 			</table>
-			<p>
-			dasdsad
-			</p>
-
 <p>
 
 	<form method="get" action="buy.jsp">    
@@ -84,47 +93,30 @@
         <option value="5">5</option> 	
      </optgroup>     	
 		</select>  <br> 
-	
+
  	<input type="hidden" id="no" name="no" value="<%=product.getNo()%>"> 
 	
-<% 	if(loginedCustomerInfo != null) {
+<% 	if(loginedUserInfo != null) {
 
 %>
 	<input class="btn btn-outline-primary" type='submit' id="no" value='구매'> 
   	<input class="btn btn-outline-dark" type='submit' value='장바구니' onclick='return submit2(this.form);'>
+	
 	</form>
+
 <%
 }
 %>
-
-
+	
 		</div>
+	<div align="right">
+	<a href="../index.jsp" class="btn btn-primary pull-right">목록</a>	
+	</div>	
 	</div>
 <hr>
 <h4>리뷰</h4>
-
-<%
-	// 요청파라미터에서 pageNo값을 조회한다.
-	// 요청파라미터에 pageNo값이 존재하지 않으면 Pagination객체에서 1페이지로 설정한다.
-	String pageNo = request.getParameter("pageNo");
-
-	// 게시글 정보 관련 기능을 제공하는 BoardDao객체를 획득한다.
-	ReviewDao reviewDao = new ReviewDao();	
-	// 총 데이터 갯수를 조회한다.
-	int totalRecords = reviewDao.getTotalRecords();
-	
-	// 페이징 처리 필요한 값을 계산하는 Paginatition객체를 생성한다.
-	Pagination pagination = new Pagination(pageNo, totalRecords);
-	
-	ReviewDto reviewDto = new ReviewDto();
-	
-	// 현재 페이지번호에 해당하는 게시글 목록을 조회한다.
-	List<ReviewDto> reviewList = reviewDao.getReviewList(loginedCustomerInfo.getUserNo());
-//	List<OrderDto> orderList = orderDao.getOrderDetail(loginedCustomerInfo.getCustomerNo());
-
-	
-//	List<Review> reviewList = reviewDao.getReviewList(pagination.getBegin(), pagination.getEnd());
-%>
+<%=product.getNo() %>
+<%=no %>
   	<div class="row mb-3">
 		<div class="col">
 			<table class="table">
@@ -132,68 +124,45 @@
 					<tr class="d-flex">
 						<th class="col-1">번호</th>
 						<th class="col-5">제목</th>
-						<th class="col-5">작성자</th>
-						<th class="col-1">조회수</th>
+						<th class="col-2">작성자</th>
+						<th class="col-2">조회수</th>
 						<th class="col-2">등록일</th>
 					</tr>
 				</thead>
-				<tbody>	
- <%
-		for (ReviewDto review : reviewList) {
+				<tbody>				
+<%
+	if(reviewList.isEmpty()){
+%>			
+		<tr>
+			<td class="text-center" colspan="6">게시글이 존재하지 않습니다.</td>
+		</tr>		
+<%
+	} else {
+		
+		for (ReviewDto review : reviewList) {	
+			if(no == product.getNo()) {
+			
 %>	 						
 					<tr class="d-flex">
 						<td class="col-1"><%=review.getReviewNo() %></td>
-						<td class="col-5"><%=review.getTitle() %></td>
-						<td class="col-5"></td>
-						<td class="col-1">작성자</td>
-						<td class="col-2"></td>
+						<td class="col-5"><a href="reviewDetail.jsp?reviewNo=<%=review.getReviewNo()%>"><%=review.getTitle()%></a></td>
+						<td class="col-2"><%=review.getUserName() %></td>
+						<td class="col-2"><%=review.getViewCount() %></td>
+						<td class="col-2"><%=review.getReviewCreatedDate() %></td>
 					</tr>
- <%
+ <%					
+ 			}
 		}
-%>	 			
-							
+	}	
+%>	 								
 				</tbody>				
-			</table>
-		<div class="col-3 text-end">
-			<a href="reviewForm.jsp" class="btn btn-outline-primary">새 글</a>
-		</div>				
+			</table>		
 </div>
 </div>			
-		
-<%--  	<div class="row mb-3">
-		<div class="col">
-			<table class="table">
-				<thead>
-					<tr class="d-flex">
-						<th class="col-1">번호</th>
-						<th class="col-5">제목</th>
-						<th class="col-3">작성자</th>
-						<th class="col-1">조회수</th>
-						<th class="col-2">등록일</th>
-					</tr>
-				</thead>
-				<tbody>
-<%
-		for (Review review : reviewList) {
-%>							
-					<tr class="d-flex">
-						<td class="col-1"><%=review.getReviewNo() %></td>
-						<td class="col-5"><a href="detail.jsp?no=<%=review.getReviewNo()%>&pageNo=<%=pagination.getPageNo()%>"><%=review.getTitle() %></a></td>
-						<td class="col-5">제목</td>
-						<td class="col-3">작성자</td>
-						<td class="col-1">조회수</td>
-						<td class="col-2">등록일</td>
-					</tr>
-<%
-		}
-%>					
-							
-				</tbody>				
-			</table>
-				<div class="row mb-3">
+	<div class="row mb-3">
 		<div class="col-6 offset-3">
 			<nav>
-				<ul class="pagination justify-content-center">
+				<ul class="pagination justify-content-center"> 
 					<!-- 
 						Pagination객체가 제공하는 isExistPrev()는 이전 블록이 존재하는 경우 true를 반환한다.
 						Pagination객체가 제공하는 getPrevPage()는 이전 블록의 마지막 페이지값을 반환한다.
@@ -218,10 +187,11 @@
 		<div class="col-3 text-end">
 			<a href="reviewForm.jsp" class="btn btn-outline-primary">새 글</a>
 		</div>
-	</div>
-			
-		</div>
-	</div>		 --%>				
+	</div>	
+</div>	
+</div>	
+</div>	
+</div>			
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js">
 
