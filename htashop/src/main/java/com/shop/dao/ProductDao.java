@@ -20,17 +20,37 @@ public class ProductDao {
 		return self;
 	}
 	
-	public List<Product> getProductByName(String name) throws SQLException {
-		List<Product> searchByName = new ArrayList<>();
+	
+	
+	public List<Product> getProductListBySearch(String searchKeyword, String searchText) throws SQLException {
+		List<Product> searchResults = new ArrayList<>();
 		
-		String sql = 
+		String sql = "select PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IS_SOLDOUT "
+				+ "from shop_products ";
+		if ("PRODUCT_NAME".equals(searchKeyword)) {
+			sql	= "where PRODUCT_NAME like '%' || ? || '%' )";
+		}
 		
-		return searchByName;
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, searchText);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			Product product = new Product();
+			product.setCategory(rs.getString("PRODUCT_CATEGORY"));
+			product.setName(rs.getString("PRODUCT_NAME"));
+			product.setPrice(rs.getInt("PRODUCT_PRICE"));
+			product.setSoldOut(rs.getBoolean("PRODUCT_IS_SOLDOUT"));
+			searchResults.add(product);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return searchResults;
 	}
-	
-	
-	
-	
 	
 	
 	
@@ -102,6 +122,12 @@ public class ProductDao {
 	}
 	
 	
+	/**
+	 * 지정된 상품번호에 해당하는 상품정보를 반환한다.
+	 * @param no 상품번호
+	 * @return 상품정보
+	 * @throws SQLException
+	 */
 	public Product getProductDetailById(int no) throws SQLException{
 		Product products = new Product();
 		
@@ -128,6 +154,7 @@ public class ProductDao {
 		
 		return products;
 	}
+	
 	
 	/**
 	 * 모든 상품정보를 반환한다.
