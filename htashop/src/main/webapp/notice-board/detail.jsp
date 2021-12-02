@@ -34,7 +34,7 @@
 			<div class="col-10">
 				<div class="row mb-3">
 					<div class="col">
-						<h1 class="fs-3">게시글 상세</h1>
+						<h1 class="fs-6">게시글 상세</h1>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -72,10 +72,10 @@
 	if (loginedUserInfo != null && "admin".equals(loginedUserInfo.getId())) { 
 %>
 							<div>
-								<a href="form.jsp" class="btn btn-success">글쓰기</a>
-								<a href="modify.jsp?no=<%=dto.getNoticeNo() %>&pageNo=<%=pageNo %>" class="btn btn-warning">수정</a>
+								<a href="form.jsp" class="btn btn-light">글쓰기</a>
+								<a href="modify.jsp?no=<%=dto.getNoticeNo() %>&pageNo=<%=pageNo %>" class="btn btn-secondary">수정</a>
 								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#notice-delete">
+								<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#notice-delete">
 								  	삭제
 								</button>
 								<!-- Modal -->
@@ -90,8 +90,8 @@
 								        정말 게시글을 삭제하시겠습니까?
 								      </div>
 								      <div class="modal-footer">
-								        <a href="delete.jsp?no=<%=dto.getNoticeNo( )%>&pageNo=<%=pageNo %>" class="btn btn-danger" id="notice-delete">삭제</a> 
-								        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+								        <a href="delete.jsp?no=<%=dto.getNoticeNo( )%>&pageNo=<%=pageNo %>" class="btn btn-dark" id="notice-delete">삭제</a> 
+								        <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
 								      </div>
 								    </div>
 								  </div>
@@ -101,7 +101,7 @@
 	}
 %>
 							<div>
-								<a href="list.jsp?pageNo=<%=pageNo%>" class="btn btn-primary">목록</a>
+								<a href="list.jsp?pageNo=<%=pageNo%>" class="btn btn-light">목록</a>
 							</div>
 						</div>
 					</div>
