@@ -10,16 +10,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/newstyle.css" rel="stylesheet" />
 <title>HTA shop::메인페이지</title>
 </head>
 <body>
 <%
 	pageContext.setAttribute("menu", "home");
+	pageContext.setAttribute("leftMenu", "home");
 %>
 <%@include file="common/navbar.jsp"%>
 <div class="container">
 	<div class="row justify-content-end">
-		<div  class="col-sm-2">
+		<div class="col-sm-2">
 			<%@ include file="common/left.jsp" %>
 		</div>
 <%
