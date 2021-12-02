@@ -12,7 +12,7 @@
 </head>
 <body>
 <%
-	pageContext.setAttribute("menu", "home");
+	pageContext.setAttribute("menu", "reply");
 %>
 <%@include file="../common/navbar.jsp"%>
 <div class="container">

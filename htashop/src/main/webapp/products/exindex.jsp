@@ -28,7 +28,7 @@
 			</div>
 			
 <%
-	ProductDao productDao = new ProductDao();
+	ProductDao productDao = ProductDao.getInstance();
 	
 	List<Product> productList = productDao.getAllProducts();
 %>		
