@@ -10,7 +10,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="../resources/css/notice.css" rel="stylesheet" />
+<link href="../resources/css/newstyle.css" rel="stylesheet" />
 <title>NOTICE - htashop</title>
 </head>
 <body>
@@ -66,7 +66,7 @@
 %>
 								<tr>
 									<td class="col-2"><%=dto.getNoticeNo() %></td>
-									<td class="col-4"><a id="notice-list" href="detail.jsp?no=<%=dto.getNoticeNo() %>&pageNo=<%=pagination.getPageNo()%>"><%=dto.getNoticeTitle() %></a></td>
+									<td class="col-4"><a id="new-link" href="detail.jsp?no=<%=dto.getNoticeNo() %>&pageNo=<%=pagination.getPageNo()%>"><%=dto.getNoticeTitle() %></a></td>
 									<td class="col-2"><%=dto.getNoticeWriter() %></td>
 									<td class="col-2"><%=dto.getNoticeViewCount() %></td>
 									<td class="col-2"><%=dto.getNoticeRegDate() %></td>
@@ -82,15 +82,15 @@
 				<div class="row mb-3">
 					<div class="col-6 offset-3">
 						<ul class="pagination justify-content-center">
-							<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : "" %>"><a class="page-link" href="list?pageNo=<%=pagination.getPrevPage() %>">이전</a></li>
+							<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : "" %>"><a class="page-link bg-white text-black" href="list?pageNo=<%=pagination.getPrevPage() %>">이전</a></li>
 <%
 	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
 %>
-							<li class="page-item <%=pagination.getPageNo() == num ? "active" : "" %>"><a class="page-link" href="list.jsp?pageNo=<%=num %>"><%=num %></a></li>
+							<li class="page-item <%=pagination.getPageNo() == num ? "fw-bold" : "" %>"><a class="page-link bg-white text-black" href="list.jsp?pageNo=<%=num %>"><%=num %></a></li>
 <%
 	}
 %>
-							<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>"><a class="page-link" href="list?pageNo=<%=pagination.getNextPage() %>">다음</a></li>
+							<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>"><a class="page-link bg-white text-black" href="list?pageNo=<%=pagination.getNextPage() %>">다음</a></li>
 						</ul>
 					</div>
 <%
