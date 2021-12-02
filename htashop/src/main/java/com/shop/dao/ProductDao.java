@@ -45,9 +45,9 @@ public class ProductDao {
 	 * @throws SQLException
 	 */
 	public List<Product> getProductListByRN(int begin, int end) throws SQLException {
-		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE "
+		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE "
 					+ "from (select row_number() over (order by product_no) RN, "
-					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE "
+					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE "
 					+ "      from shop_products) "
 					+ "where rn >= ? and rn <= ? ";
 		
@@ -65,6 +65,7 @@ public class ProductDao {
 			product.setCategory(rs.getString("PRODUCT_CATEGORY"));
 			product.setName(rs.getString("PRODUCT_NAME"));
 			product.setPrice(rs.getInt("PRODUCT_PRICE"));
+			product.setImage(rs.getString("PRODUCT_IMAGE"));
 			productList.add(product);
 		}
 		
@@ -138,7 +139,7 @@ public class ProductDao {
 		
 		String sql = "select PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, "
 				+ "PRODUCT_PRICE, PRODUCT_STOCK, PRODUCT_IS_SOLDOUT, "
-				+ "PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE "
+				+ "PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE, PRODUCT_IMAGE "
 	            + "from shop_products ";
 		
 		Connection connection = getConnection();
@@ -155,6 +156,7 @@ public class ProductDao {
 			product.setSoldOut(rs.getBoolean("PRODUCT_IS_SOLDOUT"));
 			product.setUpdatedDate(rs.getDate("PRODUCT_UPDATED_DATE"));
 			product.setSalesRate(rs.getInt("PRODUCT_SALES_RATE"));
+			product.setImage(rs.getString("PRODUCT_IMAGE"));
 			
 			productList.add(product);
 		}

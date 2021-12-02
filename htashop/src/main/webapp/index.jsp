@@ -62,13 +62,13 @@
 %>
 				<div class="col-sm-4 mb-3">
 					<div class="card mt-3">
-						<img src="resources/images/<%=product.getName() %>.jpg" class="card-img-top" />
+						<p><%=product.getImage() %></p>
+					</div>
+
 						<div class="card-body">
 							<!-- 클릭하면 상품상세정보페이지로 이동 -->
 							<h5 class="card-title text-center"><a href="products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><%=product.getName() %></a></h5>
-							<p class="card-text text-danger text-center">
-								<strong class="fw-bold"><%=product.getPrice() %></strong> 원
-							</p>
+							<p class="card-text text-danger text-center"><strong class="fw-bold"><%=product.getPrice() %></strong> 원</p>
 						</div>
 					</div>
 				</div>

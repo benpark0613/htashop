@@ -12,6 +12,7 @@ public class Product {
 	private boolean isSoldOut;
 	private Date updatedDate;
 	private int salesRate;
+	private String image;
 
 	public Product() {}
 
@@ -79,4 +80,11 @@ public class Product {
 		this.salesRate = salesRate;
 	}
 	
+	public String getImage() {
+		return image;
+	}
+	
+	public void setImage(String image) {
+		this.image = image;
+	}
 }
