@@ -1,3 +1,4 @@
+<%@page import="utils.Pagination"%>
 <%@page import="com.shop.dto.PointDto"%>
 <%@page import="com.shop.vo.PointChange"%>
 <%@page import="com.shop.dao.PointChangeDao"%>
@@ -18,11 +19,11 @@
 <title></title>
 </head>
 <%
-PointChangeDao pointChangeDao = new PointChangeDao();
-PointDto pointDto = pointChangeDao.getPointChangeByUserNo(loginedUserInfo.getUserNo());
-
-OrderDao orderDao = new OrderDao();
-List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo());
+	PointChangeDao pointChangeDao = new PointChangeDao();
+	PointDto pointDto = pointChangeDao.getPointChangeByUserNo(loginedUserInfo.getUserNo());
+	
+	OrderDao orderDao = new OrderDao();
+	List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo());
 %>
 <body>
 	<div class="container">
@@ -45,12 +46,12 @@ List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo
 			}
 			
 			%>
-			<div class="col-11">
+			<div class="col-10">
 				<p>적립금 : 고객님의 사용가능 적립금 금액입니다.</p>
 
 				<div class="row">
 					<div class="row">
-					총 적립금 : [<%=totalPoint%>]원
+						총 적립금 : [<%=totalPoint%>]원
 					</div>
 					<div class="row">
 						사용된 적립금 : [<%=usedPoint%>]원
@@ -58,10 +59,7 @@ List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo
 					<div class="row">
 						사용가능 적립금 : [<%=totalPoint - usedPoint%>]원
 					</div>
-					<div class="row">
-						미가용 적립금 : []원
-					
-					</div>
+					<div class="row">미가용 적립금 : []원</div>
 
 					<hr class="featurette-divider">
 
@@ -126,6 +124,25 @@ List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo
 									</tr>
 								</tbody>
 							</table>
+						</div>
+					</div>
+
+<%
+	int totalRecords = orderDao.countAllOrders(loginedUserInfo.getUserNo());
+	String pageNo = request.getParameter("pageNo");
+	Pagination pagination = new Pagination(pageNo, totalRecords);
+%>
+					<div class="col-1">
+						<div class="container justify-content-center">
+							<ul class="pagination">
+								<li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>

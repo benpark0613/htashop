@@ -18,10 +18,12 @@
 		response.sendRedirect("loginform.jsp?error=emptytPassword");
 		return;
 	}
-	User loginUserInfo = (User)session.getAttribute("LOGIN_USER_INFO");
 	
-	if (loginUserInfo == null) {
-		response.sendRedirect("../loginform.jsp?error=login-required");
+	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
+	
+	//loginform가서 fail=login-required 이걸 만들어야함
+	if (loginedUserInfo == null) {
+		response.sendRedirect("../loginform.jsp?fail=login-required");
 		return;
 	}
 	
@@ -30,7 +32,7 @@
 	qaBoard.setTitle(title);
 	qaBoard.setContent(content);
 	qaBoard.setProductNo(productNo);
-	qaBoard.setUserNo(loginUserInfo.getUserNo());
+	qaBoard.setUserNo(loginedUserInfo.getUserNo());
 	
 	
 	QaBoardDao qaBoardDao = new QaBoardDao();

@@ -20,6 +20,23 @@ public class ProductDao {
 		return self;
 	}
 	
+	public List<Product> getProductByName(String name) throws SQLException {
+		List<Product> searchByName = new ArrayList<>();
+		
+		String sql = 
+		
+		return searchByName;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 지정된 범위에 속하는 상품리스트를 반환한다.
 	 * @param begin 시작번호
@@ -51,6 +68,10 @@ public class ProductDao {
 			productList.add(product);
 		}
 		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
 		return productList;
 	}
 	
@@ -79,12 +100,6 @@ public class ProductDao {
 		return totalProductsRecord;
 	}
 	
-	
-	
-	
-	
-	
-
 	
 	public Product getProductDetailById(int no) throws SQLException{
 		Product products = new Product();
@@ -150,6 +165,4 @@ public class ProductDao {
 		
 		return productList;
 	}
-	
-
 }

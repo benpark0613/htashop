@@ -32,7 +32,7 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 			qaboard.setNo(rs.getInt("qa_no"));
 			qaboard.setProductNo(rs.getInt("product_no"));
 			qaboard.setTitle(rs.getString("qa_title"));
-			qaboard.setUserNo(rs.getInt("user-no"));
+			qaboard.setUserNo(rs.getInt("user_no"));
 			qaboard.setRegdate(rs.getDate("qa_regdate"));
 			
 			qaboardList.add(qaboard);
@@ -47,14 +47,15 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 	
 	//	User에서 user정보를 거ㅏ져와서 박아야함
 	public void insertQaBoard(QaBoard qaboard) throws SQLException{
-		String sql = "insert into shop_qaboard (qa_no, product_no, qa_title, user_no, qa_regdate ) "
-					+"values (SHOP_QA_SEQ.nextval, ?, ?, ?, sysdate )";
+		String sql = "insert into shop_qaboard (qa_no, product_no, qa_title, qa_content, user_no, qa_regdate ) "
+					+"values (SHOP_QA_SEQ.nextval, ?, ?, ?, ?, sysdate )";
 	
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		pstmt.setInt(1, qaboard.getProductNo());
 		pstmt.setString(2, qaboard.getTitle());
-		pstmt.setInt(3, qaboard.getUserNo());
+		pstmt.setString(3, qaboard.getContent());
+		pstmt.setInt(4, qaboard.getUserNo());
 		
 		
 		pstmt.executeUpdate();
@@ -96,17 +97,16 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 		return QAList;
 	}
 	
-	public QaBoard getQuestionDetail(int no) throws SQLException {
+	public QaBoard getQuestionByNo(int no) throws SQLException {
 		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no "
 				   + "from shop_qaboard q, shop_user U "
-				   + "where q.user_no = U.user_no "
-				   + "and B.board_no = ? ";
+				   + "where q.user_no = U.user_no ";
+				  
 		
 		QaBoard qaBoard = null;
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, no);
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			qaBoard = new QaBoard();
@@ -125,4 +125,9 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 		
 		return qaBoard;
 	}
+	
+	
+	
+	
+	
 }

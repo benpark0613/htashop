@@ -54,7 +54,7 @@
 		
 %>						
 					<tr>
-						<a href="detail.jsp?no=<%=qaBoard.getNo()%>"><%=qaBoard.getNo() %></a>
+						<td><a href="detail.jsp?no=<%=qaBoard.getNo()%>"><%=qaBoard.getNo() %></a></td>
 						<td><%=qaBoard.getProductNo() %></td>
 						<td><%=qaBoard.getTitle() %></td>
 						<td><%=qaBoard.getUserNo() %></td>
@@ -67,14 +67,26 @@
 				</tbody>			
 			</table>
 		</div>
+<%
+	// 로그인되지 않은 경우 새 글 버튼이 출력되지않는다.
+		if (loginedUserInfo != null) { 
+%>
+		
 		<div class="row mb-3">
 			<div class="col">
 				<form class="border p-3 bg-light" method="post" action="writeform.jsp">
-					<button type="submit" style="text-align:center;" class="btn btn-primary">글쓰기</button>
+					<button type="submit"  class="btn btn-primary">글쓰기</button>
 				</form>
 			
 			</div>
 		</div>
+<%
+		}
+%>
+		
+			
+		
+		
 	</div>		
 	</div>
 

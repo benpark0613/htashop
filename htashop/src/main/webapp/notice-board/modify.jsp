@@ -16,7 +16,8 @@
 <%@ include file="../common/navbar.jsp"%>
 <%
 	if (loginedUserInfo == null) {
-		response.sendRedirect("../loginform.jsp?error=login-required");
+		response.sendRedirect("../loginform.jsp?fail=login-required");
+		return;
 	}
 %>
 <%
@@ -71,7 +72,7 @@
 								<textarea class="form-control" rows="10" name="content"><%=dto.getNoticeContent() %></textarea>
 							</div>
 							<div class="d-flex justify-content-end">
-								<button type="submit" class="btn btn-primary">등록</button>
+								<button type="submit" class="btn btn-dark">등록</button>
 								<a href="detail.jsp?no=<%=no %>&pageNo=<%=pageNo %>" class="btn btn-secondary">취소</a>
 							</div>
 						</form>

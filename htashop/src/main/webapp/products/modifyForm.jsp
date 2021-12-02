@@ -1,3 +1,5 @@
+<%@page import="com.shop.dao.ReviewDao"%>
+<%@page import="com.shop.dto.ReviewDto"%>
 <%@page import="com.shop.dao.ProductDao"%>
 <%@page import="com.shop.vo.Product"%>
 <%@page import="java.util.List"%>
@@ -21,8 +23,10 @@
 			<%@ include file="../common/left.jsp" %>
 		</div>
 <%
-	ProductDao productDao = ProductDao.getInstance();
-	List<Product> productList = productDao.getAllProducts();
+	int no = Integer.parseInt(request.getParameter("no"));
+
+	ReviewDao reviewDao = new ReviewDao();
+	ReviewDto reviewDto = reviewDao.getReviewDetailByNo(no);
 %>		
 		<div class="col-sm-10 align-self-end mt-4">
 			<div class="row mb-3">
@@ -52,17 +56,17 @@
 				register.jsp에서 게시글을 등록하고, 오류가 발생하면 이 페이지를 재요청하는 URL을 응답으로 보낸다.
 				register.jsp에서 게시글 등록이 완료되면, list.jsp를 재요청하는 URL을 클라이언트에 응답으로 보낸다. 
 			 -->
-			<form class="border p-3 bg-light" method="post" action="register.jsp">
+			<form class="border p-3 bg-light" method="post" action="modifyRegister.jsp?no=<%=no%>">
 				<div class="mb-3">
 					<label class="form-label" for="board-title">제목</label>
-					<input type="text" class="form-control" name="title" id="board-title">
+					<input type="text" class="form-control" name="title" value ="<%=reviewDto.getTitle()%>">
 				</div>
 				<div class="mb-3">
 					<label class="form-label" for="board-content">내용</label>
-					<textarea rows="6" class="form-control" name="content"></textarea>
+					<textarea rows="6" class="form-control" name="content"><%=reviewDto.getReviewContent()%></textarea>
 				</div>
 				<div class="mb-3 text-end">
-					<a href="list.jsp" class="btn btn-secondary">취소</a>
+					<a href="reviewDetail.jsp?reviewNo=<%=no %>" class="btn btn-secondary">취소</a>
 					<button type="submit" class="btn btn-primary">등록</button>
 				</div>
 			</form>

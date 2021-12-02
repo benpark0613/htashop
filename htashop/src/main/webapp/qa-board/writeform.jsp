@@ -9,25 +9,10 @@
     <title></title>
 </head>
 <body>
-<%
-	// include 시킨 navbar의 nav-item 중에서 페이지에 해당하는 nav-item를 active 시키기위해서 "menu"라는 이름으로 페이지이름을 속성으로 저장한다.
-	// pageContext에 menu라는 이름으로 설정한 속성값은 navbar.jsp의 6번째 라인에서 조회해서 navbar의 메뉴들 중 하나를 active 시키기 위해서 읽어간다.
-	pageContext.setAttribute("menu", "board");
-%>
+
 
 <%@ include file="../common/navbar.jsp" %>
 
-
-
-<div class="container">
-	<div class="row mb-3">
-		<div class="col">
-			<h4>
-				<font color=#777777>Q & A</font> |
-				상품 Q&A입니다.
-			</h4>
-		</div>
-	</div>
 <%	
 		String error = request.getParameter("error");
 	
@@ -57,6 +42,17 @@
 <%
 	}
 %>
+
+<div class="container">
+	<div class="row mb-3">
+		<div class="col">
+			<h4>
+				<font color=#777777>Q & A</font> |
+				상품 Q&A입니다.
+			</h4>
+		</div>
+	</div>
+
 	
 	
 	
@@ -65,11 +61,11 @@
 			<form class="border p-3 bg-light" method="post" action="write.jsp">
 				<div class="mb-3">
 					<label class="col-1 col-form-label text-front">제목</label>
-					<select >
-						<option selected="selected" name="title" title id="상훔문의">상품문의</option>
-						<option name="title" title id="배송문의">배송문의</option>
-						<option name="title" title id="교환 및 환불문의">교환 및 환불문의</option>
-						<option name="title" title id="기타문의">기타문의</option>
+					<select name="title">
+						<option selected="selected"  value="상품문의">상품문의</option>
+						<option  value="배송문의">배송문의</option>
+						<option  value="교환 및 환불문의">교환 및 환불문의</option>
+						<option  value="기타문의">기타문의</option>
 					</select>
 				</div>
 				

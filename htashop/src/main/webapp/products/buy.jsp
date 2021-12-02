@@ -10,6 +10,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <title>HTA shop::메인페이지</title>
 </head>
+<%
+	pageContext.setAttribute("menu", "detail");
+	pageContext.setAttribute("leftMenu", "notice");
+%>
 <body>
 <%@include file="../common/navbar.jsp"%>
 <div class="container">
@@ -25,22 +29,18 @@
 <%			
 int no = Integer.parseInt(request.getParameter("no"));
 
-
 // 게시글 정보를 제공하는 BoardDao객체를 획득한다.
-ProductDao productDao = new ProductDao();	
+ProductDao productDao = ProductDao.getInstance();	
 
 // 게시글 번호에 해당하는 글 정보를 조회한다.
 Product product = productDao.getProductDetailById(no);
 
-String color = request.getParameter("color");
-String size = request.getParameter("size");
 int quantity = Integer.parseInt(request.getParameter("quantity"));
 
 String name = product.getName();
 int price = product.getPrice();
 int total = price * quantity;
 %>
-
 			<table class="table">
 				<thead>
 					<tr class="d-flex">
@@ -59,10 +59,6 @@ int total = price * quantity;
 					</tr>					
 				</tbody>				
 			</table>
-
-
-
-
 				</div>
 			</div>
 		</div>

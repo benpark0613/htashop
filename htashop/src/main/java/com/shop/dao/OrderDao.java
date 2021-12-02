@@ -22,7 +22,7 @@ public class OrderDao {
 	}
 
 	public Order getOrdersByNo(int userNo)throws SQLException{
-			
+
 		String sql = "select ORDER_NO, USER_NO, ORDER_DATE, ORDER_STATE, ORDER_TOTAL_PRICE, "
 				+ "POINT_USED, EXPECTED_POINT "
 				+ "from SHOP_ORDER "
@@ -55,6 +55,27 @@ public class OrderDao {
 		
 		return order;
 	}
+	
+
+	
+	public int countAllOrders(int userNo)throws SQLException{
+		
+		String sql = "select count(*) cnt "
+				+ "from SHOP_ORDER "
+				+ "where USER_NO = ? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		int cnt = rs.getInt("cnt");
+		rs.close();
+		pstmt.close();
+		connection.close();
+		return cnt;
+	}
+	
 	
 	public int countShippedComplete(int userNo)throws SQLException{
 		
@@ -173,7 +194,7 @@ public class OrderDao {
 	public List<OrderDto> getOrderDetailList(int userNo)throws SQLException{
 		
 		String sql = "select O.ORDER_NO, P.PRODUCT_NAME, OL.ORDER_COUNT, O.ORDER_TOTAL_PRICE, O.ORDER_STATE, "
-				          + "O.POINT_USED, O.EXPECTED_POINT "
+				          + "O.POINT_USED, O.EXPECTED_POINT, O.ORDER_DATE "
 				   + "from SHOP_ORDER O, SHOP_ORDERLIST OL, SHOP_PRODUCTS P "
 				   + "where O.ORDER_NO = OL.ORDER_NO "
 				   + "AND OL.PRODUCT_NO = P.PRODUCT_NO "
@@ -194,6 +215,7 @@ public class OrderDao {
 			orderDto.setOrderState(rs.getString("ORDER_STATE"));
 			orderDto.setUsedPoint(rs.getInt("POINT_USED"));
 			orderDto.setExpectedpoint(rs.getInt("EXPECTED_POINT"));
+			orderDto.setOrderDate(rs.getDate("ORDER_DATE"));
 			
 			orderList.add(orderDto);
 			
@@ -202,11 +224,50 @@ public class OrderDao {
 		pstmt.close();
 		connection.close();
 		
-		
 		return orderList;
 	}
 	
-	
+	/* 수정중
+	public List<OrderDto> getOrderDetailListByDateAndStatusAndId(String begin, String end, String status, int userNo)throws SQLException{
+
+		String sql = "select O.ORDER_NO, P.PRODUCT_NAME, OL.ORDER_COUNT, O.ORDER_TOTAL_PRICE, O.ORDER_STATE, "
+				+ "O.POINT_USED, O.EXPECTED_POINT, O.ORDER_DATE "
+				+ "from SHOP_ORDER O, SHOP_ORDERLIST OL, SHOP_PRODUCTS P "
+				+ "where O.ORDER_NO = OL.ORDER_NO "
+				+ "AND OL.PRODUCT_NO = P.PRODUCT_NO "
+				+ "AND O.USER_NO = ? AND ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
+		pstmt.setInt(1, userNo);
+		pstmt.setInt(1, userNo);
+		ResultSet rs = pstmt.executeQuery();
+
+		List<OrderDto> orderList = new ArrayList<>();
+		while(rs.next()) {
+			OrderDto orderDto = new OrderDto();
+
+			orderDto.setOrderNo(rs.getInt("ORDER_NO"));
+			orderDto.setProductName(rs.getString("PRODUCT_NAME"));
+			orderDto.setOrderCount(rs.getInt("ORDER_COUNT"));
+			orderDto.setOrderTotalPrice(rs.getInt("ORDER_TOTAL_PRICE"));
+			orderDto.setOrderState(rs.getString("ORDER_STATE"));
+			orderDto.setUsedPoint(rs.getInt("POINT_USED"));
+			orderDto.setExpectedpoint(rs.getInt("EXPECTED_POINT"));
+			orderDto.setOrderDate(rs.getDate("ORDER_DATE"));
+
+			orderList.add(orderDto);
+
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+
+		return orderList;
+	}
+	*/
+
+
 	
 	
 }
