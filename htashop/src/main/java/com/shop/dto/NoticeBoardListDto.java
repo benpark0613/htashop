@@ -1,22 +1,13 @@
 package com.shop.dto;
 
-import static utils.ConnectionUtil.getConnection;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import com.shop.vo.NoticeBoard;
 
 public class NoticeBoardListDto {
 
 	int noticeNo;
 	String noticeTitle;
 	String noticeWriter;
+	String noticeContent;
 	int noticeViewCount;
 	Date noticeRegDate;
 	
@@ -38,6 +29,12 @@ public class NoticeBoardListDto {
 	public void setNoticeWriter(String noticeWriter) {
 		this.noticeWriter = noticeWriter;
 	}
+	public String getNoticeContent() {
+		return noticeContent;
+	}
+	public void setNoticeContent(String noticeContent) {
+		this.noticeContent = noticeContent;
+	}
 	public int getNoticeViewCount() {
 		return noticeViewCount;
 	}
@@ -50,6 +47,6 @@ public class NoticeBoardListDto {
 	public void setNoticeRegDate(Date noticeRegDate) {
 		this.noticeRegDate = noticeRegDate;
 	}
-
+	
 	
 }

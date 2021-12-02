@@ -4,25 +4,24 @@
 <%@page import="com.shop.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-int no = Integer.parseInt(request.getParameter("no"));
+	int no = Integer.parseInt(request.getParameter("no"));
 	String pageNo = request.getParameter("pageNo");
 	
-	User loginedCustomerInfo  = (User)session.getAttribute("logined_user_info");
+	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 	
-	if (loginedCustomerInfo == null) {
+	if (loginedUserInfo == null) {
 		response.sendRedirect("../loginform.jsp?error=login-required");
 		return;
 	}
 	
-	NoticeBoardListDto noticeBoardDto = new NoticeBoardListDto();
-	NoticeBoard noticeBoard = noticeBoardDto.getNoticeBoardDetailByNo(no);
+	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
+	NoticeBoardListDto dto = noticeBoardDao.getNoticeBoardByNo(no);
 	
-	if (noticeBoard.getNo() != loginedCustomerInfo.getUserNo()) {
+	if (!dto.getNoticeWriter().equals(loginedUserInfo.getId())) {
 		response.sendRedirect("detail.jsp?no="+no+"&pageNo="+pageNo+"&error=deny-delete");
 		return;
 	}
 	
-	NoticeBoardDao noticeBoardDao = new NoticeBoardDao();
 	noticeBoardDao.deleteNoticeBoard(no);
 	
 	response.sendRedirect("list.jsp?pageNo=" + pageNo);
