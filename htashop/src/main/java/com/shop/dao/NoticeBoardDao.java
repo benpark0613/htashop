@@ -26,10 +26,61 @@ public class NoticeBoardDao {
 	 * @return 공지게시글 목록
 	 * @throws SQLException
 	 */
-	public List<NoticeBoardListDto> getNoticeBoardList(int begin, int end) throws SQLException {
-		String sql = "select notice_no, notice_title, notice_regdate, notice_viewcount, user_no, user_id "
+	public List<NoticeBoardListDto> getNoticeBoardList(int begin, int end, String searchField, String searchText) throws SQLException {
+		String sql = "select notice_no, notice_title, notice_content, notice_regdate, notice_viewcount, user_no, user_id "
 				   + "from (select row_number() over (order by N.notice_no desc) rn, "
-				   + "			   N.notice_no, N.notice_title, N.notice_regdate, N.notice_viewcount, "
+				   + "			   N.notice_no, N.notice_title, N.notice_content, N.notice_regdate, N.notice_viewcount, "
+				   + "             U.user_no, U.user_id "
+				   + "      from shop_noticeboard N, shop_user U "
+				   + "		where N.user_no = U.user_no ";
+		if ("notice_title".equals(searchField)) {
+			   sql +=  " 	and notice_title like '%' || ? || '%') ";
+		}
+		if ("notice_content".equals(searchField)) {
+			   sql +=  "	and notice_content like '%' || ? || '%') ";
+		}
+		if ("user_id".equals(searchField)) {
+			   sql +=  "	and user_id like '%' || ? || '%') ";
+		}
+			   sql +="where rn >=? and rn <= ? ";
+
+		List<NoticeBoardListDto> noticeBoards = new ArrayList<NoticeBoardListDto>();
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, searchText);
+		pstmt.setInt(2, begin);
+		pstmt.setInt(3, end);
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			NoticeBoardListDto noticeBoardListDto = new NoticeBoardListDto();
+			noticeBoardListDto.setNoticeNo(rs.getInt("notice_no"));
+			noticeBoardListDto.setNoticeTitle(rs.getString("notice_title"));
+			noticeBoardListDto.setNoticeWriter(rs.getString("user_id"));
+			noticeBoardListDto.setNoticeRegDate(rs.getDate("notice_regdate"));
+			noticeBoardListDto.setNoticeViewCount(rs.getInt("notice_viewcount"));
+			
+			noticeBoards.add(noticeBoardListDto);
+		}
+
+		rs.close();
+		pstmt.close();
+		connection.close();
+
+		return noticeBoards;
+	}
+	
+	/**
+	 * 모든 공지사항 게시글 정보를 반환한다.
+	 * 
+	 * @return 공지게시글 목록
+	 * @throws SQLException
+	 */
+	public List<NoticeBoardListDto> getNoticeBoardList(int begin, int end) throws SQLException {
+		String sql = "select notice_no, notice_title, notice_content, notice_regdate, notice_viewcount, user_no, user_id "
+				   + "from (select row_number() over (order by N.notice_no desc) rn, "
+				   + "			   N.notice_no, N.notice_title, notice_content, N.notice_regdate, N.notice_viewcount, "
 				   + "             U.user_no, U.user_id "
 				   + "      from shop_noticeboard N, shop_user U "
 				   + "		where N.user_no = U.user_no) "
@@ -165,7 +216,43 @@ public class NoticeBoardDao {
 	}
 	
 	/**
-	 * 공지게시글의 갯수를 반환한다.
+	 * 공지게시글의 갯수를 반환한다. (페이지네이션기능)
+	 * @return 공지게시글 갯수
+	 * @throws SQLException
+	 */
+	public int getTotalRecords(String searchField, String searchText) throws SQLException {
+		String sql = "select count(*) cnt "
+				   + "from shop_noticeboard N, shop_user U "
+				   + "where N.user_no = U.user_no ";
+		if ("notice_title".equals(searchField)) {
+			   sql +="and notice_title like '%' || ? || '%' ";
+		}
+		if ("notice_content".equals(searchField)) {
+			   sql +="and notice_content like '%' || ? || '%' ";
+		}
+		if ("user_id".equals(searchField)) {
+			   sql +="and user_id like '%' || ? || '%' ";
+		}
+		
+		int totalRecords = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, searchText);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		totalRecords = rs.getInt("cnt");
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return totalRecords;
+	}
+	
+	/**
+	 * 공지게시글의 갯수를 반환한다. (페이지네이션기능)
 	 * @return 공지게시글 갯수
 	 * @throws SQLException
 	 */

@@ -42,6 +42,14 @@
 			</div>
 <%	
 	}
+
+	if ("login-required".equals(fail)) {
+%>		
+			<div class="alert alert-danger">
+				<strong>[로그인 실패]</strong> 로그인이 필요한 페이지를 요청하였습니다.
+			</div>
+<%	
+	}
 %>
 			<form class="border p-3 bg-light" method="post" action="login.jsp">
 			

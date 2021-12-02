@@ -20,7 +20,8 @@
 	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 	
 	if (loginedUserInfo == null) {
-		response.sendRedirect("../loginform.jsp?error=login-required");
+		response.sendRedirect("../loginform.jsp?fail=login-required");
+		return;
 	}
 	
 	NoticeBoard noticeBoard = new NoticeBoard();

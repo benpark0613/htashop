@@ -20,14 +20,24 @@
 %>
 <%@ include file="../common/navbar.jsp"%>
 <%
-
-
 	String pageNo = request.getParameter("pageNo");
+	String searchField = request.getParameter("searchField");
+	String searchText = request.getParameter("searchText");
 
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
-	int totalRecords = noticeBoardDao.getTotalRecords();
-	Pagination pagination = new Pagination(pageNo, totalRecords);
-	List<NoticeBoardListDto> noticeBoards = noticeBoardDao.getNoticeBoardList(pagination.getBegin(), pagination.getEnd());
+	List<NoticeBoardListDto> noticeBoards = null;	
+	Pagination pagination = null;
+			
+	if (searchField != null && !searchField.isEmpty() && searchText != null && !searchText.isEmpty()) {
+		int totalRecords = noticeBoardDao.getTotalRecords(searchField, searchText);
+		pagination = new Pagination(pageNo, totalRecords);
+		noticeBoards = noticeBoardDao.getNoticeBoardList(pagination.getBegin(), pagination.getEnd(), searchField, searchText);
+	} else {
+		int totalRecords = noticeBoardDao.getTotalRecords();
+		pagination = new Pagination(pageNo, totalRecords);
+		noticeBoards = noticeBoardDao.getNoticeBoardList(pagination.getBegin(), pagination.getEnd());	
+	}
+	
 	
 %>
 	<div class="container">
@@ -38,7 +48,7 @@
 			<div class="col-10">
 				<div class="row mb-3" id="container_title">
 					<div class="col">
-						<h1 class="fs-3">NOTICE | 공지사항입니다.</h1>
+						<h1 class="fs-6"><strong>NOTICE</strong> | 공지사항입니다.</h1>
 					</div>
 				</div>
 				<div class="row mb-3" id="board_list">
@@ -97,7 +107,7 @@
 	if (loginedUserInfo != null && "admin".equals(loginedUserInfo.getUserType())) {
 %>
 					<div class="col-3" id="board_write">
-						<a href="form.jsp" class="btn btn-outline-primary">새 글</a>
+						<a href="form.jsp" class="btn btn-light">새 글</a>
 					</div>
 <%
 	}
@@ -106,19 +116,19 @@
 
 				<div class="row mb-3">
 					<div class="col" id="board_search">
-						<form class="d-flex justify-content-center offset-1" name="search" method="post" action="list.jsp">
+						<form class="d-flex justify-content-center offset-1" name="search" method="post" action="list.jsp?">
 							<div class="col-2">
 								<select class="form-select" name="searchField">
-									<option value="title">제목</option>
-									<option value="content">내용</option>
-									<option value="writer">글쓴이</option>
+									<option value="notice_title">제목</option>
+									<option value="notice_content">내용</option>
+									<option value="user_id">글쓴이</option>
 								</select>
 							</div>
 							<div class="col-3">
 								<input class="form-control" type="text" placeholder="검색어(필수)" name="searchText" />
 							</div>
 							<div class="col-2">
-								<input type="submit" value="검색" class="btn btn-primary" />
+								<input type="submit" value="검색" class="btn btn-light" />
 							</div>
 						</form>
 					</div>
