@@ -23,36 +23,108 @@
 			</div>
 
 			<div class="col-11">
+				<div class="container">
 
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">주문번호</th>
-							<th scope="col">상품정보</th>
-							<th scope="col">수량</th>
-							<th scope="col">상품구매금액</th>
-							<th scope="col">주문처리상태</th>
-						</tr>
-					</thead>
-					<%
+					<div class="card">
+
+						<div class="card-header">
+							<ul class="nav nav-tabs card-header-tabs">
+								<li class="nav-item"><a class="nav-link active" aria-current="true" href="#1">주문내역조회</a></li>
+								<li class="nav-item"><a class="nav-link" href="#content1">Link</a></li>
+							</ul>
+						</div>
+						
+						<form action="orderListSearch.jsp" method="GET">
+							<div class="card-body" id="1">
+								<div class="border">
+
+									<div class="btn-group">
+										<button class="btn btn-secondary btn-sm dropdown-toggle" name="status" type="button" data-bs-toggle="dropdown" aria-expanded="false">전체 주문처리상태</button>
+										<ul class="dropdown-menu">
+											<li><a class="dropdown-item" href="#">전체 주문처리상태</a></li>
+											<li><a class="dropdown-item" href="#">입금전</a></li>
+											<li><a class="dropdown-item" href="#">배송준비중</a></li>
+											<li><a class="dropdown-item" href="#">배송중</a></li>
+											<li><a class="dropdown-item" href="#">배송완료</a></li>
+											<li><a class="dropdown-item" href="#">취소</a></li>
+											<li><a class="dropdown-item" href="#">교환</a></li>
+											<li><a class="dropdown-item" href="#">반품</a></li>
+										</ul>
+									</div>
+
+
+
+									<div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+									
+										<button type="button" class="btn btn-outline-primary">오늘</button>
+										<button type="button" class="btn btn-outline-primary">1주일</button>
+										<button type="button" class="btn btn-outline-primary">1개월</button>
+										<button type="button" class="btn btn-outline-primary">3개월</button>
+										<button type="button" class="btn btn-outline-primary">6개월</button>
+									</div>
+									
+									
+									<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+									    <input type="radio" class="btn-check" name="term" id="btnradio1" autocomplete="off" checked>
+									    <label class="btn btn-outline-primary" for="btnradio1">오늘</label>
+									
+									    <input type="radio" class="btn-check" name="term" id="btnradio2" autocomplete="off">
+									    <label class="btn btn-outline-primary" for="btnradio2">1주일</label>
+									
+									    <input type="radio" class="btn-check" name="term" id="btnradio3" autocomplete="off">
+									    <label class="btn btn-outline-primary" for="btnradio3">1개월</label>
+									    
+									    <input type="radio" class="btn-check" name="term" id="btnradio1" autocomplete="off">
+									    <label class="btn btn-outline-primary" for="btnradio1">3개월</label>
+									
+									    <input type="radio" class="btn-check" name="term" id="btnradio2" autocomplete="off">
+									    <label class="btn btn-outline-primary" for="btnradio2">6개월</label>
+									</div>
+									
+									
+
+									<div class="btn">
+										<button type="button" class="btn btn-secondary" type="submit">조회</button>
+									</div>
+
+								</div>
+							</div>
+					</form>
+					</div>
+				</div>
+
+				<div class="container">
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">주문번호</th>
+								<th scope="col">상품정보</th>
+								<th scope="col">수량</th>
+								<th scope="col">상품구매금액</th>
+								<th scope="col">주문처리상태</th>
+							</tr>
+						</thead>
+						<%
 						OrderDao orderDao = new OrderDao();
 						List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo());
 						
 						for (OrderDto order : orderList) {
 					%>
-					<tbody>
-						<tr>
-							<th scope="row"><%=order.getOrderNo()%></th>
-							<td><%=order.getProductName()%></td>
-							<td><%=order.getOrderCount()%></td>
-							<td><%=order.getOrderTotalPrice()%></td>
-							<td><%=order.getOrderState()%></td>
-						</tr>
-					</tbody>
-					<%
+						<tbody>
+							<tr>
+								<th scope="row"><%=order.getOrderNo()%></th>
+								<td><%=order.getProductName()%></td>
+								<td><%=order.getOrderCount()%></td>
+								<td><%=order.getOrderTotalPrice()%></td>
+								<td><%=order.getOrderState()%></td>
+							</tr>
+						</tbody>
+						<%
 						}
-					%>
-				</table>
+						%>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

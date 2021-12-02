@@ -38,6 +38,9 @@
 
 </head>
 <body>
+<%
+	pageContext.setAttribute("myshop", "home");
+%>
 
 
 
