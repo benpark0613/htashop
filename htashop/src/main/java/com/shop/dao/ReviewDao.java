@@ -10,33 +10,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shop.dto.ReviewDto;
-import com.shop.vo.Product;
 import com.shop.vo.Review;
-import com.shop.vo.User;
 public class ReviewDao {
 	
 	
 	
-	
-	/**
-	 * 수정된 정보가 포함된 게시글 정보를 테이블에 반영한다.
-	 * @param board
-	 * @throws SQLException
-	 */
-	public void updateReview(ReviewDto reviewDto) throws SQLException {
+	public void updateReviewDetail(ReviewDto reviewDto) throws SQLException {
 		String sql = "update shop_review "
 				   + "set "
-				   + "review_title = ?, "
-				   + "review_content = ?, "
-				   + "review_view_count = ? "
+				   + "	review_title = ?, "
+				   + "	review_content = ?, "
 				   + "where review_no = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		pstmt.setString(1, reviewDto.getTitle());
 		pstmt.setString(2, reviewDto.getReviewContent());
-		pstmt.setInt(3, reviewDto.getViewCount());
-		pstmt.setInt(4, reviewDto.getReviewNo());
+		pstmt.setInt(3, reviewDto.getReviewNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}	
+	
+	
+	
+	public void deleteReview(int reviewNo) throws SQLException {
+		String sql = "delete from shop_review where review_no = ? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, reviewNo);
 		
 		pstmt.executeUpdate();
 		
@@ -71,7 +76,7 @@ public class ReviewDao {
 	
 	
 	
-	public List<ReviewDto> getReviewList(int begin, int end) throws SQLException{
+	public List<ReviewDto> getReviewListByNo(int begin, int end, int productNo) throws SQLException{
 		String sql = "select review_no, user_no, product_no, review_title, user_name, review_content, answer_content, answer_created_date, "      
 				   + "		 review_view_count, REVIEW_CREATED_DATE "
 				   + "from (select row_number() over (order by R.review_no desc) rn, "
@@ -80,7 +85,8 @@ public class ReviewDao {
 				   + "      from SHOP_REVIEW R, SHOP_USER U, SHOP_PRODUCTS P "
 				   + "      where U.user_no = R.USER_NO "
 				   + "      and P.PRODUCT_NO = R.PRODUCT_NO) "
-				   + "where rn >= ? and rn <= ? ";
+				   + "where rn >= ? and rn <= ? "
+				   + "and product_no = ? ";
 	
 		List<ReviewDto> reviewList = new ArrayList<>();
 		
@@ -88,6 +94,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		pstmt.setInt(1, begin);
 		pstmt.setInt(2, end);
+		pstmt.setInt(3, productNo);
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			ReviewDto reviewDto = new ReviewDto();

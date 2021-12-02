@@ -30,7 +30,7 @@
 int no = Integer.parseInt(request.getParameter("no"));
 
 // 게시글 정보를 제공하는 BoardDao객체를 획득한다.
-ProductDao productDao = new ProductDao();	
+ProductDao productDao = ProductDao.getInstance();	
 
 // 게시글 번호에 해당하는 글 정보를 조회한다.
 Product product = productDao.getProductDetailById(no);

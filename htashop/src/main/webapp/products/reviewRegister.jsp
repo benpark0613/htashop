@@ -1,3 +1,4 @@
+<%@page import="com.shop.dto.ReviewDto"%>
 <%@page import="com.shop.vo.Review"%>
 <%@page import="com.shop.dao.ReviewDao"%>
 <%@page import="com.shop.vo.User"%>
@@ -35,18 +36,18 @@
 	
 	// Board객체를 생성한다.
 	// 생성한 Board객체에 제목, 작성자, 내용을 저장한다.
-	Review review = new Review();
+	ReviewDto review = new ReviewDto();
 	review.setTitle(title);
 	review.setWriter(loginUserInfo);
 	review.setContent(content);
 	
 	// 게시글 관련 기능을 제공하는 BoardDao 객체를 획득한다.
-	ReviewDao reviewDao = ReviewDao();
+	ReviewDao reviewDao = new ReviewDao();
 	
 	// 게시글 정보를 테이블에 저장시킨다.
-	boardDao.insertBoard(board);
+	reviewDao.insertBoard(board);
 	
 	// 클라이언트에게 게시글 목록(list.jsp)은 재요청하게 하는 응답을 보내다.
-	response.sendRedirect("list.jsp");
+	response.sendRedirect("detail.jsp");
 	
 %>
