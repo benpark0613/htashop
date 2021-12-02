@@ -16,7 +16,7 @@ public class Cart {
 	public void setCartNo(int cartNo) {
 		this.cartNo = cartNo;
 	}
-	public int getUserrNo() {
+	public int getUserNo() {
 		return userNo;
 	}
 	public void setUserNo(int customerNo) {
