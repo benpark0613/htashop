@@ -1,9 +1,9 @@
-#notice-list { 
+#new-link { 
     text-decoration: none;
     color: #000000;
 }
 
-#notice-list:hover { 
+#new-link:hover { 
     text-decoration: underline;
     color: #000000;
 }
