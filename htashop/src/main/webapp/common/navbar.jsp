@@ -8,7 +8,7 @@
 	// 로그인 후: [로그아웃, 모디파이,] 카트, 오더, 마이샵
 	// 관리자 페이지: 상점관리, 상품관리, 주문관리, 고객관리, 게시판관리
 	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
-
+	
 %>
 <nav class="navbar navbar-expand-sm bg-light navbar-light mb-3">
 	<div class="container">

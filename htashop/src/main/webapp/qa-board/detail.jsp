@@ -28,8 +28,10 @@
 	QaBoard qaBoard = new QaBoard();
 	QaBoardDao qaBoardDao = new QaBoardDao();
 	qaBoard = qaBoardDao.getQuestionByNo(no);
+	
 	if(loginedUserInfo.getId().equals(qaBoard.getUserId()) || "admin".equals(qaBoard.getUserId())){
 %>	
+	
 			<table class="table">
 				<tbody>
 					<tr class="d-flex">
@@ -52,7 +54,7 @@
 			</table>
 <%
 			if("admin".equals(qaBoard.getUserId())){
-%>		
+%>				
 					<form action="register">
 						<div class="mb-3">
 							<label class="col-1 col-form-label text-front">댓글</label>
@@ -64,7 +66,10 @@
 %>	
 <%
 	}else{
-
+%>
+		<p><%=loginedUserInfo.getId() %></p>
+		<p><%=qaBoard.getUserId() %></p>
+<%		
 	response.sendRedirect("list.jsp");
 	}
 %>	

@@ -98,7 +98,7 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 	}
 	
 	public QaBoard getQuestionByNo(int no) throws SQLException {
-		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no "
+		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no, u.user_id "
 				   + "from shop_qaboard q, shop_user U "
 				   + "where q.user_no = U.user_no ";
 				  
@@ -117,6 +117,7 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 			qaBoard.setContent(rs.getString("qa_content"));
 			qaBoard.setRegdate(rs.getDate("qa_regdate"));
 			qaBoard.setUserName(rs.getString("user_name"));
+			qaBoard.setUserId(rs.getString("user_id"));
 			
 		}
 		rs.close();
