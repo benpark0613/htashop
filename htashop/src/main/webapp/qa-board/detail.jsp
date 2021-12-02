@@ -21,13 +21,14 @@
 			</h4>
 		</div>
 	</div>
+	
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
 
 	QaBoard qaBoard = new QaBoard();
 	QaBoardDao qaBoardDao = new QaBoardDao();
-	qaBoard = qaBoardDao.getQuestionDetail(no);
-	
+	qaBoard = qaBoardDao.getQuestionByNo(no);
+	if(loginedUserInfo.getId().equals(qaBoard.getUserId()) || "admin".equals(qaBoard.getUserId())){
 %>	
 			<table class="table">
 				<tbody>
@@ -50,36 +51,23 @@
 				</tbody>				
 			</table>
 <%
-//여기서부터 @@@@
-			if("admin".equals(loginedUserInfo.getId()) ){
-				if(qaBoard.getAnswer() != null && qaBoard.getAnswer().isBlank()){
-%>
-				<form action="qnswer.jsp">
-					<label class="col-1 col-form-label text-front" for="qa-answer">댓글</label>
-					<input class="form-control" name="qa-answer" id="qa-answer"></input>
-					<button type="submit" class="btn btn-primary" name="select" value="insert">등록</button>
-				</form>
-				
-<%					
-				}else{
-%>					<form action="answer.jsp">
-						<table class="table">
-							<tr class="d-flex">
-								<th class="col-2">댓글</th>
-								<td class="col-4"><%=qaBoard.getAnswer() %></td>
-							</tr>
-						</table>
-						<a href="answer.jsp" class="btn btn-primary " name="select" type="button" value="delete">삭제</a>
-						<button type="submit" class="btn btn-primary" name="select" value="modify">수정</button>
-					</form>
-<%				
-				}
-			}
-//@@@여기까지 완전 다시해야함
+			if("admin".equals(qaBoard.getUserId())){
 %>		
-		</div>
-	</div>
-	
+					<form action="register">
+						<div class="mb-3">
+							<label class="col-1 col-form-label text-front">댓글</label>
+							<textarea rows="6" class="form-control" name="answer"></textarea>
+						</div>
+					</form>
+<%
+			}
+%>	
+<%
+	}else{
+
+	response.sendRedirect("list.jsp");
+	}
+%>	
 		
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
