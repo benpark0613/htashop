@@ -34,14 +34,14 @@
 		} else if ("customer".equals(loginedUserInfo.getUserType())) {
 %>
 				<li class="nav-item"><a href="/htashop/logout.jsp" class="nav-link"><%=loginedUserInfo.getName() %> LOGOUT</a></li>
-				<li class="nav-item"><a href="/htashop/myshop/modify.jsp" class="nav-link <%="modify".equals(menu) ? "active" : "" %>">MODIFY</a></li>
+				<li class="nav-item"><a href="/htashop/myshop/userInfo.jsp" class="nav-link <%="userInfo".equals(menu) ? "active" : "" %>">MODIFY</a></li>
 <%
 		}
 	}
 %>
 				<li class="nav-item"><a href="/htashop/cart/main.jsp" class="nav-link <%="cart".equals(menu) ? "active" : "" %>">CART</a></li>
 				<li class="nav-item"><a href="/htashop/order/main.jsp" class="nav-link <%="order".equals(menu) ? "active" : "" %>">ORDER</a></li>
-				<li class="nav-item"><a href="/htashop/myshop/index.jsp" class="nav-link <%="myshop".equals(menu) ? "active" : "" %>">MYSHOP</a></li>
+				<li class="nav-item"><a href="/htashop/myshop/main.jsp" class="nav-link <%="myshop".equals(menu) ? "active" : "" %>">MYSHOP</a></li>
 			</ul>
 			
 			<div>
