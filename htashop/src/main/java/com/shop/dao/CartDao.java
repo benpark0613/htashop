@@ -1,5 +1,7 @@
 package com.shop.dao;
 
+import static utils.ConnectionUtil.getConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,16 +22,29 @@ public class CartDao {
 		return self;
 	}
 	
+	// 지정한 상품번호를 장바구니에 저장
+	public void insertCart(Cart cart) throws SQLException {
+		String sql = "insert into SHOP_CART (CART_NO, USER_NO, PRODUCT_NO, CART_QUANTITY) "
+				   + "values (SHOP_CART_seq.nextval, ?, ?, ?) ";
+				  
+		Connection connection = getConnection();	
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, cart.getUserNo());
+		pstmt.setInt(2, cart.getProductNo());
+		pstmt.setInt(3, cart.getQuantity());
+
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
 	
-	// 지정한 상품번호를 장바구니에 담는다.
-	
-	
-	//고객번호(userNo)로 장바구니 정보 반환
+	//고객번호(userNo)로 장바구니 정보 조회// 재수정 예정
 	public List<Cart> selectCartByUserNo(int userNo) throws SQLException {
 		List<Cart> cart = new ArrayList<>();
 		
 		String sql = "select C.CART_NO, C.PRODUCT_NO, C.CART_QUANTITY, U.USER_NO "
-				   + "from SHOP_CART C, SHOP_USER U "
+				   + "from SHOP_CART C, SHOP_USER U,  "
 				   + "where C.USER_NO = U.USERNO "
 				   + "and C.USER_NO = ? "
 				   + "order by C.PRODUCT_NO desc ";
@@ -48,13 +63,44 @@ public class CartDao {
 		
 		return cart;
 	}
+		
+	// 장바구니 담은 수량 변경 
+	public void updateCart(Cart cart) throws SQLException {
+		String sql = "update SHOP_CART "
+				   + "set "
+				   + "	cart_no = ?, "
+				   + "	product_no = ?, "
+				   + "	cart_quntity = ?, "
+				   + "where user_no = ? ";
+				 
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, cart.getCartNo());
+		pstmt.setInt(2, cart.getProductNo());
+		pstmt.setInt(3, cart.getQuantity());
+		pstmt.setInt(4, cart.getUserNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
 	
-	//  지정된 상품번호로 카트의 선택상품을 삭제한다.
-	
-	// 카트의 저장된 전체상품을 삭제한다.
-	
-	// 장바구니 담은 수량 변경 ????
-	
+	//  지정된 상품번호로 카트의 상품을 삭제한다.
+	public void deleteCart(Cart cart) throws SQLException {
+		String sql = "delete SHOP_CART "
+				   + "where user_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, cart.getUserNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+
 	private Cart rowToCart(ResultSet rs) throws SQLException {
 	Cart cart = new Cart();
 	User user = new User();

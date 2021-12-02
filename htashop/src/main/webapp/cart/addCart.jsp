@@ -23,6 +23,17 @@
 	
 	Product dao = productDao.getInstance();
 	
+	Product product = dao.getProductDetailById(int no);
+	if(product == null) {
+		response.sendRedirect("exceptionNoProductNo.jsp");
+	} //예외처리 만들어야함
+	
+	ArrayList<Product> productList = dao.getAllProducts();
+	Product goods = new Product();
+	for(int i = 0; i < productList.size(); i++)
+		products = productsList.get(i);
+		if(products.getProductNo().equals(no))
+	
 
 %>
 </div>

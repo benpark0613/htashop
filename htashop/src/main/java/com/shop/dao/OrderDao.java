@@ -8,14 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shop.dto.OrderDto;
+import com.shop.vo.Cart;
 import com.shop.vo.Order;
 
 import static utils.ConnectionUtil.getConnection;
 
 public class OrderDao {
+	
+	private static OrderDao self = new OrderDao();
+	private OrderDao() {}
+	public static OrderDao getInstance() {
+		return self;
+	}
 
 	public Order getOrdersByNo(int userNo)throws SQLException{
-		
+
 		String sql = "select ORDER_NO, USER_NO, ORDER_DATE, ORDER_STATE, ORDER_TOTAL_PRICE, "
 				+ "POINT_USED, EXPECTED_POINT "
 				+ "from SHOP_ORDER "
