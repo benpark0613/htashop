@@ -81,20 +81,20 @@
 				<ul class="pagination justify-content-center">
 					<!-- 이전버튼 -->
     				<li class="page-item <%=!paginationIndex.isExistPrev() ? "disabled" : "" %>">
-      					<a class="page-link" href="index.jsp?pageNo=<%=paginationIndex.getPrevPage() %>" aria-label="Previous">
+      					<a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=paginationIndex.getPrevPage() %>" aria-label="Previous">
         				<span aria-hidden="true">&laquo;</span>
       					</a>
     				</li>
 <%
 	for (int num = paginationIndex.getBeginPage(); num <= paginationIndex.getEndPage(); num++) {
 %>
-    				<li class="page-item <%=paginationIndex.getPageNo() == num ? "active" : "" %>"><a class="page-link" href="index.jsp?pageNo=<%=num%>"><%=num %></a></li>
+    				<li class="page-item <%=paginationIndex.getPageNo() == num ? "active" : "" %>"><a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=num%>"><%=num %></a></li>
 <%
 	}
 %>
     				<!-- 다음버튼 -->
     				<li class="page-item <%=!paginationIndex.isExistNext() ? "disabled" : "" %>">
-      					<a class="page-link" href="index.jsp?pageNo=<%=paginationIndex.getNextPage() %>" aria-label="Next">
+      					<a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=paginationIndex.getNextPage() %>" aria-label="Next">
         				<span aria-hidden="true">&raquo;</span>
       					</a>
     				</li>
