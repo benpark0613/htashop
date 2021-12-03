@@ -5,12 +5,11 @@
 	<div id="page-wrapper">
 		<div id="sidebar-wrapper">
 			<ul class="sidebar-nav">
-				<li><a href="#">BEST 20</a></li>
-				<li><a href="#">TOP</a></li>
-				<li><a href="#">BOTTOM</a></li>
+				<li><a href="/htashop/products/exindex.jsp">BEST 20</a></li>
+				<li><a href="/htashop/products/exindex.jsp">TOP</a></li>
+				<li><a href="/htashop/products/exindex.jsp">BOTTOM</a></li>
 				<li><a href="/htashop/notice-board/list.jsp">NOTICE</a></li>
 				<li><a href="/htashop/qa-board/list.jsp">Q&A</a></li>
-				<li><a href="#">REVIEW</a></li>
 			</ul>
 		</div>
 	</div>
