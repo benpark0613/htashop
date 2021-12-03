@@ -227,6 +227,56 @@ public class OrderDao {
 		return orderList;
 	}
 	
+	
+	public List<OrderDto> getOrdersByNoRN(int userNo, int begin, int end)throws SQLException{
+		
+		String sql = "select RN, O.ORDER_NO, O.PRODUCT_NAME, O.ORDER_COUNT, O.ORDER_TOTAL_PRICE, O.ORDER_STATE, "
+		          + "O.POINT_USED, O.EXPECTED_POINT, O.ORDER_DATE "
+		          + "from (select row_number() over (order by O.ORDER_NO) RN, "
+		          + "             O.ORDER_NO, P.PRODUCT_NAME, OL.ORDER_COUNT, O.ORDER_TOTAL_PRICE, O.ORDER_STATE, "
+		          + "		      O.POINT_USED, O.EXPECTED_POINT, O.ORDER_DATE "
+		          + "      from SHOP_ORDER O, SHOP_ORDERLIST OL, SHOP_PRODUCTS P "
+		          + "      where O.ORDER_NO = OL.ORDER_NO "
+		          + "      AND OL.PRODUCT_NO = P.PRODUCT_NO "
+		          + "      AND O.USER_NO = ? ) O "
+		          + "WHERE RN>=? AND RN<= ? ";
+		
+		
+		Connection connection = getConnection();
+		
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
+		pstmt.setInt(2, begin);
+		pstmt.setInt(3, end);
+		
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<OrderDto> orderList = new ArrayList<>();
+		
+		while(rs.next()) {
+			OrderDto orderDto = new OrderDto();
+			
+			orderDto.setOrderNo(rs.getInt("ORDER_NO"));
+			orderDto.setProductName(rs.getString("PRODUCT_NAME"));
+			orderDto.setOrderCount(rs.getInt("ORDER_COUNT"));
+			orderDto.setOrderTotalPrice(rs.getInt("ORDER_TOTAL_PRICE"));
+			orderDto.setOrderState(rs.getString("ORDER_STATE"));
+			orderDto.setUsedPoint(rs.getInt("POINT_USED"));
+			orderDto.setExpectedpoint(rs.getInt("EXPECTED_POINT"));
+			orderDto.setOrderDate(rs.getDate("ORDER_DATE"));
+			
+			orderList.add(orderDto);
+			
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return orderList;
+	}
+	
+	
 	/* 수정중
 	public List<OrderDto> getOrderDetailListByDateAndStatusAndId(String begin, String end, String status, int userNo)throws SQLException{
 
