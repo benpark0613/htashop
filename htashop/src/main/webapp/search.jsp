@@ -21,6 +21,7 @@
 		</div>
 
 <%
+	// 머지머지
 	ProductDao productDao = ProductDao.getInstance();
 	List<Product> productList = productDao.getAllProducts();
 %>
