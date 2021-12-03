@@ -22,13 +22,15 @@ public class ReviewDao {
 				   + "set "
 				   + "	review_title = ?, "
 				   + "	review_content = ?, "
+				   + "  review_view_count =? "
 				   + "where review_no = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		pstmt.setString(1, reviewDto.getTitle());
 		pstmt.setString(2, reviewDto.getReviewContent());
-		pstmt.setInt(3, reviewDto.getReviewNo());
+		pstmt.setInt(3, reviewDto.getViewCount());
+		pstmt.setInt(4, reviewDto.getReviewNo());
 		
 		pstmt.executeUpdate();
 		

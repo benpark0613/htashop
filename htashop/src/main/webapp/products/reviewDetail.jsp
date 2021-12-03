@@ -53,7 +53,7 @@
 	// 게시글의 조회수를 1 증가시킨다.
 	reviewDto.setViewCount(reviewDto.getViewCount() + 1);
 	// 조회수가 1증가된 글정보를 테이블에 반영시킨다.
-//	reviewDao.updateReview(reviewDto);
+	reviewDao.updateReviewDetail(reviewDto);
 %>
 	<div class="row mb-3">
 		<div class="col">
@@ -114,7 +114,7 @@
 <%
 	if (loginedUserInfo != null && loginedUserInfo.getUserNo()==reviewDto.getUserNo()) {		// 로그인한 사용자의 사용자번호와 게시글작성자의 사용자번호가 일치하는 경우 버튼이 출력된다.
 %>
-				<a href="delete.jsp?no=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo %>" class="btn btn-danger">삭제</a>
+				<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo %>&productNo=<%=reviewDto.getProductNo() %>" class="btn btn-danger">삭제</a>
 				<a href="modifyForm.jsp?no=<%=reviewDto.getReviewNo()%>" class="btn btn-danger">수정</a>					
 <%
 	}
