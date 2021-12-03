@@ -86,12 +86,12 @@
 		     </optgroup>     	
 		</select>  <br> 
 
- 	<input type="hidden" id="no" name="no" value="<%=product.getNo()%>"> 
+ 	<input type="hidden" id="no" name="productNo" value="<%=product.getNo()%>"> 
 	
 <% 	if(loginedUserInfo != null) {
 
 %>
-	<input class="btn btn-outline-primary" type='submit' id="no" value='구매'> 
+	<input class="btn btn-outline-primary" type='submit' id="no" value='구매' onclick='return submit1(this.form);'> 
   	<input class="btn btn-outline-dark" type='submit' value='장바구니' onclick='return submit2(this.form);'>
 	</form>
 
@@ -184,8 +184,13 @@
 
 </script>
 <script> 
+function submit1(frm) { 
+    frm.action='../order/form.jsp'; 
+    frm.submit(); 
+    return true; 
+}
 function submit2(frm) { 
-    frm.action='장바구니경로.jsp'; 
+    frm.action='../cart/temp-addcart.jsp'; 
     frm.submit(); 
     return true; 
 }
