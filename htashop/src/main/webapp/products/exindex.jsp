@@ -8,24 +8,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/newstyle.css" rel="stylesheet" />
 <title>HTA shop::메인페이지</title>
 </head>
 <body>
 <%@include file="../common/navbar.jsp"%>
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-2 mt-3">
-				<ul class="list-group">
-					<li class="list-group-item">BEST 20</li>
-					<li class="list-group-item">TOP</li>
-					<li class="list-group-item">BOTTOM</li>
-				</ul>
-				<ul class="list-group mt-3">
-					<li class="list-group-item">NOTICE</li>
-					<li class="list-group-item">Q&A</li>
-					<li class="list-group-item">REVIEW</li>
-				</ul>
-			</div>
+		<div class="col-sm-2">
+			<%@ include file="../common/left.jsp" %>
+		</div>
 			
 <%
 	ProductDao productDao = ProductDao.getInstance();
