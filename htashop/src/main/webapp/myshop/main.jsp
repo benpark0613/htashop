@@ -81,7 +81,8 @@
 					</div>
 					<%
 			// expectedpoint를 다 더하기
-			OrderDao orderDao = new OrderDao();
+			
+			OrderDao orderDao = OrderDao.getInstance();
 			List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo());
 			int totalPoint = 0;
 			int usedPoint = 0;

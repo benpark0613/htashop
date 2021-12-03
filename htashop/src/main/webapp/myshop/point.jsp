@@ -6,9 +6,8 @@
 <%@page import="java.util.List"%>
 <%@page import="com.shop.dao.OrderDao"%>
 <%@page import="com.shop.dto.OrderDto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../common/navbar.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../common/navbar.jsp"%>
 
 <!doctype html>
 <html lang="ko">
@@ -19,11 +18,19 @@
 <title></title>
 </head>
 <%
-	PointChangeDao pointChangeDao = new PointChangeDao();
-	PointDto pointDto = pointChangeDao.getPointChangeByUserNo(loginedUserInfo.getUserNo());
-	
-	OrderDao orderDao = new OrderDao();
-	List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo());
+PointChangeDao pointChangeDao = new PointChangeDao();
+PointDto pointDto = pointChangeDao.getPointChangeByUserNo(loginedUserInfo.getUserNo());
+
+String pageNo = request.getParameter("pageNo");
+
+OrderDao orderDao = OrderDao.getInstance();
+
+int totalRecords = orderDao.countAllOrders(loginedUserInfo.getUserNo());
+
+Pagination pagination = new Pagination(pageNo, totalRecords);
+
+List<OrderDto> orderList = orderDao.getOrdersByNoRN(loginedUserInfo.getUserNo(), pagination.getBegin(),
+		pagination.getEnd());
 %>
 <body>
 	<div class="container">
@@ -44,7 +51,6 @@
 				totalPoint += orderDto.getExpectedpoint();
 				usedPoint += orderDto.getUsedPoint();
 			}
-			
 			%>
 			<div class="col-10">
 				<p>적립금 : 고객님의 사용가능 적립금 금액입니다.</p>
@@ -101,6 +107,26 @@
 								</tbody>
 							</table>
 						</div>
+						<%
+
+						%>
+						<div class="col text-center">
+							<div class="container">
+								<ul class="pagination justify-content-center">
+									<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : ""%> "><a class="page-link" href="point.jsp?pageNo=<%=pagination.getPrevPage()%>" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									</a></li>
+									<%
+									for (int no = pagination.getBeginPage(); no <= pagination.getEndPage(); no++) {
+									%>
+									<li class="page-item <%=pagination.getPageNo() == no ? "active" : ""%>"><a class="page-link" href="point.jsp?pageNo=<%=no%>"><%=no%></a></li>
+									<%
+									}
+									%>
+									<li class="page-item <%=!pagination.isExistNext() ? "disabled" : ""%>"><a class="page-link" href="point.jsp?pageNo=<%=pagination.getNextPage()%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 
 					<div class="collapse" id="collapseExample1">
@@ -127,24 +153,7 @@
 						</div>
 					</div>
 
-<%
-	int totalRecords = orderDao.countAllOrders(loginedUserInfo.getUserNo());
-	String pageNo = request.getParameter("pageNo");
-	Pagination pagination = new Pagination(pageNo, totalRecords);
-%>
-					<div class="col-1">
-						<div class="container justify-content-center">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</ul>
-						</div>
-					</div>
+
 				</div>
 			</div>
 		</div>
