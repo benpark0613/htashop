@@ -21,7 +21,6 @@
 	}
 	
 	TempCartDao tempCartDao = TempCartDao.getInstance();
-	// TODO 사용자가 같은 상품을 다시 장바구니에 담는 경우 구현
 	Cart cart = tempCartDao.getCartByProductNo(productNo);
 	
 	if (cart != null) {
@@ -32,7 +31,6 @@
 		cart.setUserNo(loginedUserInfo.getUserNo());
 		cart.setProductNo(productNo);
 		cart.setQuantity(quantity);
-		
 		tempCartDao.insertCart(cart);
 	}
 		

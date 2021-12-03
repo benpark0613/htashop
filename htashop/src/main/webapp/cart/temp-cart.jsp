@@ -66,9 +66,7 @@
 									</div>
 								</td>
 								<td><%=cart.getCartNo()%></td>
-								<td>
-									<img src="../resources/images/<%=product.getImage()%>" />
-								</td>
+								<td><img src="../resources/images/<%=product.getImage()%>" /></td>
 								<td><%=product.getName()%></td>
 								<td><%=product.getPrice()%></td>
 								<td><%=cart.getQuantity()%></td>
