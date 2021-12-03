@@ -29,11 +29,15 @@
 	QaBoardDao qaBoardDao = new QaBoardDao();
 	qaBoard = qaBoardDao.getQuestionByNo(no);
 	
-	if(loginedUserInfo.getId().equals(qaBoard.getUserId()) || "admin".equals(qaBoard.getUserId())){
+	if(loginedUserInfo.getId().equals(qaBoard.getUserId()) || "admin".equals(loginedUserInfo.getId())){
 %>	
-	
-			<table class="table">
+		<form method="post" action="reply.jsp">
+			<table class="table border p-3 bg-light">
 				<tbody>
+					<tr class="d-flex">
+						<th class="col-2">번호</th>
+						<td class="col-4"><%=qaBoard.getNo() %></td>
+					</tr>
 					<tr class="d-flex">
 						<th class="col-2">제목</th>
 						<td class="col-4"><%=qaBoard.getTitle() %></td>
@@ -50,27 +54,30 @@
 						<th class="col-2">내용</th>
 						<td class="col-10"><%=qaBoard.getContent() %></td>
 					</tr>
+					<tr class="d-flex">
+						<th class="col-2">댓글</th>
+						<td class="col-10"><%=qaBoard.getReply() %></td>
+					</tr>
 				</tbody>				
 			</table>
-<%
-			if("admin".equals(qaBoard.getUserId())){
-%>				
-					<form action="register">
-						<div class="mb-3">
-							<label class="col-1 col-form-label text-front">댓글</label>
-							<textarea rows="6" class="form-control" name="answer"></textarea>
-						</div>
-					</form>
-<%
-			}
-%>	
+			<table class="table border p-3 bg-light">
+				<div class="mb-3">
+					<label class="col-1 col-form-label text-front" >댓글</label>
+					<textarea rows="6" class="form-control" name="reply"></textarea>
+				</div>
+				<div class="row mb-3">
+					<div class="col">
+					<div class="mb-3 text-end">
+					<a href="list.jsp" class="btn btn-secondary">목록</a>
+						<button type="submit" class="btn btn-primary">등록</button>
+					</div>
+					</div>
+				</div>
+			</table>	
+		</form>
 <%
 	}else{
-%>
-		<p><%=loginedUserInfo.getId() %></p>
-		<p><%=qaBoard.getUserId() %></p>
-<%		
-	response.sendRedirect("list.jsp");
+		response.sendRedirect("list.jsp");
 	}
 %>	
 		
