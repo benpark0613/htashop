@@ -33,7 +33,7 @@ public class ProductDao {
 		if ("name".equals(searchKeyword)) {
 			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
 		} else if ("price".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
+			sql	+= "order by PRODUCT_PRICE desc ";
 		} else if ("category".equals(searchKeyword)) {
 			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
 		}
