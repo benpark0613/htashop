@@ -31,5 +31,5 @@
 	
 	reviewDao.updateReviewDetail(dto);
 	
-	response.sendRedirect("reviewDetail.jsp?no");
+	response.sendRedirect("reviewDetail.jsp?no="+no+"&pageNo="+pageNo);
 %>
