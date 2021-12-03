@@ -33,7 +33,7 @@ public class ProductDao {
 		if ("name".equals(searchKeyword)) {
 			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
 		} else if ("price".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
+			sql	+= "order by PRODUCT_PRICE desc ";
 		} else if ("category".equals(searchKeyword)) {
 			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
 		}
@@ -153,6 +153,7 @@ public class ProductDao {
 			products.setStock(rs.getInt("product_stock"));
 			products.setSoldOut(rs.getBoolean("product_is_soldout"));
 			products.setSalesRate(rs.getInt("PRODUCT_SALES_RATE"));
+			products.setImage(rs.getString("product_image"));
 		}
 		
 		rs.close();
