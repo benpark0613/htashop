@@ -35,7 +35,7 @@
 				System.out.println(status);
 				System.out.println(term);
 
-				OrderDao orderDao = new OrderDao();
+				OrderDao orderDao = OrderDao.getInstance();
 				List<OrderDto> orderList = orderDao.getOrderDetailList(loginedUserInfo.getUserNo());
 				String date = "";
 				
