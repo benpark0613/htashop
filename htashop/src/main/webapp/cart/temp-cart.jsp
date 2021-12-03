@@ -21,6 +21,7 @@
 %>
 <%@include file="../common/navbar.jsp"%>
 <%
+	//TODO 로그인 안하면 못보게 하는 기능 추가
 	TempCartDao tempCartDao = TempCartDao.getInstance();
 	ProductDao productDao = ProductDao.getInstance();
 	
