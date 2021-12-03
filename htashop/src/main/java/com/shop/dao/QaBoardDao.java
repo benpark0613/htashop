@@ -131,7 +131,7 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 	public List<QaBoard> getAllQAByUserNoRN(int userNo, int begin, int end)throws SQLException{
 
 		String sql = "select QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
-				+ "from (select row_number() over (order by O.ORDER_NO) RN, "
+				+ "from (select row_number() over (order by QA_NO) RN, "
 				+ "             QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
 				+ "      from SHOP_QABOARD "
 				+ "      where USER_NO = ? ) "

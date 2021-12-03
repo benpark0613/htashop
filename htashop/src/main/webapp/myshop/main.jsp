@@ -240,7 +240,7 @@
 											<i class="far fa-edit fa-5x"></i>
 											<h2 class="fs-4 fw-bold">Board</h2>
 											<h2 class="fs-4 fw-bold">
-												<a href="boardManagement.jsp">게시물 관리</a> 
+												<a href="boardManagement.jsp?section=review">게시물 관리</a> 
 											</h2>
 											<p class="mb-0">고객님께서 작성하신 게시물을 관리하는 공간입니다.</p>
 										</div>

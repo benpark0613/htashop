@@ -111,22 +111,29 @@ List<OrderDto> orderList = orderDao.getOrdersByNoRN(loginedUserInfo.getUserNo(),
 
 						%>
 						<div class="col text-center">
-							<div class="container">
-								<ul class="pagination justify-content-center">
-									<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : ""%> "><a class="page-link" href="point.jsp?pageNo=<%=pagination.getPrevPage()%>" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-									</a></li>
-									<%
-									for (int no = pagination.getBeginPage(); no <= pagination.getEndPage(); no++) {
-									%>
-									<li class="page-item <%=pagination.getPageNo() == no ? "active" : ""%>"><a class="page-link" href="point.jsp?pageNo=<%=no%>"><%=no%></a></li>
-									<%
-									}
-									%>
-									<li class="page-item <%=!pagination.isExistNext() ? "disabled" : ""%>"><a class="page-link" href="point.jsp?pageNo=<%=pagination.getNextPage()%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-									</a></li>
-								</ul>
-							</div>
-						</div>
+				<div class="container">
+					<ul class="pagination justify-content-center">
+						<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : "" %> ">
+							<a class="page-link" href="point.jsp?pageNo=<%=pagination.getPrevPage() %>" aria-label="Previous"> 
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<%
+							for(int no=pagination.getBeginPage(); no<=pagination.getEndPage(); no++){
+							
+						%>
+						<li class="page-item <%=pagination.getPageNo() == no ? "active" : "" %>"><a class="page-link" href="point.jsp?pageNo=<%=no%>"><%=no %></a></li>
+						<%
+							}
+						%>
+						<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>">
+							<a class="page-link" href="point.jsp?pageNo=<%=pagination.getNextPage() %>" aria-label="Next"> 
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 					</div>
 
 					<div class="collapse" id="collapseExample1">

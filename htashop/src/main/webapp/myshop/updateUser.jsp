@@ -8,6 +8,7 @@
 
 <%
   		String password = request.getParameter("password");
+		String passwordConfirm = request.getParameter("confirmPassword");
     	String secretPassword = (String)DigestUtils.sha256Hex(password);
     	String name = request.getParameter("name");
     	String email = request.getParameter("email");
@@ -47,6 +48,9 @@
     	if(password == null){
     		response.sendRedirect("userInfo.jsp?fail=password");
     		return;
+    	}
+    	if(password != passwordConfirm){
+    		response.sendRedirect("userInfo.jsp?fail=confirmPassword");
     	}
     	if(name == null){
     		response.sendRedirect("userInfo.jsp?fail=name");
