@@ -35,7 +35,7 @@
 	String failReason = request.getParameter("fail");
 	if("unlogined".equals(failReason)){
 %>
-	<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
+			<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
 <%
 	}
 %>
@@ -64,12 +64,10 @@
 					<div class="card mt-3">
 						<p><%=product.getImage() %></p>
 					</div>
-
-						<div class="card-body">
-							<!-- 클릭하면 상품상세정보페이지로 이동 -->
-							<h5 class="card-title text-center"><a href="products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><%=product.getName() %></a></h5>
-							<p class="card-text text-danger text-center"><strong class="fw-bold"><%=product.getPrice() %></strong> 원</p>
-						</div>
+					<div class="card-body">
+						<!-- 클릭하면 상품상세정보페이지로 이동 -->
+						<h5 class="card-title text-center"><a href="products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><%=product.getName() %></a></h5>
+						<p class="card-text text-danger text-center"><strong class="fw-bold"><%=product.getPrice() %></strong> 원</p>
 					</div>
 				</div>
 <%
@@ -77,31 +75,31 @@
 %>					
 			</div>
 		</div>
-		<!-- 페이지네이션 -->
-		<div class="row mt-5 mb-3">
-			<div class="col-6 offset-3">
-				<ul class="pagination justify-content-center">
-					<!-- 이전버튼 -->
-    				<li class="page-item <%=!paginationIndex.isExistPrev() ? "disabled" : "" %>">
-      					<a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=paginationIndex.getPrevPage() %>" aria-label="Previous">
-        				<span aria-hidden="true">&laquo;</span>
-      					</a>
-    				</li>
+	</div>
+	<!-- 페이지네이션 -->
+	<div class="row mt-5 mb-3">
+		<div class="col-6 offset-3">
+			<ul class="pagination justify-content-center">
+				<!-- 이전버튼 -->
+   				<li class="page-item <%=!paginationIndex.isExistPrev() ? "disabled" : "" %>">
+     					<a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=paginationIndex.getPrevPage() %>" aria-label="Previous">
+       				<span aria-hidden="true">&laquo;</span>
+     					</a>
+   				</li>
 <%
 	for (int num = paginationIndex.getBeginPage(); num <= paginationIndex.getEndPage(); num++) {
 %>
-    				<li class="page-item <%=paginationIndex.getPageNo() == num ? "active" : "" %>"><a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=num%>"><%=num %></a></li>
+    			<li class="page-item <%=paginationIndex.getPageNo() == num ? "active" : "" %>"><a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=num%>"><%=num %></a></li>
 <%
 	}
 %>
-    				<!-- 다음버튼 -->
-    				<li class="page-item <%=!paginationIndex.isExistNext() ? "disabled" : "" %>">
-      					<a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=paginationIndex.getNextPage() %>" aria-label="Next">
-        				<span aria-hidden="true">&raquo;</span>
-      					</a>
-    				</li>
-  				</ul>
-			</div>
+   				<!-- 다음버튼 -->
+   				<li class="page-item <%=!paginationIndex.isExistNext() ? "disabled" : "" %>">
+     					<a class="page-link bg-white text-black" href="index.jsp?pageNo=<%=paginationIndex.getNextPage() %>" aria-label="Next">
+       				<span aria-hidden="true">&raquo;</span>
+     					</a>
+   				</li>
+  			</ul>
 		</div>
 	</div>
 </div>
