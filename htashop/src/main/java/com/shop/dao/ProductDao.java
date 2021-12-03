@@ -194,4 +194,75 @@ public class ProductDao {
 		
 		return productList;
 	}
+	
+
+	
+	/**
+	 * shop_products테이블의 전체 레코드 갯수를 반환한다.
+	 * @return 전체 레코드 갯수
+	 * @throws SQLException
+	 */
+	public int getTotalRecordsByCategory(String category) throws SQLException {
+		String sql = "select count(upper(product_category)) cnt "
+					+ "from shop_products "
+					+ "where product_category = ? " ;
+		
+		int totalProductsRecord = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, category);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		totalProductsRecord = rs.getInt("cnt");
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return totalProductsRecord;
+	}
+	
+	/**
+	 * 지정된 범위에 속하는 상품리스트를 반환한다.
+	 * @param begin 시작번호
+	 * @param end 끝번호
+	 * @return 범위에 해당하는 상품리스트
+	 * @throws SQLException
+	 */
+	public List<Product> getProductListByCategory(int begin, int end, String category) throws SQLException {
+		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE "
+					+ "from (select row_number() over (order by product_no) RN, "
+					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE "
+					+ "      from shop_products "
+					+ "		where product_category = ?) "
+					+ "where rn >= ? and rn <= ? ";
+		
+		List<Product> productList = new ArrayList<Product>();
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, category);
+		pstmt.setInt(2, begin);
+		pstmt.setInt(3, end);
+
+		
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			Product product = new Product();
+			product.setNo(rs.getInt("PRODUCT_NO"));
+			product.setCategory(rs.getString("PRODUCT_CATEGORY"));
+			product.setName(rs.getString("PRODUCT_NAME"));
+			product.setPrice(rs.getInt("PRODUCT_PRICE"));
+			product.setImage(rs.getString("PRODUCT_IMAGE"));
+			productList.add(product);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return productList;
+	}	
 }

@@ -73,6 +73,27 @@ public class ReviewDao {
 //	}
 	
 	
+	public int getTotalRecordsByReview(int productNo) throws SQLException {
+		String sql = "select count(review_no) cnt "
+					+ "from shop_review "
+					+ "where product_no = ? " ;
+		
+		int totalProductsRecord = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, productNo);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		totalProductsRecord = rs.getInt("cnt");
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return totalProductsRecord;
+	}
 	
 	
 	
@@ -84,17 +105,17 @@ public class ReviewDao {
 				   + "			   R.review_view_count, R.REVIEW_CREATED_DATE, R.answer_created_date "
 				   + "      from SHOP_REVIEW R, SHOP_USER U, SHOP_PRODUCTS P "
 				   + "      where U.user_no = R.USER_NO "
-				   + "      and P.PRODUCT_NO = R.PRODUCT_NO) "
-				   + "where rn >= ? and rn <= ? "
-				   + "and product_no = ? ";
+				   + "      and P.PRODUCT_NO = R.PRODUCT_NO"
+				   + "		and R.product_no = ? ) "
+				   + "where rn >= ? and rn <= ? ";
 	
 		List<ReviewDto> reviewList = new ArrayList<>();
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, begin);
-		pstmt.setInt(2, end);
-		pstmt.setInt(3, productNo);
+		pstmt.setInt(1, productNo);		
+		pstmt.setInt(2, begin);
+		pstmt.setInt(3, end);
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			ReviewDto reviewDto = new ReviewDto();

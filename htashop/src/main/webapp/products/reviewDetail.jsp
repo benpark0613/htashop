@@ -14,10 +14,12 @@
     <title>커뮤니티 게시판::상세</title>
 </head>
 <body>
+
 <%
-	// include 시킨 navbar의 nav-item 중에서 페이지에 해당하는 nav-item를 active 시키기위해서 "menu"라는 이름으로 페이지이름을 속성으로 저장한다.
-	// pageContext에 menu라는 이름으로 설정한 속성값은 navbar.jsp의 6번째 라인에서 조회해서 navbar의 메뉴들 중 하나를 active 시키기 위해서 읽어간다.
-//	pageContext.setAttribute("menu", "review");
+// include 시킨 navbar의 nav-item 중에서 페이지에 해당하는 nav-item를 active 시키기위해서 "menu"라는 이름으로 페이지이름을 속성으로 저장한다.
+// pageContext에 menu라는 이름으로 설정한 속성값은 navbar.jsp의 6번째 라인에서 조회해서 navbar의 메뉴들 중 하나를 active 시키기 위해서 읽어간다.
+   pageContext.setAttribute("menu", "reivew");
+   pageContext.setAttribute("leftMenu", "review");
 %>
 <%@include file="../common/navbar.jsp"%>
 <div class="container">
@@ -51,7 +53,7 @@
 	// 게시글의 조회수를 1 증가시킨다.
 	reviewDto.setViewCount(reviewDto.getViewCount() + 1);
 	// 조회수가 1증가된 글정보를 테이블에 반영시킨다.
-	reviewDao.updateReview(reviewDto);
+//	reviewDao.updateReview(reviewDto);
 %>
 	<div class="row mb-3">
 		<div class="col">
@@ -123,13 +125,14 @@
 		%>	
 				<a href="replyForm.jsp?no=<%=reviewDto.getReviewNo() %>&pageNo=<%=pageNo %>" class="btn btn-primary">답글</a>
 				<a href="delete.jsp?no=<%=reviewDto.getReviewNo() %>&pageNo=<%=pageNo %>" class="btn btn-danger">삭제</a>	
-					
+				
+				<div>pageNo : <%=pageNo %></div>	
 <%
 	}
 %>
 
 				</div>
-				<a href="detail.jsp?no=<%=reviewDto.getProductNo() %>" class="btn btn-primary">목록</a>
+				<a href="detail.jsp?no=<%=reviewDto.getProductNo() %>&pageNo=<%=pageNo%>" class="btn btn-primary">목록</a>
 			</div>
 		</div>
 	</div>
