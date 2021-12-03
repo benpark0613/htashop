@@ -22,6 +22,9 @@ public class ProductDao {
 	
 	
 	
+	
+	
+	
 	public List<Product> getProductListBySearch(String searchKeyword, String searchText) throws SQLException {
 		List<Product> searchResults = new ArrayList<>();
 		

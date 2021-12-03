@@ -1,42 +1,42 @@
 
-<%@page import="com.shop.vo.Product" %>
-<%@page import="com.shop.dao.ProductDao" %>
-<%@page import="java.util.List"%>
+<%@page import="com.shop.dao.CartDao"%>
+<%@page import="com.shop.vo.Cart"%>
+<%@page import="com.shop.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!doctype html>
-<html lang="ko">
-<head>
-   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-    <title>장바구니에 등록</title>
-</head>
-<body>
-<div class="container">    
+	pageEncoding="UTF-8"%>
 <%
-	String id = request.getParameter("id");
-	if (id == null || id.trim().equals("")) {
-		response.sendRedirect("index.jsp");
-		return;
-	}
+	int productNo = Integer.parseInt(request.getParameter("productNo"));
+	int quantity = Integer.parseInt(request.getParameter("quantity"));
 	
-	Product dao = productDao.getInstance();
+	// TODO 사용자가 같은 상품을 다시 장바구니에 담는 경우 구현
+    if () {   	
+    	
+    }
 	
-	Product product = dao.getProductDetailById(int no);
-	if(product == null) {
-		response.sendRedirect("exceptionNoProductNo.jsp");
-	} //예외처리 만들어야함
+	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 	
-	ArrayList<Product> productList = dao.getAllProducts();
-	Product goods = new Product();
-	for(int i = 0; i < productList.size(); i++)
-		products = productsList.get(i);
-		if(products.getProductNo().equals(no))
-	
-
+	// TODO 사용자 로그인 여부 체크
+	// loginUserInfo 변수에 인증된 사용자 정보가 포함되어 있는지 여부
+	if (loginUserInfo == null) {
 %>
+<div class="alert alert-danger alert-dismissable">
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+	<strong>상품을 장바구니에 담을 수 없습니다.</strong> 로그인 후 장바구니에 담아주세요.
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<%
+	} else {
+%>
+<div class="alert alert-info">
+	<strong>상품이 장바구니에 추가되었습니다.</strong><a href="#"	class="alert-link"></a>.
+</div>
+<%
+} 
+%>
+
+<% 
+Cart cart = new Cart(); //객체생성후, 위의 productNo, quantity, 로그인세션정보를 저장한다.
+cart.setUserNo(loginedUserInfo.getUserNo());
+cart.setProductNo(productNo); cart.setQuantity(quantity); CartDao
+tempCartDao = CartDao.getInstance(); // cartDao를 불러와 cart값을 저장한다.
+tempCartDao.insertCart(cart); response.sendRedirect("cart.jsp"); 
+%>
