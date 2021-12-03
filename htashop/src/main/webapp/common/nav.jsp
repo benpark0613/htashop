@@ -22,7 +22,7 @@
 				<li class="nav-item"><a href="/htashop/index.jsp" class="nav-link">LOGOUT</a></li>
 				<li class="nav-item"><a href="/htashop/myshop/modify.jsp" class="nav-link">MODIFY</a></li>
 				
-				<li class="nav-item"><a href="/htashop/cart/main.jsp" class="nav-link">CART</a></li>
+				<li class="nav-item"><a href="/htashop/cart/cart.jsp" class="nav-link">CART</a></li>
 				<li class="nav-item"><a href="/htashop/order/main.jsp" class="nav-link">ORDER</a></li>
 				<li class="nav-item"><a href="/htashop/myshop/index.jsp" class="nav-link">MYSHOP</a></li>
 			</ul>

@@ -39,13 +39,32 @@ public class CartDao {
 		connection.close();
 	}
 	
+	//장바구니리스트 조회
+	public List<Cart> getAllCartList() throws SQLException {
+		String sql = "select * "
+				   + "from shop_cart ";
+		
+		List<Cart> carts = new ArrayList<Cart>();
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+	
+		ResultSet rs = pstmt.executeQuery();
+	
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return carts;
+	}
+	
 	//고객번호(userNo)로 장바구니 정보 조회// 재수정 예정
 	public List<Cart> selectCartByUserNo(int userNo) throws SQLException {
 		List<Cart> cart = new ArrayList<>();
 		
-		String sql = "select C.CART_NO, C.PRODUCT_NO, C.CART_QUANTITY, U.USER_NO "
-				   + "from SHOP_CART C, SHOP_USER U,  "
-				   + "where C.USER_NO = U.USERNO "
+		String sql = "select P.PRODUCT_IMAGE, P.PRODUCT_NAME, P.PRODUCT_PRICE, C.CART_QUANTITY, U.USER_NO "
+				   + "from SHOP_PRODUCTS P, SHOP_CART C, SHOP_USER U,  "
+				   + "where P.PRODUCT_NO = C.PRODUCT_NO || C.USER_NO = U.USER_NO "
 				   + "and C.USER_NO = ? "
 				   + "order by C.PRODUCT_NO desc ";
 		
@@ -65,7 +84,7 @@ public class CartDao {
 	}
 		
 	// 장바구니 담은 수량 변경 
-	public void updateCart(Cart cart) throws SQLException {
+	public void updateCartQuantity(Cart cart) throws SQLException {
 		String sql = "update SHOP_CART "
 				   + "set "
 				   + "	cart_no = ?, "

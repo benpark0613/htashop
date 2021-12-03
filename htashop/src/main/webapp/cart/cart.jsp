@@ -35,33 +35,18 @@ img {width: 80px; height: 100px;}
 
 							<thead>
 								<tr>
-									<th>
-										<div class="form-check">
-										  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										  <label class="form-check-label" for="flexCheckDefault">
-										  </label>
-										</div>									
-									</th>
-									<th>장바구니번호</th>
 									<th>이미지</th>
 									<th>상품명</th>
 									<th>상품가격</th>
 									<th>수량</th>
 									<th>총 금액</th>
 									<th>적립금</th>
-									<th>배송여부</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>
-										<div class="form-check">
-										  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										  <label class="form-check-label" for="flexCheckDefault">
-										  </label>
-										</div>									
-									</td>
-									<td>1</td>
+									<td></td>
 									<td><img alt="" src="../resources/images/남검정면바지.jpg"></br>남검정면바지</td>
 									<td>productDao.get</td>
 									<td>2</td>

@@ -98,7 +98,7 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 	}
 	
 	public QaBoard getQuestionByNo(int no) throws SQLException {
-		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no, u.user_id "
+		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no, u.user_id, q.qa_reply "
 				   + "from shop_qaboard q, shop_user U "
 				   + "where q.user_no = U.user_no ";
 				  
@@ -127,6 +127,7 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 		return qaBoard;
 	}
 	
+
 	public List<QaBoard> getAllQAByUserNoRN(int userNo, int begin, int end)throws SQLException{
 
 		String sql = "select QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
@@ -179,6 +180,26 @@ public List<QaBoard> getAllQuestions() throws SQLException{
 		connection.close();
 		return cnt;
 	}
+
+	public void updateReply(QaBoard qaBoard) throws SQLException{
+		String sql = "update shop_qaboard "
+				+	 "set "
+				+	 "qa_reply = ? "
+				+ 	 "where qa_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, qaBoard.getReply());
+		pstmt.setInt(2, qaBoard.getNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+		
+	}
+	
+
 	
 	
 	

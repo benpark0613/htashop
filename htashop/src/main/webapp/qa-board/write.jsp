@@ -10,12 +10,12 @@
 	int productNo = Integer.parseInt(request.getParameter("productNo"));
 
 	if (title != null && title.isBlank()) {
-		response.sendRedirect("loginform.jsp?error=emptyTitle");
+		response.sendRedirect("loginform.jsp?fail=emptyTitle");
 		return;
 	}
 	
 	if (content != null && content.isBlank()) {
-		response.sendRedirect("loginform.jsp?error=emptytPassword");
+		response.sendRedirect("loginform.jsp?fail=emptytPassword");
 		return;
 	}
 	

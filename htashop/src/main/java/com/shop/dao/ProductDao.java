@@ -22,13 +22,20 @@ public class ProductDao {
 	
 	
 	
+	
+	
+	
 	public List<Product> getProductListBySearch(String searchKeyword, String searchText) throws SQLException {
 		List<Product> searchResults = new ArrayList<>();
 		
 		String sql = "select PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IS_SOLDOUT "
 				+ "from shop_products ";
-		if ("PRODUCT_NAME".equals(searchKeyword)) {
-			sql	= "where PRODUCT_NAME like '%' || ? || '%' )";
+		if ("name".equals(searchKeyword)) {
+			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
+		} else if ("price".equals(searchKeyword)) {
+			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
+		} else if ("category".equals(searchKeyword)) {
+			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
 		}
 		
 		Connection connection = getConnection();
