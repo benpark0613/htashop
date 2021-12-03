@@ -24,14 +24,16 @@ int totalRecords = qaBoardDao.countAllQaBoards(loginedUserInfo.getUserNo());
 String pageNo = request.getParameter("pageNo");
 
 Pagination pagination = new Pagination(pageNo, totalRecords);
-//List<QaBoard> qaboardList = qaBoardDao.getAllQAByUserNoRN(loginedUserInfo.getUserNo(), pagination.getBegin(), pagination.getEnd());
-List<QaBoard> qaboardList = qaBoardDao.getAllQAByUserNo(loginedUserInfo.getUserNo());
-List<Review> reviewList = reviewDao.getAllReviewByUserNo(loginedUserInfo.getUserNo());
+List<QaBoard> qaboardList = qaBoardDao.getAllQAByUserNoRN(loginedUserInfo.getUserNo(), pagination.getBegin(), pagination.getEnd());
+//List<QaBoard> qaboardList = qaBoardDao.getAllQAByUserNo(loginedUserInfo.getUserNo());
+
+List<Review> reviewList = reviewDao.getAllReviewByUserNoRN(loginedUserInfo.getUserNo(), pagination.getBegin(), pagination.getEnd());
 
 
 // 페이지번호, 검색옵션, 검색키워드를 요청파라미터에서 조회한다.
 
 String section = request.getParameter("section");
+
 
 
 
@@ -67,10 +69,9 @@ String section = request.getParameter("section");
 				<div class="container">
 				
 					<div class="btn-group">
-						<a href="boardSearch.jsp?section=review" class="btn btn-primary active" aria-current="page">리뷰</a> 
+						<a href="boardSearch.jsp?section=reviews" class="btn btn-primary active" aria-current="page">리뷰</a> 
 						<a href="boardSearch.jsp?section=QA" class="btn btn-primary">QA</a> 
 					</div>
-
 				</div>
 
 
@@ -120,30 +121,32 @@ String section = request.getParameter("section");
 
 						</tbody>
 					</table>
-					<div>
-						<form id="form-search" method="get" action="boardManagement.jsp">
-							<input type="hidden" id="page-field" name="page" value="1">
-							<select name="option">
-								<option value="title">제목</option>
-								<option value="writer">작성자</option>
-								<option value="content">내용</option>
-							</select>
-							<input type="text" name="keyword">
-							<button type="button" onclick="searchBoards(1)">검색</button>
-						</form>
-						<ul class="pagination">
-						
-							<li class="page-item"><a href="">1</a></li>
-							<li class="page-item"><a href="">2</a></li>
-							<li class="page-item"><a href="">3</a></li>
-							<li class="page-item"><a href="">4</a></li>
-							<li class="page-item"><a href="">5</a></li>
-						</ul>
-
-					</div>
 				</div>
 			</div>
-
+			<div class="col text-center">
+				<div class="container">
+					<ul class="pagination justify-content-center">
+						<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : "" %> ">
+							<a class="page-link" href="boardManagement.jsp?section=<%=section %>?pageNo=<%=pagination.getPrevPage() %>" aria-label="Previous"> 
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<%
+							for(int no=pagination.getBeginPage(); no<=pagination.getEndPage(); no++){
+							
+						%>
+						<li class="page-item <%=pagination.getPageNo() == no ? "active" : "" %>"><a class="page-link" href="boardManagement.jsp??section=<%=section %>?pageNo=<%=no%>"><%=no %></a></li>
+						<%
+							}
+						%>
+						<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>">
+							<a class="page-link" href="boardManagement.jsp?section=<%=section %>?pageNo=<%=pagination.getNextPage() %>" aria-label="Next"> 
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 
 		</div>
 	</div>

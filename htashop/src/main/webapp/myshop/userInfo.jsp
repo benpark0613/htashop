@@ -35,6 +35,14 @@
 %>
 
 <%
+	if("confirmPassword".equals(failReason)){
+%>
+				<div class="alert alert-danger d-flex align-items-center" role="alert">수정할 같은 비밀번호를 입력하세요</div>
+<%
+	}
+%>
+
+<%
 	if("name".equals(failReason)){
 %>
 				<div class="alert alert-danger d-flex align-items-center" role="alert">이름을 입력 하세요!</div>
@@ -91,15 +99,15 @@
 								<div class="col-12">
 									<label for="password" class="form-label">New Password</label>
 									<div class="input-group has-validation">
-										<input type="text" class="form-control" id="password" name="password" placeholder="New Password">
+										<input type="password" class="form-control" id="password" name="password" placeholder="New Password">
 									</div>
 								</div>
 
 
 								<div class="col-12">
-									<label for="" class="form-label">Confirm New Password</label>
+									<label for="passwordConfirm" class="form-label">Confirm New Password</label>
 									<div class="input-group has-validation">
-										<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="New Password">
+										<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="New Password">
 									</div>
 								</div>
 
