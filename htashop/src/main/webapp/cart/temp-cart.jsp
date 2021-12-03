@@ -27,9 +27,7 @@ img {width: 80px; height: 100px;}
 	ProductDao productDao = ProductDao.getInstance();
 	UserDao userDao = new UserDao();
 	
-	List<Cart> carts = tempCartDao.getAllCartList();
-	Cart cart = new Cart();
-	Product product = productDao.getProductDetailById(cart.getProductNo());
+	List<Cart> carts = tempCartDao.getAllCartListByUserNo(loginedUserInfo.getUserNo());
 %>
 <div class="container">
 	<div class="row justify-content-start">
@@ -65,7 +63,8 @@ img {width: 80px; height: 100px;}
 							</thead>
 							<tbody>
 <%
-	for (Cart c : carts ) {
+	for (Cart cart : carts ) {
+		Product product = productDao.getProductDetailById(cart.getProductNo());
 %>
 								<tr>
 									<td>
@@ -75,13 +74,14 @@ img {width: 80px; height: 100px;}
 										  </label>
 										</div>									
 									</td>
-									<td><%=c.getCartNo() %></td>
-									<td><img alt="" src="../resources/images/<%=product.getImage() %>"></br>남검정면바지</td>
+									<td><%=cart.getCartNo() %></td>
+									<td><img alt="" src="../resources/images/<%=product.getImage() %>">남검정면바지</td>
 									<td><%=product.getName() %></td>
 									<td><%=product.getPrice() %></td>
-									<td><%=c.getQuantity() %></td>
+									<td><%=cart.getQuantity() %></td>
 									<td><%=product.getPrice()*cart.getQuantity() %></td>
-									<td>무료배송</td>
+									<td><%=product.getPrice()*cart.getQuantity()*0.05  %></td>
+									<td>배송완료</td>
 								</tr>
 <%
 	}
