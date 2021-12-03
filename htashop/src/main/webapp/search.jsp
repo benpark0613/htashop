@@ -8,9 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/newstyle.css" rel="stylesheet" />
 <title></title>
 </head>
 <body>
@@ -20,28 +19,33 @@
 		<div class="col-2">
 			<%@ include file="../common/left.jsp"%>
 		</div>
+
 <%
 	ProductDao productDao = ProductDao.getInstance();
 	List<Product> productList = productDao.getAllProducts();
 %>
 		<div class="col-10 align-self-center">
-			<form class="row mb-3" id="form-search" name="search" method="post" action="search.jsp">
-				<!-- 검색 키워드 선택 -->
-				<div class="col-sm-2">
-					<select class="form-select" name="searchKeyword">
-						<option value="name">이름</option>
-						<option value="price">가격</option>
-						<option value="category">카테고리</option>
-					</select>
+			<div class="row mt-3 mb-3">
+				<div class="col">
+					<form class="d-flex justify-content-center" id="form-search" name="search" method="post" action="search.jsp">
+						<!-- 검색 키워드 선택 -->
+						<div class="col-sm-2">
+							<select class="form-select" name="searchKeyword">
+								<option value="name">이름</option>
+								<option value="price">가격</option>
+								<option value="category">카테고리</option>
+							</select>
+						</div>
+						<div class="col-5">
+							<input class="form-control" type="text" placeholder="검색어(필수)" name="searchText" />
+						</div>
+						<div class="col-2">
+							<button class="btn btn-dark" type="submit">검색</button>
+						</div>
+						<!-- 검색어 입력필드 -->
+					</form>
 				</div>
-				<!-- 검색어 입력필드 -->
-				<div class="col-5">
-					<input class="form-control" type="text" name="searchText" />
-				</div>
-				<div class="col-2">
-					<button class="btn btn-dark" type="submit">검색</button>
-				</div>
-			</form>
+			</div>
 
 
 <%
@@ -60,7 +64,7 @@
 	if (searchKeyword != null && !searchKeyword.isEmpty() && searchText != null && !searchText.isEmpty()) {
 		productResults = productDao.getProductListBySearch(searchKeyword, searchText);
 %>
-			<div class="row">
+			<div class="row mb-3">
 				<div class="col-10 justify-content-md-center mt-3">
 					<table class="table">
 						<thead>
