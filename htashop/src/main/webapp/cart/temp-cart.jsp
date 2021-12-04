@@ -59,25 +59,6 @@
 	for (Cart cart : carts) {
 		Product product = productDao.getProductDetailById(cart.getProductNo());
 %>
-<<<<<<< HEAD
-								<tr>
-									<td>
-										<div class="form-check">
-										  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										  <label class="form-check-label" for="flexCheckDefault">
-										  </label>
-										</div>									
-									</td>
-									<td><%=cart.getCartNo() %></td>
-									<td><img src="../resources/images/<%=product.getImage() %>">남검정면바지</td>
-									<td><%=product.getName() %></td>
-									<td><%=product.getPrice() %></td>
-									<td><%=cart.getQuantity() %></td>
-									<td><%=product.getPrice()*cart.getQuantity() %></td>
-									<td><%=product.getPrice()*cart.getQuantity()*0.05  %></td>
-									<td>배송완료</td>
-								</tr>
-=======
 							<tr>
 								<td>
 									<div class="form-check">
@@ -94,7 +75,6 @@
 								<td><%=product.getPrice() * cart.getQuantity() * 0.05%></td>
 								<td>배송완료</td>
 							</tr>
->>>>>>> a20072b175e263169fd044d8258474eecaac18b3
 <%
 	}
 %>
