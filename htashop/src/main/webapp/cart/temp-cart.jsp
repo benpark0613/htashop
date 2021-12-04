@@ -75,7 +75,7 @@ img {width: 80px; height: 100px;}
 										</div>									
 									</td>
 									<td><%=cart.getCartNo() %></td>
-									<td><img alt="" src="../resources/images/<%=product.getImage() %>">남검정면바지</td>
+									<td><img src="../resources/images/<%=product.getImage() %>">남검정면바지</td>
 									<td><%=product.getName() %></td>
 									<td><%=product.getPrice() %></td>
 									<td><%=cart.getQuantity() %></td>
