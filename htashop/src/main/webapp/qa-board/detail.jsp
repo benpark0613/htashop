@@ -8,7 +8,8 @@
    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-    <title></title>
+   <link href="../resources/css/newstyle.css" rel="stylesheet" />
+    <title>qa 목록</title>
 </head>
 <body>
 <%@ include file="../common/navbar.jsp" %>
@@ -25,13 +26,12 @@
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
 
-	QaBoard qaBoard = new QaBoard();
 	QaBoardDao qaBoardDao = new QaBoardDao();
-	qaBoard = qaBoardDao.getQuestionByNo(no);
+	QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);
+	System.out.println("아이디"+ qaBoard.getUserId());
 	
-	if(loginedUserInfo.getId().equals(qaBoard.getUserId()) || "admin".equals(loginedUserInfo.getId())){
+	if(loginedUserInfo!= null &&( qaBoard.getUserId().equals(loginedUserInfo.getId()) || "admin".equals(loginedUserInfo.getId()))){
 %>	
-		<form method="post" action="reply.jsp">
 			<table class="table border p-3 bg-light">
 				<tbody>
 					<tr class="d-flex">
@@ -58,23 +58,29 @@
 						<th class="col-2">댓글</th>
 						<td class="col-10"><%=qaBoard.getReply() %></td>
 					</tr>
-				</tbody>				
+				</tbody>	
 			</table>
-			<table class="table border p-3 bg-light">
+			<div class="mb-3 text-end">
+				<button class="btn btn-danger"><a  href="remove.jsp?no=<%=qaBoard.getNo()%>">삭제</a></button>
+			<%
+				System.out.println(qaBoard.getNo());
+			%>
+			</div>
+			<form method="post" action="reply.jsp">
+				<input type="hidden" name="no" value="<%=qaBoard.getNo()%>">
 				<div class="mb-3">
 					<label class="col-1 col-form-label text-front" >댓글</label>
 					<textarea rows="6" class="form-control" name="reply"></textarea>
 				</div>
 				<div class="row mb-3">
 					<div class="col">
-					<div class="mb-3 text-end">
-					<a href="list.jsp" class="btn btn-secondary">목록</a>
-						<button type="submit" class="btn btn-primary">등록</button>
-					</div>
+						<div class="mb-3 text-end">
+							<a href="list.jsp" class="btn btn-secondary">목록</a>
+							<button type="submit" class="btn btn-primary">등록</button>
+						</div>
 					</div>
 				</div>
-			</table>	
-		</form>
+			</form>
 <%
 	}else{
 		response.sendRedirect("list.jsp");

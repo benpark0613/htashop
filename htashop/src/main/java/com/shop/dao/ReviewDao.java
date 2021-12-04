@@ -12,6 +12,7 @@ import java.util.List;
 import com.shop.dto.BoardDto;
 import com.shop.dto.ReviewDto;
 import com.shop.vo.Criteria;
+import com.shop.vo.QaBoard;
 import com.shop.vo.Review;
 public class ReviewDao {
 	
@@ -429,6 +430,76 @@ public class ReviewDao {
 
 		return allBoardList;
 	}
+	
+	public List<QaBoard> getAllQAByUserNoRN(int userNo, int begin, int end)throws SQLException{
+
+		String sql = "select QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
+				+ "from (select row_number() over (order by O.ORDER_NO) RN, "
+				+ "             QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
+				+ "      from SHOP_QABOARD "
+				+ "      where USER_NO = ? ) "
+				+ "where RN>=? AND RN<=? ";
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, userNo);
+		pstmt.setInt(2, begin);
+		pstmt.setInt(3, end);
+		ResultSet rs = pstmt.executeQuery();
+		List<QaBoard> QAList = new ArrayList<>();
+
+		while(rs.next()) {
+			QaBoard QAboard = new QaBoard();
+			QAboard.setNo(rs.getInt("QA_NO"));
+			QAboard.setTitle(rs.getString("QA_TITLE"));
+			QAboard.setRegdate(rs.getDate("QA_REGDATE"));
+			QAboard.setViewCount(rs.getInt("QA_VIEWCOUNT"));
+
+			QAList.add(QAboard);
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+
+
+		return QAList;
+	}
+	
+	public List<Review> getAllReviewByUserNoRN(int userNo, int begin, int end) throws SQLException{
+		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
+				+ "from (select row_number() over (order by REVIEW_NO) RN, "
+				+ "             REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
+				+ "      from SHOP_REVIEW "
+				+ "      where USER_NO = ? ) "
+				+ "where RN>=? AND RN<=? ";
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, userNo);
+		pstmt.setInt(2, begin);
+		pstmt.setInt(3, end);
+		ResultSet rs = pstmt.executeQuery();
+		List<Review> reviewList = new ArrayList<>();
+
+		while(rs.next()) {
+			Review review = new Review();
+			review.setReviewNo(rs.getInt("REVIEW_NO"));
+			review.setTitle(rs.getString("REVIEW_TITLE"));
+			review.setCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
+			review.setViewCount(rs.getInt("REVIEW_VIEW_COUNT"));
+
+			reviewList.add(review);
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+
+
+		return reviewList;
+	}
+
 
 
 }

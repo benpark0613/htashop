@@ -38,10 +38,29 @@
 							</select>
 						</div>
 						<div class="col-5">
-							<input class="form-control" type="text" placeholder="검색어(필수)" name="searchText" />
+<%
+	String searchKeyword = request.getParameter("searchKeyword");
+	if ("price".equals(searchKeyword)) {
+%>
+							
+							<button class="btn btn-dark" type="submit">낮은가격순으로 검색</button>
+							<button class="btn btn-dark" type="submit">높은가격순으로 검색</button>
+							
+							 
+<%
+	} else {
+%>			
+							<input class="form-control" type="text" placeholder="찾으시는 상품명을 입력하세요." name="searchText" />
+		
 						</div>
 						<div class="col-2">
-							<button class="btn btn-dark" type="submit">검색</button>
+
+						<button class="btn btn-dark" type="submit">검색</button>
+<%
+	}
+%>
+
+
 						</div>
 						<!-- 검색어 입력필드 -->
 					</form>
@@ -57,7 +76,6 @@
 	// db에서 조회하려면 키워드searchKeyword가 null이면 안되고(!=null) 사용자가 선택을 해야하며(!isempty)
 	// 입력필드searchText도 null이면 안되고(!=null) 사용자가 문자를 입력해야 한다(!isempty).
 	// 조건을 모두 만족하면 db에서 조회 시작
-	String searchKeyword = request.getParameter("searchKeyword");
 	String searchText = request.getParameter("searchText");
 
 	List<Product> productResults = null;

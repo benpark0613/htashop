@@ -5,18 +5,19 @@
     pageEncoding="UTF-8"%>
 <%	
 	String reply = request.getParameter("reply");
-	
-	
-	
+	int no = Integer.parseInt(request.getParameter("no"));
 	
 	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
+	if (loginedUserInfo == null) {
+		response.sendRedirect("");
+		return;
+	}
 	
 	//loginform가서 fail=login-required 이걸 만들어야함
 	
 	QaBoard qaBoard = new QaBoard();
 	qaBoard.setReply(reply);
-	qaBoard.setUserId(loginedUserInfo.getId());
-		
+	qaBoard.setNo(no);
 	
 	QaBoardDao qaBoardDao = new QaBoardDao();
 	
@@ -27,4 +28,3 @@
 	// 내비게이션에 인증된 사용자명과 로그아웃 링크가 표시된다.
 	response.sendRedirect("list.jsp");
 %>
-
