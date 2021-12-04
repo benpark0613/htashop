@@ -15,8 +15,5 @@
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	
 	QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);
-	
-	
-	
 %>
 	
