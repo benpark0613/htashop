@@ -45,7 +45,7 @@
 						</thead>
 						<tbody>
 							<%
-							QaBoardDao qaBoardDao = new QaBoardDao();
+							QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 							List<QaBoard> qaBoardList = qaBoardDao.getAllQuestions();
 							if (qaBoardList.isEmpty()) {
 							%>
