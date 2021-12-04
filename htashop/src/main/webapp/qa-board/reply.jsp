@@ -19,7 +19,7 @@
 	qaBoard.setReply(reply);
 	qaBoard.setNo(no);
 	
-	QaBoardDao qaBoardDao = new QaBoardDao();
+	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	
 	qaBoardDao.updateReply(qaBoard);
 	
