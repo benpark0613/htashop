@@ -20,11 +20,6 @@ public class ProductDao {
 		return self;
 	}
 	
-	
-	
-	
-	
-	
 	public List<Product> getProductListBySearch(String searchKeyword, String searchText) throws SQLException {
 		List<Product> searchResults = new ArrayList<>();
 		
@@ -255,6 +250,7 @@ public class ProductDao {
 		pstmt.setInt(2, begin);
 		pstmt.setInt(3, end);
 
+
 		
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
@@ -273,4 +269,42 @@ public class ProductDao {
 		
 		return productList;
 	}	
+
+	
+	
+	public List<Product> getProductListByBest20(int begin, int end) throws SQLException {
+		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE, PRODUCT_SALES_RATE "
+					+ "from (select row_number() over (order by product_sales_rate desc) RN, "
+					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE, PRODUCT_SALES_RATE "
+					+ "      from (SELECT * FROM SHOP_PRODUCTS order by PRODUCT_SALES_RATE desc) "
+					+ "		WHERE ROWNUM <= 20) "
+					+ "where rn >= ? and rn <= ? ";
+		
+		List<Product> productList = new ArrayList<Product>();
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, begin);
+		pstmt.setInt(2, end);
+
+
+		
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			Product product = new Product();
+			product.setNo(rs.getInt("PRODUCT_NO"));
+			product.setCategory(rs.getString("PRODUCT_CATEGORY"));
+			product.setName(rs.getString("PRODUCT_NAME"));
+			product.setPrice(rs.getInt("PRODUCT_PRICE"));
+			product.setImage(rs.getString("PRODUCT_IMAGE"));
+			productList.add(product);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return productList;
+	}
 }

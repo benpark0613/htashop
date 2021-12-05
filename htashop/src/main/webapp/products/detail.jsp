@@ -18,6 +18,12 @@
 	rel="stylesheet">
 <link href="../resources/css/newstyle.css" rel="stylesheet" />
 <title>Insert title here</title>
+<style type="text/css"> 
+a { text-decoration:none;
+	color : black;
+	 } 
+</style> 
+</head>
 </head>
 <body>
 	<%
@@ -49,31 +55,28 @@
 					<div class="container">
 						<div class="row">
 							<div class="col">
-
 								<img src="../resources/images/<%=product.getName()%>.jpg"
 									style="width: 500px; height: 500px">
 							</div>
-
 							<div class="col">
 								<h3><%=product.getName()%></h3>
 								<p>
-									카테고리 :
-									<%=product.getCategory()%></p>
-								<p>상세정보 들어감</p>
+									카테고리 : <%=product.getCategory()%></p>
+								<p></p>
 								<table class="table">
 
 									<tbody>
 										<tr class="d-flex">
-											<th class="col-2">가격</th>
-											<td class="col-4"><%=product.getPrice()%></td>
+											<th class="col-3">가격</th>
+											<td class="col-4"><%=product.getPrice()%>원</td>
 										</tr>
 										<tr class="d-flex">
-											<th class="col-2">재고</th>
+											<th class="col-3">재고</th>
 											<td class="col-4"><%=product.getStock()%></td>
 										</tr>
 										<tr class="d-flex">
-											<th class="col-2">판매수량</th>
-											<td class="col-10"><%=product.getSalesRate()%></td>
+											<th class="col-3">판매수량</th>
+											<td class="col-4"><%=product.getSalesRate()%>개</td>
 										</tr>
 									</tbody>
 								</table>
@@ -109,7 +112,12 @@
 							</div>
 						</div>
 						<hr>
-						<h4>리뷰</h4>
+			<div class="row mt-2">
+				<div class="row mb-3" id="container_title">
+					<div class="col">
+						<h1 class="fs-6"><strong>리뷰</strong> | 회원님들의 리뷰입니다.</h1>
+					</div>
+				</div>
 						<div class="row mb-3">
 							<div class="col">
 								<table class="table">
@@ -137,7 +145,10 @@
 										<tr class="d-flex">
 											<td class="col-1"><%=review.getReviewNo()%></td>
 											<td class="col-5"><a
-												href="reviewDetail.jsp?reviewNo=<%=review.getReviewNo()%>&pageNo=<%=pageNo%>"><%=review.getTitle()%></a></td>
+												href="reviewDetail.jsp?reviewNo=<%=review.getReviewNo()%>&pageNo=<%=pageNo%>"><%=review.getTitle()%>
+												<%=review.getAnswerContent() != null ? "(1)" : "" %>
+												</a>
+												</td>
 											<td class="col-2"><%=review.getUserName()%></td>
 											<td class="col-2"><%=review.getViewCount()%></td>
 											<td class="col-2"><%=review.getReviewCreatedDate()%></td>
@@ -186,9 +197,9 @@
 									</ul>
 								</nav>
 							</div>
-							<div class="col-3 text-end">
+<!-- 							<div class="col-3 text-end">
 								<a href="reviewForm.jsp" class="btn btn-outline-primary">새 글</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
