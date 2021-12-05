@@ -466,6 +466,14 @@ public class ReviewDao {
 		return QAList;
 	}
 	
+	/**
+	 * best20 조회를 위한 sql
+	 * @param userNo
+	 * @param begin
+	 * @param end
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<Review> getAllReviewByUserNoRN(int userNo, int begin, int end) throws SQLException{
 		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
 				+ "from (select row_number() over (order by REVIEW_NO) RN, "
@@ -500,6 +508,40 @@ public class ReviewDao {
 		return reviewList;
 	}
 
+	/**
+	 * 리뷰 답글 달기 관련 sql 
+	 * 답변 내용과 답변등록일의 기본값이 null이기 때문에 insert가 아닌 update로 변경해준다.
+	 * @param reviewNo
+	 */
+	public void insertReply(ReviewDto reviewDto) throws SQLException {
+		
 
+		
+		String sql ="UPDATE shop_review "
+					+ "SET "
+					+ " ANSWER_CONTENT = ?, "
+					+ " ANSWER_CREATED_DATE = sysdate "
+					+ "where review_no =? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, reviewDto.getAnswerContent());
+		pstmt.setInt(2, reviewDto.getReviewNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	}
+	
+/**
+ * 		String sql = "update shop_review "
+				   + "set "
+				   + "	review_title = ?, "
+				   + "	review_content = ?, "
+				   + "  review_view_count =? "
+				   + "where review_no = ? ";
+ */
 
 }

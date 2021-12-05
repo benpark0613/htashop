@@ -68,7 +68,7 @@ a { text-decoration:none;
 									<tbody>
 										<tr class="d-flex">
 											<th class="col-3">가격</th>
-											<td class="col-4"><%=product.getPrice()%></td>
+											<td class="col-4"><%=product.getPrice()%>원</td>
 										</tr>
 										<tr class="d-flex">
 											<th class="col-3">재고</th>
@@ -112,7 +112,12 @@ a { text-decoration:none;
 							</div>
 						</div>
 						<hr>
-						<h4>리뷰</h4>
+			<div class="row mt-2">
+				<div class="row mb-3" id="container_title">
+					<div class="col">
+						<h1 class="fs-6"><strong>리뷰</strong> | 회원님들의 리뷰입니다.</h1>
+					</div>
+				</div>
 						<div class="row mb-3">
 							<div class="col">
 								<table class="table">
@@ -140,7 +145,10 @@ a { text-decoration:none;
 										<tr class="d-flex">
 											<td class="col-1"><%=review.getReviewNo()%></td>
 											<td class="col-5"><a
-												href="reviewDetail.jsp?reviewNo=<%=review.getReviewNo()%>&pageNo=<%=pageNo%>"><%=review.getTitle()%></a></td>
+												href="reviewDetail.jsp?reviewNo=<%=review.getReviewNo()%>&pageNo=<%=pageNo%>"><%=review.getTitle()%>
+												<%=review.getAnswerContent() != null ? "(1)" : "" %>
+												</a>
+												</td>
 											<td class="col-2"><%=review.getUserName()%></td>
 											<td class="col-2"><%=review.getViewCount()%></td>
 											<td class="col-2"><%=review.getReviewCreatedDate()%></td>

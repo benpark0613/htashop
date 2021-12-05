@@ -4,7 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%
-	int productNo = Integer.parseInt(request.getParameter("productNo"));
 	int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 	String pageNo = request.getParameter("pageNo");
 	User loginedUserInfo = (User) session.getAttribute("logined_user_info");
@@ -18,6 +17,8 @@
 			response.sendRedirect("detail.jsp?no=" + reviewNo + "&pageNo=" + pageNo);
 			return;
 	}
+	if (dto.getUserNo() == loginedUserInfo.getUserNo() || "admin".equals(loginedUserInfo.getUserType())) {	
 	reviewDao.deleteReview(reviewNo);
-	response.sendRedirect("detail.jsp?no=" + productNo);
+	}
+	response.sendRedirect("reviewDetail.jsp?reviewNo=" + reviewNo);
 	%>

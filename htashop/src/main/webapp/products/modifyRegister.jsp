@@ -3,7 +3,6 @@
 <%@page import="com.shop.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-//	int no = Integer.parseInt(request.getParameter("no"));
 	int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 	String pageNo = request.getParameter("pageNo");
 	String title = request.getParameter("title");
