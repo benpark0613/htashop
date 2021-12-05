@@ -91,8 +91,11 @@
 									</tr>
 								</tbody>
 							</table>
+				
+							<%
+								if(reviewDto.getAnswerContent() != null){
+							%>
 							<hr>
-							
 							<table class="table">
 								<tbody>							
 									<tr class="d-flex">
@@ -106,7 +109,10 @@
 										<td class="col-10"><%=reviewDto.getAnswerContent()%></td>
 									</tr>
 								</tbody>
-							</table>							
+							</table>
+							<% 
+								}
+							%>							
 						</div>
 					</div>
 					<div class="row mb-3">
@@ -114,24 +120,38 @@
 							<div class="d-flex justify-content-between">
 								<div>
 									<%
-									if (loginedUserInfo != null && loginedUserInfo.getUserNo() == reviewDto.getUserNo()) { // 로그인한 사용자의 사용자번호와 게시글작성자의 사용자번호가 일치하는 경우 버튼이 출력된다.
+									if (loginedUserInfo != null && (loginedUserInfo.getUserNo() == reviewDto.getUserNo())) {
 									%>
-									<a
-										href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
-										class="btn btn-danger">삭제</a> <a
-										href="modifyForm.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
-										class="btn btn-danger">수정</a>
+										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										class="btn btn-danger">리뷰 삭제</a> 
+										<a href="modifyForm.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
+										class="btn btn-warning">리뷰 수정</a>
 									<%
 									}
 									%>
 									<%
 									if (loginedUserInfo != null && "admin".equals(loginedUserInfo.getUserType())) {
 									%>
-									<a
-										href="replyForm.jsp?no=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
-										class="btn btn-primary">답글</a> <a
-										href="delete.jsp?no=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
-										class="btn btn-danger">삭제</a>
+									<%
+										if(reviewDto.getAnswerContent() != null) {
+									%>
+										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										class="btn btn-danger">리뷰 삭제</a> 									
+										<a href="replyForm.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
+										class="btn btn-info">답글 수정</a>	
+										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										class="btn btn-danger">답글 삭제</a>																				
+									<% 		
+										} else if ((reviewDto.getAnswerContent() == null)){		
+									%>
+										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										class="btn btn-danger">리뷰 삭제</a> 											
+										<a href="replyForm.jsp?reviewNo=<%=reviewNo%>&pageNo=<%=pageNo%>"
+										class="btn btn-primary">답글 작성</a>
+																		
+									<%		
+										}									
+									%>	
 									<div>
 									</div>
 									<%
