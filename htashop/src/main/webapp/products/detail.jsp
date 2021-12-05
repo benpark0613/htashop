@@ -1,3 +1,4 @@
+<%@page import="com.shop.vo.User"%>
 <%@page import="com.shop.dto.ReviewDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.lang.reflect.Array"%>
@@ -29,6 +30,7 @@ a { text-decoration:none;
 	<%
 	pageContext.setAttribute("menu", "detail");
 	pageContext.setAttribute("leftMenu", "detail");
+	User loginedUserInfo = (User)session.getAttribute("logined_user_info");
 	%>
 	<%@include file="../common/navbar.jsp"%>
 	<div class="container">
@@ -40,7 +42,8 @@ a { text-decoration:none;
 				<div class="row mb-3">
 					<%
 					int no = Integer.parseInt(request.getParameter("no"));
-
+					String error = request.getParameter("error");
+					
 					ProductDao productDao = ProductDao.getInstance();
 					ReviewDto reviewDto = new ReviewDto();
 					Product product = productDao.getProductDetailById(no);
@@ -102,10 +105,18 @@ a { text-decoration:none;
 										value='구매' onclick='return submit1(this.form);'> <input
 										class="btn btn-outline-dark" type='submit' value='장바구니'
 										onclick='return submit2(this.form);'>
-								</form>
 								<%
 								}
 								%>
+								<% // %>
+								<%
+								if ("empty-quantity".equals(error)) {
+								%>
+									
+								<% 
+								}
+								%>
+								</form>
 							</div>
 							<div align="right">
 								<a href="../index.jsp" class="btn btn-primary pull-right">목록</a>
