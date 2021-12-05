@@ -57,10 +57,6 @@
 					<form class="border p-3 bg-light" method="post"
 						action="register.jsp">
 						<div class="mb-3">
-							<label class="form-label" for="board-title">제목</label> <input
-								type="text" class="form-control" name="title" id="board-title">
-						</div>
-						<div class="mb-3">
 							<label class="form-label" for="board-content">내용</label>
 							<textarea rows="6" class="form-control" name="content"></textarea>
 						</div>

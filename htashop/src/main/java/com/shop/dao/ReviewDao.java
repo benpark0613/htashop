@@ -110,7 +110,7 @@ public class ReviewDao {
 				   + "			   R.review_view_count, R.REVIEW_CREATED_DATE, R.answer_created_date "
 				   + "      from SHOP_REVIEW R, SHOP_USER U, SHOP_PRODUCTS P "
 				   + "      where U.user_no = R.USER_NO "
-				   + "      and P.PRODUCT_NO = R.PRODUCT_NO"
+				   + "      and P.PRODUCT_NO = R.PRODUCT_NO "
 				   + "		and R.product_no = ? ) "
 				   + "where rn >= ? and rn <= ? ";
 	

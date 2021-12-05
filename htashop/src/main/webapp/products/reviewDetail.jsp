@@ -71,33 +71,42 @@
 							<table class="table">
 								<tbody>
 									<tr class="d-flex">
-										<th class="col-2">번호</th>
-										<td class="col-4"><%=reviewDto.getReviewNo()%></td>
+										<th class="col-2">물품명</th>
+										<td class="col-10"><%=reviewDto.getProductName()%></td>
+									</tr>								
+									<tr class="d-flex">
+										<th class="col-2">작성자</th>
+										<td class="col-4"><%=reviewDto.getUserName()%></td>
 										<th class="col-2">등록일</th>
 										<td class="col-4"><%=reviewDto.getReviewCreatedDate()%></td>
 									</tr>
 									<tr class="d-flex">
 										<th class="col-2">제목</th>
 										<td class="col-4"><%=reviewDto.getTitle()%></td>
-										<th class="col-2">작성자</th>
-										<td class="col-4"><%=reviewDto.getUserName()%></td>
-									</tr>
-									<tr class="d-flex">
-										<th class="col-2">조회수</th>
-										<td class="col-10"><%=reviewDto.getViewCount()%></td>
+
 									</tr>
 									<tr class="d-flex">
 										<th class="col-2">내용</th>
 										<td class="col-10"><%=reviewDto.getReviewContent()%></td>
 									</tr>
-									<tr class="d-flex">
-										<th class="col-2">물품명</th>
-										<td class="col-4"><%=reviewDto.getProductName()%></td>
-										<th class="col-2">물품번호</th>
-										<td class="col-4"><%=reviewDto.getProductNo()%></td>
-									</tr>
 								</tbody>
 							</table>
+							<hr>
+							
+							<table class="table">
+								<tbody>							
+									<tr class="d-flex">
+										<th class="col-2">작성자</th>
+										<td class="col-4">HTA shop</td>
+										<th class="col-2">등록일</th>
+										<td class="col-4"><%=reviewDto.getReviewCreatedDate()%></td>
+									</tr>
+									<tr class="d-flex">
+										<th class="col-2">내용</th>
+										<td class="col-10"><%=reviewDto.getAnswerContent()%></td>
+									</tr>
+								</tbody>
+							</table>							
 						</div>
 					</div>
 					<div class="row mb-3">
@@ -124,8 +133,7 @@
 										href="delete.jsp?no=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
 										class="btn btn-danger">삭제</a>
 									<div>
-										pageNo :
-										<%=pageNo%></div>
+									</div>
 									<%
 									}
 									%>

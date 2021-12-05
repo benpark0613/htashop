@@ -18,6 +18,12 @@
 	rel="stylesheet">
 <link href="../resources/css/newstyle.css" rel="stylesheet" />
 <title>Insert title here</title>
+<style type="text/css"> 
+a { text-decoration:none;
+	color : black;
+	 } 
+</style> 
+</head>
 </head>
 <body>
 	<%
@@ -49,31 +55,28 @@
 					<div class="container">
 						<div class="row">
 							<div class="col">
-
 								<img src="../resources/images/<%=product.getName()%>.jpg"
 									style="width: 500px; height: 500px">
 							</div>
-
 							<div class="col">
 								<h3><%=product.getName()%></h3>
 								<p>
-									카테고리 :
-									<%=product.getCategory()%></p>
-								<p>상세정보 들어감</p>
+									카테고리 : <%=product.getCategory()%></p>
+								<p></p>
 								<table class="table">
 
 									<tbody>
 										<tr class="d-flex">
-											<th class="col-2">가격</th>
+											<th class="col-3">가격</th>
 											<td class="col-4"><%=product.getPrice()%></td>
 										</tr>
 										<tr class="d-flex">
-											<th class="col-2">재고</th>
+											<th class="col-3">재고</th>
 											<td class="col-4"><%=product.getStock()%></td>
 										</tr>
 										<tr class="d-flex">
-											<th class="col-2">판매수량</th>
-											<td class="col-10"><%=product.getSalesRate()%></td>
+											<th class="col-3">판매수량</th>
+											<td class="col-4"><%=product.getSalesRate()%>개</td>
 										</tr>
 									</tbody>
 								</table>
@@ -186,9 +189,9 @@
 									</ul>
 								</nav>
 							</div>
-							<div class="col-3 text-end">
+<!-- 							<div class="col-3 text-end">
 								<a href="reviewForm.jsp" class="btn btn-outline-primary">새 글</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
