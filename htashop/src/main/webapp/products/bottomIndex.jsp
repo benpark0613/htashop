@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="../resources/css/newstyle.css" rel="stylesheet" />
-<title>HTA shop::메인페이지</title>
+<title>HTA shop::BOTTOM 페이지</title>
 <style type="text/css"> 
 a { text-decoration:none;
 	color : black;
@@ -35,8 +35,6 @@ a { text-decoration:none;
 	List<Product> productList = productDao.getAllProducts();
 %>		
 		<div class="col-sm-10 align-self-end">
-		
-	<!-- 로그인 안하고 MYSHOP 접근했을 때 오류 표시 -->	
 <%
 	String failReason = request.getParameter("fail");
 	if("unlogined".equals(failReason)){
@@ -52,28 +50,20 @@ a { text-decoration:none;
 					</div>
 				</div>
 <%
-	// 페이징 처리하기
-	// 인덱스에서 페이지부분을 누를때마다 pageNo라는 이름으로 현재페이지번호를 보낸다.
-	// 페이지번호가 없으면 1로 되게 페이지네이션 유틸에 구현되어 있음
 	String pageNo = request.getParameter("pageNo");
 	String category = "BOTTOM";
-	// productdao 생성하고 전체 데이터 갯수 구하기
 	int totalProductsRecord = productDao.getTotalRecordsByCategory(category);
-	// 페이지네이션 객체 생성: 조회한 현재 페이지 번호, 전체 데이터 갯수
 	Pagination_index paginationIndex = new Pagination_index(pageNo, totalProductsRecord);
-	// productDao의 getProductListByRN메소드 호출
-	// 페이지네이션 안에서 현재 페이지 번호에 해당하는 범위를 계산함
 	List<Product> products = productDao.getProductListByCategory(paginationIndex.getBegin(), paginationIndex.getEnd(), category);
-	// 이제 products에 들어있는 상품정보를 화면에 출력
 	for (Product product : products) {
 %>
 				<div class="col-sm-4 mb-3">
 					<div class="card mt-3">
-						<a href="../products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><img src="../resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
+						<a href="../products/detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=1%>"><img src="../resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
 					</div>
 					<div class="card-body">
 						<!-- 클릭하면 상품상세정보페이지로 이동 -->
-						<h5 class="card-title text-center"><a href="../products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><%=product.getName() %></a></h5>
+						<h5 class="card-title text-center"><a href="../products/detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=1%>"><%=product.getName() %></a></h5>
 						<p class="card-text text-danger text-center"><strong class="fw-bold"><%=product.getPrice() %></strong> 원</p>
 					</div>
 				</div>

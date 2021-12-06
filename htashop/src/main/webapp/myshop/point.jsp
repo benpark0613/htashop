@@ -31,50 +31,45 @@ Pagination pagination = new Pagination(pageNo, totalRecords);
 
 List<OrderDto> orderList = orderDao.getOrdersByNoRN(loginedUserInfo.getUserNo(), pagination.getBegin(),
 		pagination.getEnd());
+
 %>
 <body>
 	<div class="container">
 		<div class=row>
-
 			<div class="col-1">
 				<%@ include file="../common/left.jsp"%>
-
 			</div>
 			<%
 			// expectedpoint를 다 더하기
-
 			int totalPoint = 0;
 			int usedPoint = 0;
 
 			for (OrderDto orderDto : orderList) {
-
 				totalPoint += orderDto.getExpectedpoint();
 				usedPoint += orderDto.getUsedPoint();
 			}
 			%>
-			<div class="col-10">
-				<p>적립금 : 고객님의 사용가능 적립금 금액입니다.</p>
+			<div class="col-11">
+					<div class="container">
+						<p>적립금 : 고객님의 사용가능 적립금 금액입니다.</p>
+						<div class="p-4 p-lg-2 bg-light rounded-3 text-center border">
+							<div class="row">
+								총 적립금 : [<%=totalPoint%>]원
+							</div>
+							<div class="row">
+								사용된 적립금 : [<%=usedPoint%>]원
+							</div>
+							<div class="row">
+								사용가능 적립금 : [<%=totalPoint - usedPoint%>]원
+							</div>
+						</div>
+					</div>
 
-				<div class="row">
-					<div class="row">
-						총 적립금 : [<%=totalPoint%>]원
-					</div>
-					<div class="row">
-						사용된 적립금 : [<%=usedPoint%>]원
-					</div>
-					<div class="row">
-						사용가능 적립금 : [<%=totalPoint - usedPoint%>]원
-					</div>
-					<div class="row">미가용 적립금 : []원</div>
+
+				<div class="container">
 
 					<hr class="featurette-divider">
 
-
-
-					<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> 적립내역보기 </a> <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample"> 미가용적립내역보기 </a>
-
-					<div class="collapse" id="collapseExample">
-						<div class="card card-body">
 							<table class="table">
 								<thead>
 									<tr>
@@ -135,36 +130,8 @@ List<OrderDto> orderList = orderDao.getOrdersByNoRN(loginedUserInfo.getUserNo(),
 				</div>
 			</div>
 					</div>
-
-					<div class="collapse" id="collapseExample1">
-						<div class="card card-body">
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">주문날짜</th>
-										<th scope="col">적립금</th>
-										<th scope="col">관련주문</th>
-										<th scope="col">사용가능예정일</th>
-										<th scope="col">내용</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row"></th>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-
 				</div>
 			</div>
-		</div>
-	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

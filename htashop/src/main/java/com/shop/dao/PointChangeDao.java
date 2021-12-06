@@ -10,6 +10,12 @@ import static utils.ConnectionUtil.getConnection;
 
 public class PointChangeDao {
 	
+	/**
+	 * MYSHOP 포인트검색
+	 * @param userNo
+	 * @return
+	 * @throws SQLException
+	 */
 	public PointDto getPointChangeByUserNo(int userNo)throws SQLException{
 		
 		String sql = "select O.ORDER_NO, O.USER_NO, O.ORDER_DATE, O.ORDER_TOTAL_PRICE, O.POINT_USED, O.EXPECTED_POINT, "

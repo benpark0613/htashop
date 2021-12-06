@@ -18,7 +18,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="../resources/css/newstyle.css" rel="stylesheet" />
-<title>Insert title here</title>
+<title>제품상세정보 페이지</title>
 <style type="text/css"> 
 a { text-decoration:none;
 	color : black;
@@ -30,23 +30,22 @@ a { text-decoration:none;
 	<%
 	pageContext.setAttribute("menu", "detail");
 	pageContext.setAttribute("leftMenu", "detail");
-	User loginedUserInfo = (User)session.getAttribute("logined_user_info");
+//	User loginedUserInfo = (User)session.getAttribute("logined_user_info");
 	%>
 	<%@include file="../common/navbar.jsp"%>
 	<div class="container">
 		<div class="row justify-content-end">
 			<div class="col-sm-2">
-				<%@ include file="../common/left.jsp"%>
+			<%@ include file="../common/left.jsp" %>
 			</div>
 			<div class="col-sm-10 align-self-end mt-4">
 				<div class="row mb-3">
 					<%
-					int no = Integer.parseInt(request.getParameter("no"));
+					int productNo = Integer.parseInt(request.getParameter("productNo"));
 					String error = request.getParameter("error");
-					
 					ProductDao productDao = ProductDao.getInstance();
 					ReviewDto reviewDto = new ReviewDto();
-					Product product = productDao.getProductDetailById(no);
+					Product product = productDao.getProductDetailById(productNo);
 					int reviewNo = reviewDto.getReviewNo();
 					String pageNo = request.getParameter("pageNo");
 					ReviewDao reviewDao = new ReviewDao();
@@ -156,7 +155,7 @@ a { text-decoration:none;
 										<tr class="d-flex">
 											<td class="col-1"><%=review.getReviewNo()%></td>
 											<td class="col-5"><a
-												href="reviewDetail.jsp?reviewNo=<%=review.getReviewNo()%>&pageNo=<%=pageNo%>"><%=review.getTitle()%>
+												href="reviewDetail.jsp?productNo=<%=review.getProductNo() %>&reviewNo=<%=review.getReviewNo()%>&pageNo=<%=pageNo%>"><%=review.getTitle()%>
 												<%=review.getAnswerContent() != null ? "(1)" : "" %>
 												</a>
 												</td>
@@ -183,8 +182,7 @@ a { text-decoration:none;
 										<li
 											class="page-item <%=!pagination.isExistPrev() ? "disabled" : ""%>"><a
 											class="page-link"
-											href="detail.jsp?no=<%=product.getNo()%>&pageNo=<%=pagination.getPrevPage()%>">
-												이전 </a></li>
+											href="detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=pagination.getPrevPage()%>">이전</a></li>
 										<%
 										// Pagination 객체로부터 해당 페이지 블록의 시작 페이지번호와 끝 페이지번호만큼 페이지내비게이션 정보를 표시한다.
 										for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
@@ -192,7 +190,7 @@ a { text-decoration:none;
 										<li
 											class="page-item <%=pagination.getPageNo() == num ? "active" : ""%>"><a
 											class="page-link"
-											href="detail.jsp?no=<%=product.getNo()%>&pageNo=<%=num%>"><%=num%></a></li>
+											href="detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=num%>"><%=num%></a></li>
 										<%
 										}
 										%>
@@ -203,20 +201,20 @@ a { text-decoration:none;
 										<li
 											class="page-item <%=!pagination.isExistNext() ? "disabled" : ""%>"><a
 											class="page-link"
-											href="detail.jsp?no=<%=product.getNo()%>&pageNo=<%=pagination.getNextPage()%>">
-												다음 </a></li>
+											href="detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=pagination.getNextPage()%>">다음</a></li>
 									</ul>
 								</nav>
 							</div>
-<!-- 							<div class="col-3 text-end">
-								<a href="reviewForm.jsp" class="btn btn-outline-primary">새 글</a>
-							</div> -->
+ 							<div class="col-3 text-end">
+								<a href="reviewForm.jsp?productNo=<%=productNo%>&pageNo=<%=pageNo %>" class="btn btn-outline-primary">새 글</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js">		
 	</script>

@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="../resources/css/newstyle.css" rel="stylesheet" />
-<title>HTA shop::메인페이지</title>
+<title>HTA shop::TOP 페이지</title>
 <style type="text/css"> 
 a { text-decoration:none;
 	color : black;
@@ -69,11 +69,11 @@ a { text-decoration:none;
 %>
 				<div class="col-sm-4 mb-3">
 					<div class="card mt-3">
-						<a href="../products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><img src="../resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
+						<a href="../products/detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=1%>"><img src="../resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
 					</div>
 					<div class="card-body">
 						<!-- 클릭하면 상품상세정보페이지로 이동 -->
-						<h5 class="card-title text-center"><a href="../products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><%=product.getName() %></a></h5>
+						<h5 class="card-title text-center"><a href="../products/detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=1%>"><%=product.getName() %></a></h5>
 						<p class="card-text text-danger text-center"><strong class="fw-bold"><%=product.getPrice() %></strong> 원</p>
 					</div>
 				</div>

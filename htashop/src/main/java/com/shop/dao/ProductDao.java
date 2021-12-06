@@ -20,18 +20,21 @@ public class ProductDao {
 		return self;
 	}
 	
-	public List<Product> getProductListBySearch(String searchKeyword, String searchText) throws SQLException {
+
+	/**
+	 * 사용자가 입력한 값을 바탕으로 db에서 겁색한 결과를 반환한다.
+	 * @param searchKeyword 검색키워드(셀렉트박스에서 선택)
+	 * @param searchText 검색어(사용자 입력)
+	 * @return 검색조건에 일치하는 상품리스트
+	 * @throws SQLException
+	 */
+	public List<Product> getProductListBySearch(String searchText) throws SQLException {
 		List<Product> searchResults = new ArrayList<>();
 		
 		String sql = "select PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IS_SOLDOUT "
-				+ "from shop_products ";
-		if ("name".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		} else if ("price".equals(searchKeyword)) {
-			sql	+= "order by PRODUCT_PRICE desc ";
-		} else if ("category".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		}
+				+ "from shop_products "
+				+ "where PRODUCT_NAME like '%' || ? || '%' " ;
+		
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -55,10 +58,6 @@ public class ProductDao {
 	}
 	
 	
-	
-	
-	
-	
 	/**
 	 * 지정된 범위에 속하는 상품리스트를 반환한다.
 	 * @param begin 시작번호
@@ -67,9 +66,13 @@ public class ProductDao {
 	 * @throws SQLException
 	 */
 	public List<Product> getProductListByRN(int begin, int end) throws SQLException {
-		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE "
+		// admin/pproduct-mg/main.jsp에 필요해서
+		// PRODUCT_STOCK, PRODUCT_IS_SOLDOUT, PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE 컬럼 추가(다예) 
+		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE, "
+					+ "			 PRODUCT_STOCK, PRODUCT_IS_SOLDOUT, PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE "
 					+ "from (select row_number() over (order by product_no) RN, "
-					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE "
+					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE, "
+					+ " 			PRODUCT_STOCK, PRODUCT_IS_SOLDOUT, PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE "
 					+ "      from shop_products) "
 					+ "where rn >= ? and rn <= ? ";
 		
@@ -88,6 +91,10 @@ public class ProductDao {
 			product.setName(rs.getString("PRODUCT_NAME"));
 			product.setPrice(rs.getInt("PRODUCT_PRICE"));
 			product.setImage(rs.getString("PRODUCT_IMAGE"));
+			product.setStock(rs.getInt("PRODUCT_STOCK"));
+			product.setSoldOut(rs.getBoolean("PRODUCT_IS_SOLDOUT"));
+			product.setUpdatedDate(rs.getDate("PRODUCT_UPDATED_DATE"));
+			product.setSalesRate(rs.getInt("PRODUCT_SALES_RATE"));
 			productList.add(product);
 		}
 		
@@ -198,7 +205,6 @@ public class ProductDao {
 		return productList;
 	}
 	
-
 	
 	/**
 	 * shop_products테이블의 전체 레코드 갯수를 반환한다.
