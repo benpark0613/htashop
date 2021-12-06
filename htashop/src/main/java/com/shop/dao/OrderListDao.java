@@ -185,7 +185,5 @@ public class OrderListDao {
 		connection.close();
 		return cnt;
 	}
-	
-	
 
 }

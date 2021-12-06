@@ -16,6 +16,11 @@ String leftMenu = (String)pageContext.getAttribute("leftMenu");
 %>
 		<li class="list-group-item"><a href="admin-index.jsp" class="nav-link align-middle <%="home".equals(leftMenu) ? "active" : "" %>">쇼핑몰 현황</a></li>
 <%
+	} else if ("customer-status".equals(leftMenu) || "customer-search".equals(leftMenu)) {
+%>
+		<li class="list-group-item"><a href="customer-status.jsp" class="nav-link align-middle <%="home".equals(leftMenu) ? "active" : "" %>">회원현황</a></li>
+		<li class="list-group-item"><a href="customer-search.jsp" class="nav-link align-middle <%="home".equals(leftMenu) ? "active" : "" %>">회원정보조회</a></li>
+<%
 	}
 %>
 </ul>

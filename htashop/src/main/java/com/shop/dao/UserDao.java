@@ -219,5 +219,78 @@ public class UserDao {
 	   connection.close();
 
    }
+   
+	public int getTotalUserCount() throws SQLException {
+		String sql = "select count(*) cnt "
+				   + "from shop_user ";
+		
+		int totalUserCount = 0;
+		
+	   Connection connection = getConnection();
+	   PreparedStatement pstmt = connection.prepareStatement(sql);
+	   ResultSet rs = pstmt.executeQuery();
+		
+	   rs.next();
+	   totalUserCount = rs.getInt("cnt");
+		
+	   rs.close();
+	   pstmt.close();
+	   connection.close();
+	   
+	   return totalUserCount;
+}
+   
+   /**
+    * 오늘 가입한 신규 회원 수 조회
+    * @return 오늘 가입한 신규 회원 수
+    * @throws SQLException
+    */
+   public int getNewUserCount() throws SQLException {
+	   String sql = "select count(*) cnt "
+	   		      + "from shop_user "
+	   		      + "where user_in_out = 'N' "
+	   		      + "and user_created_date >= trunc(sysdate) and user_created_date < trunc(sysdate + 1) ";
+	   
+	   int newUserCount = 0;
+	   
+	   Connection connection = getConnection();
+	   PreparedStatement pstmt = connection.prepareStatement(sql);
+	   ResultSet rs = pstmt.executeQuery();
+		
+	   rs.next();
+	   newUserCount = rs.getInt("cnt");
+		
+	   rs.close();
+	   pstmt.close();
+	   connection.close();
+	   
+	   return newUserCount;
+   }
+   
+   /**
+    * 탈퇴한 회원 수 조회
+    * @return 탈퇴한 회원 수
+    * @throws SQLException
+    */
+   public int getOutUserCount() throws SQLException {
+	   String sql = "select count(*) cnt "
+			   	  + "from shop_user "
+			      + "where user_in_out = 'Y' ";
+	
+	   int outUserCount = 0;
+	
+	   Connection connection = getConnection();
+	   PreparedStatement pstmt = connection.prepareStatement(sql);
+	   ResultSet rs = pstmt.executeQuery();
+		
+	   rs.next();
+	   outUserCount = rs.getInt("cnt");
+		
+	   rs.close();
+	   pstmt.close();
+	   connection.close();
+	
+	   return outUserCount;
+   }
 
 }
