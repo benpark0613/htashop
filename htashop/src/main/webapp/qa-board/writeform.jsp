@@ -49,6 +49,9 @@
 			</div>
 		</div>
 		<div class="row mb-10">
+			<div class="col-2">
+				<%@ include file="../common/left.jsp"%>
+			</div>
 			<div class="col">
 				<form class="border p-3 bg-light" method="post" action="write.jsp">
 					<div class="mb-3">
