@@ -45,7 +45,7 @@
 			</ul>
 			
 			<div>
-      			<a href="search.jsp" class="btn btn-light"  type="button">검색</a>
+      			<a href="search.jsp" class="btn btn-light"  type="button"><i class="bi bi-search"></i></a>
     		</div>
     		
 		</div>
