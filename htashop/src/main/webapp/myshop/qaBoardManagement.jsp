@@ -23,7 +23,7 @@
 	String option = StringUtils.defaultString(request.getParameter("option"), "");
 	String keyword = StringUtils.defaultString(request.getParameter("keyword"), "");
 	
-	QaBoardDao qaBoardDao = new QaBoardDao();
+	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	Criteria criteria = new Criteria();
 	if (!StringUtils.isEmpty(option) && !StringUtils.isEmpty(keyword)) {
       	criteria.setOption(option);

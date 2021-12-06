@@ -207,9 +207,6 @@ public class ReviewDao {
 	}
 
 	
-	
-	
-	
 	public List<ReviewDto> getReviewList(int reviewNo)throws SQLException{
 			
 		String sql = "select R.review_no, P.product_no, U.user_name, R.REVIEW_CONTENT, R.review_created_date, R.review_title "
@@ -244,7 +241,6 @@ public class ReviewDao {
 		pstmt.close();
 		connection.close();
 		
-		
 		return reviewList;
 	}
 	
@@ -275,11 +271,8 @@ public class ReviewDao {
 		pstmt.close();
 		connection.close();
 
-
 		return reviewList;
 	}
-	
-	
 	
 	public List<Review> getAllReviewByUserNoRN(int userNo, int begin, int end) throws SQLException{
 		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
@@ -356,111 +349,9 @@ public class ReviewDao {
 	 * @return
 	 * @throws SQLException
 	 */
-
-	public List<BoardDto>  getAllBoardList(Criteria criteria) throws SQLException {
+	public List<Review> getAllReviewByUserNo(Criteria criteria, int userNo)throws SQLException{
 		
-		String sql = "select Q.QA_NO, Q.PRODUCT_NO, Q.USER_NO, Q.QA_TITLE, Q.QA_CONTENT, Q.QA_REGDATE, Q.QA_VIEWCOUNT, "
-			    + "      R.REVIEW_NO, R.PRODUCT_NO, R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_CREATED_DATE, R.REVIEW_VIEW_COUNT "
-				+ "from (select row_number() over (order by Q.QA_RRGDATE, R.REVIEW_CREATED_DATE DESC) rn, "
-				+ "             Q.QA_NO, Q.PRODUCT_NO, Q.USER_NO, Q.QA_TITLE, Q.QA_CONTENT, Q.QA_REGDATE, Q.QA_VIEWCOUNT, "
-				+ "			    R.REVIEW_NO, R.PRODUCT_NO, R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_CREATED_DATE, R.REVIEW_VIEW_COUNT "
-				+ "      where Q.USER_NO = R.USER_NO ) ";
-		
-		if ("title".equals(criteria.getOption())) {
-			sql += "        and board_title like '%' || ? || '%' ";
-		} else if ("writer".equals(criteria.getOption())) {
-			sql += "        and board_writer = ? ";
-		} else if ("content".equals(criteria.getOption())) {
-			sql += "        and board_content like '%' || ? || '%' ";
-		}
-		sql += "            ) "
-			+  "where rn >= ? and rn <= ? ";
-	
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		if (criteria.getOption() != null) {
-			pstmt.setString(1, criteria.getKeyword());
-			pstmt.setInt(2, criteria.getBeginIndex());
-			pstmt.setInt(3, criteria.getEndIndex());
-		} else {
-			pstmt.setInt(1, criteria.getBeginIndex());
-			pstmt.setInt(2, criteria.getEndIndex());
-		}
-		ResultSet rs = pstmt.executeQuery();
-		List<BoardDto> allBoardList = new ArrayList<>();
-
-		while (rs.next()) {
-			BoardDto boards = new BoardDto();
-			boards.setQaNo(rs.getInt("QA_NO"));
-			boards.setQaProductNo(rs.getInt("PRODUCT_NO"));
-			boards.setUserNo(rs.getInt("USER_NO"));
-			boards.setQaTitle(rs.getString("QA_TITLE"));
-			boards.setQaContent(rs.getString("QA_CONTENT"));
-			boards.setQaRegDate(rs.getDate("QA_REGDATE"));
-			boards.setQaViewCount(rs.getInt("QA_VIEWCOUNT"));
-			
-			boards.setReviewNo(rs.getInt("REVIEW_NO"));
-			boards.setReviewProductNo(rs.getInt("PRODUCT_NO"));
-			boards.setReviewTitle(rs.getString("REVIEW_TITLE"));
-			boards.setReviewContent(rs.getString("REVIEW_CONTENT"));
-			boards.setReviewCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
-			boards.setReviewViewCount(rs.getInt("REVIEW_VIEW_COUNT"));
-			
-			allBoardList.add(boards);
-		}
-		rs.close();
-		pstmt.close();
-		connection.close();
-
-		return allBoardList;
-	}
-	
-	public List<QaBoard> getAllQAByUserNoRN(int userNo, int begin, int end)throws SQLException{
-
-		String sql = "select QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
-				+ "from (select row_number() over (order by O.ORDER_NO) RN, "
-				+ "             QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
-				+ "      from SHOP_QABOARD "
-				+ "      where USER_NO = ? ) "
-				+ "where RN>=? AND RN<=? ";
-
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-
-		pstmt.setInt(1, userNo);
-		pstmt.setInt(2, begin);
-		pstmt.setInt(3, end);
-		ResultSet rs = pstmt.executeQuery();
-		List<QaBoard> QAList = new ArrayList<>();
-
-		while(rs.next()) {
-			QaBoard QAboard = new QaBoard();
-			QAboard.setNo(rs.getInt("QA_NO"));
-			QAboard.setTitle(rs.getString("QA_TITLE"));
-			QAboard.setRegdate(rs.getDate("QA_REGDATE"));
-			QAboard.setViewCount(rs.getInt("QA_VIEWCOUNT"));
-
-			QAList.add(QAboard);
-		}
-		rs.close();
-		pstmt.close();
-		connection.close();
-
-
-		return QAList;
-	}
-	
-	/**
-	 * best20 조회를 위한 sql
-	 * @param userNo
-	 * @param begin
-	 * @param end
-	 * @return
-	 * @throws SQLException
-	 */
-	public List<Review> getAllReviewByUserNoRN(int userNo, int begin, int end) throws SQLException{
-		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
-
+		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_DATE, REVIEW_VIEW_COUNT "
 				+ "from (select row_number() over (order by REVIEW_NO) RN, "
 				+ "             REVIEW_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_DATE, REVIEW_VIEW_COUNT "
 				+ "      from SHOP_REVIEW "
