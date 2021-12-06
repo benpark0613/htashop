@@ -39,13 +39,13 @@
 		}
 	}
 %>
-				<li class="nav-item"><a href="/htashop/cart/temp-cart.jsp" class="nav-link <%="cart".equals(menu) ? "active" : "" %>">CART</a></li>
-				<li class="nav-item"><a href="/htashop/order/main.jsp" class="nav-link <%="order".equals(menu) ? "active" : "" %>">ORDER</a></li>
+				<li class="nav-item"><a href="/htashop/cart/cart.jsp" class="nav-link <%="cart".equals(menu) ? "active" : "" %>">CART</a></li>
+				<li class="nav-item"><a href="/htashop/order/list.jsp" class="nav-link <%="order".equals(menu) ? "active" : "" %>">ORDER</a></li>
 				<li class="nav-item"><a href="/htashop/myshop/main.jsp" class="nav-link <%="myshop".equals(menu) ? "active" : "" %>">MYSHOP</a></li>
 			</ul>
 			
 			<div>
-      			<a href="search.jsp" class="btn btn-light"  type="button">검색</a>
+      			<a href="search.jsp" class="btn btn-light"  type="button"><i class="bi bi-search"></i></a>
     		</div>
     		
 		</div>

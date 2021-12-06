@@ -26,7 +26,7 @@
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
 
-	QaBoardDao qaBoardDao = new QaBoardDao();
+	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);
 	System.out.println("아이디"+ qaBoard.getUserId());
 	

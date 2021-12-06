@@ -71,33 +71,48 @@
 							<table class="table">
 								<tbody>
 									<tr class="d-flex">
-										<th class="col-2">번호</th>
-										<td class="col-4"><%=reviewDto.getReviewNo()%></td>
+										<th class="col-2">물품명</th>
+										<td class="col-10"><%=reviewDto.getProductName()%></td>
+									</tr>								
+									<tr class="d-flex">
+										<th class="col-2">작성자</th>
+										<td class="col-4"><%=reviewDto.getUserName()%></td>
 										<th class="col-2">등록일</th>
 										<td class="col-4"><%=reviewDto.getReviewCreatedDate()%></td>
 									</tr>
 									<tr class="d-flex">
 										<th class="col-2">제목</th>
 										<td class="col-4"><%=reviewDto.getTitle()%></td>
-										<th class="col-2">작성자</th>
-										<td class="col-4"><%=reviewDto.getUserName()%></td>
-									</tr>
-									<tr class="d-flex">
-										<th class="col-2">조회수</th>
-										<td class="col-10"><%=reviewDto.getViewCount()%></td>
+
 									</tr>
 									<tr class="d-flex">
 										<th class="col-2">내용</th>
 										<td class="col-10"><%=reviewDto.getReviewContent()%></td>
 									</tr>
+								</tbody>
+							</table>
+				
+							<%
+								if(reviewDto.getAnswerContent() != null){
+							%>
+							<hr>
+							<table class="table">
+								<tbody>							
 									<tr class="d-flex">
-										<th class="col-2">물품명</th>
-										<td class="col-4"><%=reviewDto.getProductName()%></td>
-										<th class="col-2">물품번호</th>
-										<td class="col-4"><%=reviewDto.getProductNo()%></td>
+										<th class="col-2">작성자</th>
+										<td class="col-4">HTA shop</td>
+										<th class="col-2">등록일</th>
+										<td class="col-4"><%=reviewDto.getReviewCreatedDate()%></td>
+									</tr>
+									<tr class="d-flex">
+										<th class="col-2">내용</th>
+										<td class="col-10"><%=reviewDto.getAnswerContent()%></td>
 									</tr>
 								</tbody>
 							</table>
+							<% 
+								}
+							%>							
 						</div>
 					</div>
 					<div class="row mb-3">
@@ -105,27 +120,40 @@
 							<div class="d-flex justify-content-between">
 								<div>
 									<%
-									if (loginedUserInfo != null && loginedUserInfo.getUserNo() == reviewDto.getUserNo()) { // 로그인한 사용자의 사용자번호와 게시글작성자의 사용자번호가 일치하는 경우 버튼이 출력된다.
+									if (loginedUserInfo != null && (loginedUserInfo.getUserNo() == reviewDto.getUserNo())) {
 									%>
-									<a
-										href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
-										class="btn btn-danger">삭제</a> <a
-										href="modifyForm.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
-										class="btn btn-danger">수정</a>
+										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										class="btn btn-danger">리뷰 삭제</a> 
+										<a href="modifyForm.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
+										class="btn btn-warning">리뷰 수정</a>
 									<%
 									}
 									%>
 									<%
 									if (loginedUserInfo != null && "admin".equals(loginedUserInfo.getUserType())) {
 									%>
-									<a
-										href="replyForm.jsp?no=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
-										class="btn btn-primary">답글</a> <a
-										href="delete.jsp?no=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
-										class="btn btn-danger">삭제</a>
+									<%
+										if(reviewDto.getAnswerContent() != null) {
+									%>
+										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										class="btn btn-danger">리뷰 삭제</a> 									
+										<a href="replyForm.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
+										class="btn btn-info">답글 수정</a>	
+										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										class="btn btn-danger">답글 삭제</a>																				
+									<% 		
+										} else if ((reviewDto.getAnswerContent() == null)){		
+									%>
+										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										class="btn btn-danger">리뷰 삭제</a> 											
+										<a href="replyForm.jsp?reviewNo=<%=reviewNo%>&pageNo=<%=pageNo%>"
+										class="btn btn-primary">답글 작성</a>
+																		
+									<%		
+										}									
+									%>	
 									<div>
-										pageNo :
-										<%=pageNo%></div>
+									</div>
 									<%
 									}
 									%>

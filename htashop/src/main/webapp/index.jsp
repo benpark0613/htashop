@@ -11,7 +11,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/newstyle.css" rel="stylesheet" />
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 <title>HTA shop::메인페이지</title>
+<style type="text/css"> 
+a { text-decoration:none;
+	color : black;
+	 } 
+</style> 
 </head>
 <body>
 <%
@@ -61,7 +70,7 @@
 %>
 				<div class="col-sm-4 mb-3">
 					<div class="card mt-3">
-						<img src="resources/images/<%=product.getImage() %>" class="card-img-top"/>
+						<a href="products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>" style="text-decoration:none;"><img src="resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
 					</div>
 					<div class="card-body">
 						<!-- 클릭하면 상품상세정보페이지로 이동 -->
