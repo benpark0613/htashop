@@ -22,27 +22,23 @@
 		<div class="col-2 min-vh-100 bg-light" id="sidebar">
 			<%@ include file="../../common/admin-left.jsp" %>
 		</div>
-		<div class="col-10" id="main">
-			<div class="row mt-3">
-				<div class="col">
-					<h6>회원현황</h6>
-				</div>
-			</div>
+		<div class="col-6" id="main">
 			<div class="row">
-				<div class="col">
-					<table class="table table-bordered">
+				<div class="col m-1 mt-5">
+					<table class="table table-bordered caption-top offset-4  fs-3"> 
+					<caption class="fs-4 fw-bold">회원목록</caption>
 						<thead>
 							<tr>
-								<th scope="col">신규회원</th>
-								<th scope="col">탈퇴회원</th>
-								<th scope="col">TOTAL</th>
+								<th class="col-2 text-center" scope="col">신규회원</th>
+								<th class="col-2 text-center" scope="col">탈퇴회원</th>
+								<th class="col-2 text-center" scope="col">TOTAL</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td scope="row"><%=userDao.getNewUserCount() %></td>
-								<td scope="row"><%=userDao.getOutUserCount() %></td>
-								<td scope="row"><%=userDao.getTotalUserCount() - userDao.getOutUserCount() %></td>
+								<td class="col-2 text-center" scope="row"><%=userDao.getNewUserCount() %></td>
+								<td class="col-2 text-center" scope="row"><%=userDao.getOutUserCount() %></td>
+								<td class="col-2 text-center" scope="row"><%=userDao.getTotalUserCount() - userDao.getOutUserCount() %></td>
 							</tr>
 						</tbody>
 					</table>
