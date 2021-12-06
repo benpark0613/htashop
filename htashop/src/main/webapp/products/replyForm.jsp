@@ -39,16 +39,10 @@
 					// 새 글 링크를 눌러서 form.jsp를 요청하는 경우에는 요청파라미터 error값이 존재하지 않는다.
 					// 새 글 등록에 실패한 경우에만 form.jsp를 요청할 때 생성한 요청객체에 요청파라미터로 error값이 존재한다.
 					String error = request.getParameter("error");
-					if ("empty-title".equals(error)) {
+					if ("empty-content".equals(error)) {
 					%>
 					<div class="alert alert-danger">
-						<strong>게시글 등록 실패!!</strong> 게시글 제목은 필수입력값입니다.
-					</div>
-					<%
-					} else if ("empty-content".equals(error)) {
-					%>
-					<div class="alert alert-danger">
-						<strong>게시글 등록 실패!!</strong> 게시글 내용은 필수입력값입니다.
+						<strong>답글 등록 실패!!</strong> 답글 내용은 필수입력값입니다.
 					</div>
 					<%
 					}

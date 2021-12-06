@@ -537,13 +537,45 @@ public class ReviewDao {
 		
 	}
 	
-/**
- * 		String sql = "update shop_review "
-				   + "set "
-				   + "	review_title = ?, "
-				   + "	review_content = ?, "
-				   + "  review_view_count =? "
-				   + "where review_no = ? ";
- */
+	/**
+	 * 리뷰 답글 삭제 관련 sql
+	 * 답변 내용과 답변등록일의 기본값이 null이기 때문에 insert가 아닌 update로 변경해준다.
+	 * @param reviewNo
+	 */
+	public void deleteReply(int reviewNo) throws SQLException {
+		
+		String sql ="UPDATE shop_review "
+					+ "SET "
+					+ " ANSWER_CONTENT = default, "
+					+ " ANSWER_CREATED_DATE = default "
+					+ "where review_no =? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, reviewNo);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	}	
+	
+	public void insertReview(ReviewDto reviewDto) throws SQLException {
+		
+		String sql ="insert into shop_review(review_no, product_no, user_no, review_title, review_content) "
+				+ 	"values (shop_review_seq.nextval , ?, ?, ?, ?) ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, reviewDto.getProductNo());
+		pstmt.setInt(2, reviewDto.getUserNo());
+		pstmt.setString(3, reviewDto.getTitle());
+		pstmt.setString(4, reviewDto.getReviewContent());	
+		pstmt.executeUpdate();	
+		pstmt.close();
+		connection.close();
+
+	}
 
 }
