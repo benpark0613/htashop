@@ -1,3 +1,4 @@
+cart.jsp
 <%@page import="com.shop.dao.UserDao"%>
 <%@page import="com.shop.vo.Cart"%>
 <%@page import="com.shop.vo.User"%>
@@ -34,7 +35,7 @@ img {width:50px; height:50px; }
 	CartDao cartDao = CartDao.getInstance();
 	ProductDao productDao = ProductDao.getInstance();
 
-	List<Cart> carts = cartDao.getAllCartListByUserNo(loginedUserInfo.getUserNo());
+	List<Cart> carts = cartDao.selectAllCartListByUserNo(loginedUserInfo.getUserNo());
  %>
  
 <div class="container">    
@@ -157,15 +158,7 @@ function thisOrder(cartNo) {
 }
 
 function checkOrder() {
-	var form = document.getElementById("cart-form");
-	// 선택된 목록 가져오기
-	var checkedList = document.querySelectorAll(".cart-table tbody input[name=no]:checked")
-	
-	for (var i = 0; i < checkedList.length; i++) {
-		var checked = checkedList[i];
-		console.log(checked.value);
-	}
-	
+	//수정중
 	if (checked == null){
 		alert('선택된 상품 정보가 존재하지 않습니다.');
 		return;
