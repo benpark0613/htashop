@@ -9,7 +9,7 @@ String menu = (String) pageContext.getAttribute("menu");
 		<ul class="navbar-nav me-auto">
 			<li class="nav-item"><a class="nav-link <%="home".equals(menu) ? "active" : "" %>" href="/htashop/admin/admin-index.jsp">마이몰현황</a></li>
 			<li class="nav-item"><a class="nav-link" href="/htashop/admin/store-mg/store-mg.jsp">상점관리</a></li>
-			<li class="nav-item"><a class="nav-link" href="/htashop/admin/product-mg/product-mg.jsp">상품관리</a></li>
+			<li class="nav-item"><a class="nav-link" href="/htashop/admin/product-mg/product-main.jsp">상품관리</a></li>
 			<li class="nav-item"><a class="nav-link" href="/htashop/admin/order-mg/main.jsp">주문관리</a></li>
 <%
 	if ("customer-status".equals(menu) || "customer-search".equals(menu)) {
