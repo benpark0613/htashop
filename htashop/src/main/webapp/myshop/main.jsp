@@ -64,20 +64,21 @@
 
 				<!-- 컨텐츠 -->
 				<div class="col-11">
-
+					<div class="row">
 					<div class="py-5">
 						<div class="container px-lg-5">
 							<div class="p-4 p-lg-2 bg-light rounded-3 text-center border">
 								<div class="m-4">
 
 									<h6>
-										<i class="far fa-id-badge fa-5x"></i>저희 쇼핑몰을 이용해 주셔서 감사합니다.
+										<i class="far fa-id-badge fa-5x" ></i>저희 쇼핑몰을 이용해 주셔서 감사합니다.
 										<strong><%=loginedUserInfo.getName()%>님</strong>은 
 										[<strong><%=loginedUserInfo.getGrade()%></strong>]회원이십니다.
 									</h6>
 								</div>
 							</div>
 						</div>
+					</div>
 					</div>
 					<%
 			// expectedpoint를 다 더하기
@@ -111,39 +112,6 @@
 						</div>
 					</div>
 <%
-				/*
-					OrderDao orderDao = new OrderDao();
-					Order order = orderDao.getOrdersByNo(customer.getNo());
-
-					if("입금전".equals(order.getState())){
-						int cnt1 = 0;
-						cnt1 ++;
-					}
-					if("배송준비중".equals(order.getState())){
-						int cnt2 = 0;
-						cnt2 ++;
-					}
-					if("배송중".equals(order.getState())){
-						int cnt3 = 0;
-						cnt3 ++;
-					}
-					if("배송완료".equals(order.getState())){
-						int cnt4 = 0;
-						cnt4 ++;
-					}
-					if("취소".equals(order.getState())){
-						int cnt5 = 0;
-						cnt5 ++;
-					}
-					if("교환".equals(order.getState())){
-						int cnt6 = 0;
-						cnt6 ++;
-					}
-					if("반품".equals(order.getState())){
-						int cnt7 = 0;
-						cnt7 ++;
-					}
-				*/
 	int beforeDeposit = orderDao.countbeforeDeposit(loginedUserInfo.getUserNo());
 	int cancel = orderDao.countCancel(loginedUserInfo.getUserNo());
 	int exchange = orderDao.countExchange(loginedUserInfo.getUserNo());
@@ -160,21 +128,21 @@
 								</div>
 								<div class="row">
 									<div class="col">
-										<h3>입금전 : [<%=beforeDeposit%>]</h3>
+										<h3>입금전 : <a href="orderList.jsp?page=1&option=입금전&term=전체">[<%=beforeDeposit%>]</a></h3>
 									</div>
 									<div class="col">
-										<h4>배송준비중 : [<%=preparingDelevery%>]</h4>
+										<h4>배송준비중 : <a href="orderList.jsp?page=1&option=배송준비중&term=전체">[<%=preparingDelevery%>]</a></h4>
 									</div>
 									<div class="col">
-										<h3>배송중 : [<%=shipping%>]</h3>
+										<h3>배송중 : <a href="orderList.jsp?page=1&option=배송중&term=전체">[<%=shipping%>]</a></h3>
 									</div>
 									<div class="col">
-										<h3>배송완료 : [<%=shippedComplete%>]</h3>
+										<h3>배송완료 : <a href="orderList.jsp?page=1&option=배송완료&term=전체">[<%=shippedComplete%>]</a></h3>
 									</div>
 									<div class="col">
-										<h6>취소 : [<%=cancel%>]</h6>
-										<h6>교환 : [<%=exchange%>]</h6>
-										<h6>반품 : [<%=rtn%>]</h6>
+										<h6>취소 : <a href="orderList.jsp?page=1&option=취소&term=전체">[<%=cancel%>]</a></h6>
+										<h6>교환 : <a href="orderList.jsp?page=1&option=교환&term=전체">[<%=exchange%>]</a></h6>
+										<h6>반품 : <a href="orderList.jsp?page=1&option=반품&term=전체">[<%=rtn%>]</a></h6>
 									</div>
 								</div>
 							</div>
@@ -240,7 +208,7 @@
 											<i class="far fa-edit fa-5x"></i>
 											<h2 class="fs-4 fw-bold">Board</h2>
 											<h2 class="fs-4 fw-bold">
-												<a href="boardManagement.jsp?section=review">게시물 관리</a> 
+												<a href="reviewManagement.jsp">게시물 관리</a> 
 											</h2>
 											<p class="mb-0">고객님께서 작성하신 게시물을 관리하는 공간입니다.</p>
 										</div>
