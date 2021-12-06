@@ -23,6 +23,7 @@ String menu = (String) pageContext.getAttribute("menu");
 	}
 %>
 			<li class="nav-item"><a class="nav-link" href="/htashop/admin/board-mg/board-mg.jsp">게시판관리</a></li>
+			<li class="nav-item"><a class="nav-link" href="/htashop/index.jsp">마이몰로 돌아가기</a></li>
 		</ul>
 	</div>
 	</div>
