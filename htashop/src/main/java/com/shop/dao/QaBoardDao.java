@@ -20,14 +20,21 @@ public class QaBoardDao {
 		return self;
 	}
 
-	public List<QaBoard> getAllQuestions() throws SQLException {
+	public List<QaBoard> getAllQuestions(int begin, int end) throws SQLException {
 
-		String sql = " select qa_no, product_no, qa_title, " + " user_no, qa_regdate " + " from shop_qaboard ";
+		String sql =  " select rn, qa_no, product_no, qa_title, " 
+					+ " user_no, qa_regdate " 
+					+ " from (select row_number() over (order by product_no) RN, "
+					+ " qa_no, product_no, qa_title, user_no, qa_regdate "
+					+ " from shop_qaboard) "
+					+ " where rn >= ? and rn <= ? ";
 
 		List<QaBoard> qaboardList = new ArrayList<>();
 
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, begin);
+		pstmt.setInt(2, end);
 		ResultSet rs = pstmt.executeQuery();
 
 		while (rs.next()) {
@@ -188,6 +195,38 @@ public class QaBoardDao {
 		pstmt.close();
 		connection.close();
 
+	}
+	
+	public int getTotalRecords() throws SQLException {
+		String sql = "select count(*) cnt "
+				   + "from shop_qaboard";
+		
+		int totalRecords = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		totalRecords = rs.getInt("cnt");
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return totalRecords;
+	}
+	
+	public void deleteQuestion(int no) throws SQLException {
+		String sql = "delete from shop_qaboard "
+				   + "where qa_no = ? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
 	}
 
 }
