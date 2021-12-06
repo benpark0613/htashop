@@ -225,7 +225,7 @@ a { text-decoration:none;
 			return true;
 		}
 		function submit2(frm) {
-			frm.action = '../cart/temp-addcart.jsp';
+			frm.action = '../cart/addCart.jsp';
 
 			frm.submit();
 			return true;

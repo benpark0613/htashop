@@ -21,5 +21,5 @@
 	if (dto.getUserNo() == loginedUserInfo.getUserNo()) {	
 	reviewDao.deleteReview(reviewNo);
 	}
-	response.sendRedirect("reviewDetail.jsp?productNo="+productNo+"&pageNo="+pageNo);
+	response.sendRedirect("detail.jsp?productNo="+productNo+"&pageNo="+pageNo);
 	%>

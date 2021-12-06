@@ -24,11 +24,11 @@
 	//}
 	
 	CartDao cartDao = CartDao.getInstance();
-	Cart cart = cartDao.getCartByProductNo(productNo);
+	Cart cart = cartDao.selectCartByProductNo(productNo);
 	
 	if (cart != null) {
 		cart.setQuantity(cart.getQuantity() + quantity);
-		cartDao.updateCart(cart);
+		cartDao.updateCartQuantityByNo(cart);
 		
 	} else {
 		cart = new Cart();

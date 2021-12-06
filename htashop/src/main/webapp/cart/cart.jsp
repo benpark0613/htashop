@@ -1,4 +1,3 @@
-cart.jsp
 <%@page import="com.shop.dao.UserDao"%>
 <%@page import="com.shop.vo.Cart"%>
 <%@page import="com.shop.vo.User"%>
