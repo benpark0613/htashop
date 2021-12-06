@@ -18,7 +18,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="../resources/css/newstyle.css" rel="stylesheet" />
-<title>Insert title here</title>
+<title>제품상세정보 페이지</title>
 <style type="text/css"> 
 a { text-decoration:none;
 	color : black;
