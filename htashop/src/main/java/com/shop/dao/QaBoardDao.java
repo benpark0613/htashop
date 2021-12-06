@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shop.vo.Criteria;
 import com.shop.vo.QaBoard;
 import com.shop.vo.User;
 
@@ -132,99 +131,23 @@ public class QaBoardDao {
 		return qaBoard;
 	}
 
-
-	public void updateReply(QaBoard qaBoard) throws SQLException{
-		String sql = "update shop_qaboard "
-				+	 "set "
-				+	 "qa_reply = ? "
-				+ 	 "where qa_no = ? ";
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setString(1, qaBoard.getReply());
-		pstmt.setInt(2, qaBoard.getNo());
-		
-		pstmt.executeUpdate();
-		
-		pstmt.close();
-		connection.close();
-		
-		
-	}
-	
-	/**
-	 * MYSHOP Board검색
-	 * @param criteria
-	 * @param userNo
-	 * @return
-	 * @throws SQLException
-	 */
-	public int getCountQaBoardsByUserNo(Criteria criteria, int userNo)throws SQLException{
-		int totalRows = 0;
-		String sql = "select count(*) cnt "
-				+ "   from SHOP_QABOARD "
-				+ "   where USER_NO = ? ";
-		if("title".equals(criteria.getOption())) {
-			sql += "and QA_TITLE like '%' || ? || '%' ";
-		}else if("content".equals(criteria.getOption())) {
-			sql += "and QA_CONTENT like '%' || ? || '%' ";
-		}
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, userNo);
-		if(criteria.getOption() != null) {
-			pstmt.setString(2, criteria.getKeyword());
-		}
-		
-		ResultSet rs = pstmt.executeQuery();
-		rs.next();
-		totalRows = rs.getInt("cnt");
-		
-		rs.close();
-		pstmt.close();
-		connection.close();
-		return totalRows;
-	}
-	
-	/**
-	 * MYSHOP Board검색
-	 * @param criteria
-	 * @param userNo
-	 * @return
-	 * @throws SQLException
-	 */
-	public List<QaBoard> getAllQAByUserNoRN(Criteria criteria, int userNo)throws SQLException{
-
+	public List<QaBoard> getAllQAByUserNoRN(int userNo, int begin, int end) throws SQLException {
 
 		String sql = "select QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
 
 				+ "from (select row_number() over (order by QA_NO) RN, "
 				+ "             QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
 				+ "      from SHOP_QABOARD "
-				+ "      where USER_NO = ? ";
-		if("title".equals(criteria.getOption())) {
-			sql += "and QA_TITLE like '%' || ? || '%' ";
-		}else if("content".equals(criteria.getOption())) {
-			sql += "and QA_CONTENT like '%' || ? || '%' ";
-		}
-			sql	+= "                      )"
-					+ "where RN>=? AND RN<=? ";
+				+ "      where USER_NO = ? ) "
+				+ "where RN>=? AND RN<=? ";
 
 
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 
 		pstmt.setInt(1, userNo);
-		
-		if(criteria.getOption() != null) {
-			pstmt.setString(2, criteria.getKeyword());
-			pstmt.setInt(3, criteria.getBeginIndex());
-			pstmt.setInt(4, criteria.getEndIndex());
-			
-		}else {
-			pstmt.setInt(2, criteria.getBeginIndex());
-			pstmt.setInt(3, criteria.getEndIndex());
-			
-		}
+		pstmt.setInt(2, begin);
+		pstmt.setInt(3, end);
 		ResultSet rs = pstmt.executeQuery();
 		List<QaBoard> QAList = new ArrayList<>();
 
@@ -305,4 +228,5 @@ public class QaBoardDao {
 		pstmt.close();
 		connection.close();
 	}
+
 }
