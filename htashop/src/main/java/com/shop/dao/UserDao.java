@@ -220,6 +220,18 @@ public class UserDao {
 
    }
    
+   public void deleteUser(int userNo)throws SQLException{
+	   
+	   String sql = "DELETE from SHOP_USER "
+	   		+ "      WHERE USER_NO = ? ";
+	   Connection connection = getConnection();
+	   PreparedStatement pstmt = connection.prepareStatement(sql);
+	   pstmt.setInt(1, userNo);
+	   
+	   pstmt.executeUpdate();
+	   pstmt.close();
+	   connection.close();
+
 	public int getTotalUserCount() throws SQLException {
 		String sql = "select count(*) cnt "
 				   + "from shop_user ";
@@ -291,6 +303,7 @@ public class UserDao {
 	   connection.close();
 	
 	   return outUserCount;
+
    }
 
 }

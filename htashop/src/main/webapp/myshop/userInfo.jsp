@@ -72,23 +72,14 @@
 	}
 %>
 				<div class="row g-5">
-
-
 					<div class="col-md-7 col-lg-8">
-
-
-
+					
 						<h4 class="mb-3">회원정보 수정</h4>
-
 						<hr class="featurette-divider">
-
+						<a href="deleteUser.jsp?userNo=<%=loginedUserInfo.getUserNo() %>"><button class="btn btn-danger btn-lg">회원 탈퇴</button></a>
 						<div class="container">
 
-						
-
 						<form class="needs-validation" method="post" action="updateUser.jsp">
-							
-							
 							
 							<div class="row g-3">
 								<div class="col-sm-6">
@@ -127,28 +118,23 @@
 								<div class="col-4 ">
 									<input type="text" class="form-control" id="tel1" name="tel1" placeholder="010">
 								</div>
-
 								<div class="col-4">
 									<input type="text" class="form-control" id="tel2" name="tel2">
 								</div>
 								<div class="col-4">
 									<input type="text" class="form-control" id="tel3" name="tel3">
 								</div>
-
-
+								
 								<div>생년월일</div>
 								<div class="col-4 ">
 									<input type="text" class="form-control" id="year" name="year" placeholder="년">
 								</div>
-
 								<div class="col-4">
 									<input type="text" class="form-control" id="month" name="month" placeholder="월">
 								</div>
 								<div class="col-4">
 									<input type="text" class="form-control" id="day" name="day" placeholder="일">
 								</div>
-
-
 
 
 								<div class="col-md-6">
@@ -167,12 +153,8 @@
 										<option>제주도</option>
 									</select>
 								</div>
-
-
-
 								<hr class="my-4">
-
-								<button class="w-30 btn btn-primary btn-lg" type="submit">회원정보 수정</button>
+								<button class="btn btn-primary btn-lg" type="submit">회원정보 수정</button>
 							</div>
 						</form>
 						</div>

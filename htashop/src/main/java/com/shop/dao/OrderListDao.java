@@ -185,5 +185,85 @@ public class OrderListDao {
 		connection.close();
 		return cnt;
 	}
+	
+	/**
+	 * 관리자페이지 주문관리 
+	 * @param criteria
+	 * @param userNo
+	 * @return
+	 * @throws SQLException
+	 */
+	/* 관리자페이지 작성중
+	public int getTotalRows(CriteriaOrderList criteria)throws SQLException{
+
+		String sql = "select count(*) cnt "
+				+ "from SHOP_ORDER ";
+		
+		if("주문자아이디".equals(criteria.getOrderOption()){
+			
+			//sql += "where USER_ID like %"
+			
+		}
+		
+		else if("전체".equals(criteria.getTerm())) {
+			
+		}
+		else if("오늘".equals(criteria.getTerm())) {
+			sql += "and order_date BETWEEN TRUNC(SYSDATE) " 
+					+ "		          AND SYSDATE ";
+		}
+		else if("1주일".equals(criteria.getTerm())) {
+			sql += "and order_date BETWEEN TRUNC(SYSDATE-7) " 
+					+ "		          AND SYSDATE ";
+		}
+		else if("1개월".equals(criteria.getTerm())) {
+			sql += "and order_date BETWEEN TRUNC(ADD_MONTHS(SYSDATE, -1)) "
+					+ "		          AND SYSDATE ";
+		}
+		else if("3개월".equals(criteria.getTerm())) {
+			sql += "and order_date BETWEEN TRUNC(ADD_MONTHS(SYSDATE, -3)) "
+					+ "		          AND SYSDATE ";
+		}
+		else if("6개월".equals(criteria.getTerm())) {
+			sql += "and order_date BETWEEN TRUNC(ADD_MONTHS(SYSDATE, -6)) " 
+					+ "		          AND SYSDATE ";
+		}
+		if("전체".equals(criteria.getOption())) {
+			
+		}
+		else if("입금전".equals(criteria.getOption())) {
+			sql += "and order_state = '입금전' "; 
+		}
+		else if("배송준비중".equals(criteria.getOption())) {
+			sql += "and order_state = '배송준비중' "; 
+		}
+		else if("배송중".equals(criteria.getOption())) {
+			sql += "and order_state = '배송중' "; 
+		}
+		else if("배송완료".equals(criteria.getOption())) {
+			sql += "and order_state = '배송완료' "; 
+		}
+		else if("취소".equals(criteria.getOption())) {
+			sql += "and order_state = '취소' "; 
+		}
+		else if("교환".equals(criteria.getOption())) {
+			sql += "and order_state = '교환' "; 
+		}
+		else if("반품".equals(criteria.getOption())) {
+			sql += "and order_state = '반품' "; 
+		}
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		int cnt = rs.getInt("cnt");
+		rs.close();
+		pstmt.close();
+		connection.close();
+		return cnt;
+	}
+	
+	*/
 
 }

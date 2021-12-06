@@ -42,12 +42,27 @@ a { text-decoration:none;
 	<!-- 로그인 안하고 MYSHOP 접근했을 때 오류 표시 -->	
 <%
 	String failReason = request.getParameter("fail");
+	String quit = request.getParameter("quit");
 	if("unlogined".equals(failReason)){
 %>
 			<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
 <%
 	}
 %>
+
+<%
+	if("complete".equals(quit)){
+%>
+		<div class="alert alert-danger d-flex align-items-center" role="alert">회원탈퇴가 완료되었습니다.</div>
+<%
+	}
+%>
+
+
+
+
+
+
 			<div class="row mt-2">
 <%
 	// 페이징 처리하기
