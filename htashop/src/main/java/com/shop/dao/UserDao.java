@@ -231,6 +231,7 @@ public class UserDao {
 	   pstmt.executeUpdate();
 	   pstmt.close();
 	   connection.close();
+    }
 
 	public int getTotalUserCount() throws SQLException {
 		String sql = "select count(*) cnt "

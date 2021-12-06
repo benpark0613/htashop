@@ -26,14 +26,9 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="css/styles.css" rel="stylesheet" />
+<link href="../resources/css/newstyle.css" rel="stylesheet">
 <title></title>
 
-<style type="text/css">
- a:link { color: red; text-decoration: none;}
- a:visited { color: black; text-decoration: none;}
- a:hover { color: blue; text-decoration: underline;}
-</style>
 
 
 </head>
@@ -128,21 +123,21 @@
 								</div>
 								<div class="row">
 									<div class="col">
-										<h3>입금전 : <a href="orderList.jsp?page=1&option=입금전&term=전체">[<%=beforeDeposit%>]</a></h3>
+										<h3>입금전 : <a id="new-link" href="orderList.jsp?page=1&option=입금전&term=전체">[<%=beforeDeposit%>]</a></h3>
 									</div>
 									<div class="col">
-										<h4>배송준비중 : <a href="orderList.jsp?page=1&option=배송준비중&term=전체">[<%=preparingDelevery%>]</a></h4>
+										<h4>배송준비중 : <a id="new-link" href="orderList.jsp?page=1&option=배송준비중&term=전체">[<%=preparingDelevery%>]</a></h4>
 									</div>
 									<div class="col">
-										<h3>배송중 : <a href="orderList.jsp?page=1&option=배송중&term=전체">[<%=shipping%>]</a></h3>
+										<h3>배송중 : <a id="new-link" href="orderList.jsp?page=1&option=배송중&term=전체">[<%=shipping%>]</a></h3>
 									</div>
 									<div class="col">
-										<h3>배송완료 : <a href="orderList.jsp?page=1&option=배송완료&term=전체">[<%=shippedComplete%>]</a></h3>
+										<h3>배송완료 : <a id="new-link" href="orderList.jsp?page=1&option=배송완료&term=전체">[<%=shippedComplete%>]</a></h3>
 									</div>
 									<div class="col">
-										<h6>취소 : <a href="orderList.jsp?page=1&option=취소&term=전체">[<%=cancel%>]</a></h6>
-										<h6>교환 : <a href="orderList.jsp?page=1&option=교환&term=전체">[<%=exchange%>]</a></h6>
-										<h6>반품 : <a href="orderList.jsp?page=1&option=반품&term=전체">[<%=rtn%>]</a></h6>
+										<h6>취소 : <a id="new-link" href="orderList.jsp?page=1&option=취소&term=전체">[<%=cancel%>]</a></h6>
+										<h6>교환 : <a id="new-link" href="orderList.jsp?page=1&option=교환&term=전체">[<%=exchange%>]</a></h6>
+										<h6>반품 : <a id="new-link" href="orderList.jsp?page=1&option=반품&term=전체">[<%=rtn%>]</a></h6>
 									</div>
 								</div>
 							</div>
@@ -163,7 +158,7 @@
 											<i class="fas fa-gift fa-5x"></i>
 											<h2 class="fs-4 fw-bold">Order</h2>
 											<h2 class="fs-4 fw-bold">
-												<a href="orderList.jsp">주문내역조회</a>
+												<a id="new-link" href="orderList.jsp">주문내역조회</a>
 											</h2>
 											<p class="mb-0">고객님께서 주문하신 상품의 주문내역을 확인하실 수 있습니다</p>
 										</div>
@@ -178,7 +173,7 @@
 											<i class="far fa-address-card fa-5x"></i>
 											<h2 class="fs-4 fw-bold">Profile</h2>
 											<h2 class="fs-4 fw-bold">
-												<a href="userInfo.jsp">회원정보</a>
+												<a id="new-link" href="userInfo.jsp">회원정보</a>
 											</h2>
 											<p class="mb-0">회원이신 고객님의 개인정보를 관리하는 공간입니다</p>
 										</div>
@@ -193,7 +188,7 @@
 											<i class="fas fa-coins fa-5x"></i>
 											<h2 class="fs-4 fw-bold">Point</h2>
 											<h2 class="fs-4 fw-bold">
-												<a href="point.jsp">적립금</a>
+												<a id="new-link" href="point.jsp">적립금</a>
 											</h2>
 											<p class="mb-0">적립금은 상품 구매시 사용하실 수 있습니다.</p>
 										</div>
@@ -208,7 +203,7 @@
 											<i class="far fa-edit fa-5x"></i>
 											<h2 class="fs-4 fw-bold">Board</h2>
 											<h2 class="fs-4 fw-bold">
-												<a href="reviewManagement.jsp">게시물 관리</a> 
+												<a id="new-link" href="reviewManagement.jsp">게시물 관리</a> 
 											</h2>
 											<p class="mb-0">고객님께서 작성하신 게시물을 관리하는 공간입니다.</p>
 										</div>
