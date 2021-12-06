@@ -45,11 +45,20 @@ img {width:50px; height:50px; }
 		<div class="col-10 align-self-end">
 			<div class="row mb-3">
 				<div class="col-10 mb-3 ">
+				<div class="row">
+						<form id="cart-form" action="cartOrder.jsp">
+				</div>
 					<table class="col-10 table table-hover">
 						<thead>
 							
 							<tr>
-								<th></th>
+								<th>
+					<div class="col">
+						<div class="check-total">
+							<input type="checkbox" id="ck-all" onchange="toggleCheckbox()" />
+						</div>
+					</div>
+								</th>
 								<th>이미지</th>
 								<th>상품명</th>
 								<th>상품가격</th>
@@ -73,15 +82,15 @@ img {width:50px; height:50px; }
 									<span class="minus" onclick="minus(<%=cart.getCartNo() %>)"></span>
 									<input type="number" id="Qty-<%=cart.getCartNo() %>" class="count" value="<%=cart.getQuantity() %>" min="1" max="20" />
 									<span class="plus" onclick="plus(<%=cart.getCartNo() %>)"></span>
-								</div>
-								<div>
-									<button class="btn-modify" type="button" onclick="changeQty(<%=cart.getCartNo() %>)">변경</button>
+
+									<button class="btn-modify btn-dark btn-sm" type="button" onclick="changeQty(<%=cart.getCartNo() %>)">변경</button>
 								</div>
 								</td>
-							<td><%=product.getPrice() * cart.getQuantity() * 0.01 %>원</td>
+							<td><%=Math.round(product.getPrice() * cart.getQuantity() * 0.01) %>원</td>
 							<td><%=product.getPrice() * cart.getQuantity()%>원</td>
 							<td>
-							<button type="button" class="btn btn-primary btn-sm" onclick="deleteCart(<%=product.getNo() %>)">삭제</button>
+							<button type="button" class="btn btn-outline-dark btn-sm" onclick="thisOrder(<%=product.getNo() %>)">구매</button>
+							<button type="button" class="btn btn-outline-dark btn-sm" onclick="deleteCart(<%=product.getNo() %>)">삭제</button>
 							</td>
 						</tr>
 <%
@@ -89,16 +98,81 @@ img {width:50px; height:50px; }
 %>
 						</tbody>
 					</table>
+							<div class="text-center">
+								<button class="btn btn-lg btn-warning" type="submit"  onclick="checkOrder()">주문하기</button>
+							</div>		
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+		
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-	function deleteCart(productNo){
-		location.href="deleteCart.jsp?productNo="+productNo;
+function plus(cartNo) {
+	var count = Number(document.getElementById("Qty-" + cartNo).value);
+	if(count < 20) {
+		count ++;
+	} else {
+		count;
 	}
+	document.getElementById("Qty-" + cartNo).value = count;
+}
+
+function minus(cartNo) {
+	var count = Number(document.getElementById("Qty-" + cartNo).value);
+	if(count > 1) {
+		count--;
+	} else {
+		count;
+	}
+	document.getElementById("Qty-" + cartNo).value = count;
+}
+
+function changeQty(cartNo) {
+	var Qty = document.getElementById("Qty-" + cartNo).value;
+	location.href = "changeQty.jsp?no=" + cartNo + "&amount=" + Qty;
+}
+
+function deletedCart(cartNo) {
+	location.href = "deletedCart.jsp?no=" + cartNo; 
+}
+
+function toggleCheckbox() {
+	var checkboxAll = document.getElementById("ck-all");
+			
+	var currentCheckedStatus = checkboxAll.checked;
+	var checkboxList = document.querySelectorAll(".cart-table tbody input[name=no]");
+	for (var i = 0; i < checkboxList.length; i++) {
+		var checkbox = checkboxList[i];
+		checkbox.checked = currentCheckedStatus;
+	}
+}
+
+function thisOrder(cartNo) {
+	var no = document.getElementById("ck-" + cartNo).value;
+	location.href="order-cart.jsp?no=" + no;
+}
+
+function checkOrder() {
+	var form = document.getElementById("cart-form");
+	// 선택된 목록 가져오기
+	var checkedList = document.querySelectorAll(".cart-table tbody input[name=no]:checked")
+	
+	for (var i = 0; i < checkedList.length; i++) {
+		var checked = checkedList[i];
+		console.log(checked.value);
+	}
+	
+	if (checked == null){
+		alert('선택된 상품 정보가 존재하지 않습니다.');
+		return;
+	}
+	
+	form.submit();
+}	
 </script>
 </body>
 </html>

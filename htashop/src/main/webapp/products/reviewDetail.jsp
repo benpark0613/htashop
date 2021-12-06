@@ -96,6 +96,9 @@
 								if(reviewDto.getAnswerContent() != null){
 							%>
 							<hr>
+					<div class="col">
+						<h5 class="fs-3">리뷰 답글</h5>
+					</div>							
 							<table class="table">
 								<tbody>							
 									<tr class="d-flex">
@@ -136,16 +139,16 @@
 										if(reviewDto.getAnswerContent() != null) {
 									%>
 										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
-										class="btn btn-danger">리뷰 삭제</a> 									
+										class="btn btn-danger">리뷰 삭제</a>  									
 										<a href="replyForm.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
 										class="btn btn-info">답글 수정</a>	
-										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
+										<a href="answerDelete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
 										class="btn btn-danger">답글 삭제</a>																				
 									<% 		
 										} else if ((reviewDto.getAnswerContent() == null)){		
 									%>
 										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
-										class="btn btn-danger">리뷰 삭제</a> 											
+										class="btn btn-danger">리뷰 삭제</a> 										
 										<a href="replyForm.jsp?reviewNo=<%=reviewNo%>&pageNo=<%=pageNo%>"
 										class="btn btn-primary">답글 작성</a>
 																		
@@ -159,7 +162,7 @@
 									%>
 								</div>
 								<a
-									href="detail.jsp?no=<%=reviewDto.getProductNo()%>&pageNo=<%=pageNo%>"
+									href="detail.jsp?productNo=<%=reviewDto.getProductNo() %>&reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
 									class="btn btn-primary">목록</a>
 							</div>
 						</div>

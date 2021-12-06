@@ -20,18 +20,21 @@ public class ProductDao {
 		return self;
 	}
 	
-	public List<Product> getProductListBySearch(String searchKeyword, String searchText) throws SQLException {
+
+	/**
+	 * 사용자가 입력한 값을 바탕으로 db에서 겁색한 결과를 반환한다.
+	 * @param searchKeyword 검색키워드(셀렉트박스에서 선택)
+	 * @param searchText 검색어(사용자 입력)
+	 * @return 검색조건에 일치하는 상품리스트
+	 * @throws SQLException
+	 */
+	public List<Product> getProductListBySearch(String searchText) throws SQLException {
 		List<Product> searchResults = new ArrayList<>();
 		
 		String sql = "select PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IS_SOLDOUT "
-				+ "from shop_products ";
-		if ("name".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		} else if ("price".equals(searchKeyword)) {
-			sql	+= "order by PRODUCT_PRICE desc ";
-		} else if ("category".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		}
+				+ "from shop_products "
+				+ "where PRODUCT_NAME like '%' || ? || '%' " ;
+		
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -53,10 +56,6 @@ public class ProductDao {
 		
 		return searchResults;
 	}
-	
-	
-	
-	
 	
 	
 	/**

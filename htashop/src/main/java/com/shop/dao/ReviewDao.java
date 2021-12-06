@@ -9,10 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shop.dto.BoardDto;
 import com.shop.dto.ReviewDto;
 import com.shop.vo.Criteria;
-import com.shop.vo.QaBoard;
 import com.shop.vo.Review;
 public class ReviewDao {
 	
@@ -209,9 +207,6 @@ public class ReviewDao {
 	}
 
 	
-	
-	
-	
 	public List<ReviewDto> getReviewList(int reviewNo)throws SQLException{
 			
 		String sql = "select R.review_no, P.product_no, U.user_name, R.REVIEW_CONTENT, R.review_created_date, R.review_title "
@@ -246,7 +241,6 @@ public class ReviewDao {
 		pstmt.close();
 		connection.close();
 		
-		
 		return reviewList;
 	}
 	
@@ -277,203 +271,9 @@ public class ReviewDao {
 		pstmt.close();
 		connection.close();
 
-
 		return reviewList;
 	}
 	
-	/**
-	 *  QABoard와 ReviewBoard 모두 조회 MYSHOP에 사용됨
-	 * @param userNo
-	 * @return
-	 * @throws SQLException
-	 */
-	public List<BoardDto> getAllBoardsByUserNo(int userNo)throws SQLException{
-		
-		String sql = "select Q.QA_NO, Q.PRODUCT_NO, Q.USER_NO, Q.QA_TITLE, Q.QA_CONTENT, Q.QA_REGDATE, Q.QA_VIEWCOUNT, "
-				    + "      R.REVIEW_NO, R.PRODUCT_NO, R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_CREATED_DATE, R.REVIEW_VIEW_COUNT "
-					+ "from SHOP_QABOARD Q, SHOP_REVIEW R "
-					+ "where Q.USER_NO = R.USER_NO "
-					+ "AND Q.USER_NO = ? ";
-		
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, userNo);
-		ResultSet rs = pstmt.executeQuery();
-		
-		List<BoardDto> allBoardList = new ArrayList<>();
-		while(rs.next()) {
-			BoardDto boards = new BoardDto();
-			
-			boards.setQaNo(rs.getInt("QA_NO"));
-			boards.setQaProductNo(rs.getInt("PRODUCT_NO"));
-			boards.setUserNo(rs.getInt("USER_NO"));
-			boards.setQaTitle(rs.getString("QA_TITLE"));
-			boards.setQaContent(rs.getString("QA_CONTENT"));
-			boards.setQaRegDate(rs.getDate("QA_REGDATE"));
-			boards.setQaViewCount(rs.getInt("QA_VIEWCOUNT"));
-			
-			boards.setReviewNo(rs.getInt("REVIEW_NO"));
-			boards.setReviewProductNo(rs.getInt("PRODUCT_NO"));
-			boards.setReviewTitle(rs.getString("REVIEW_TITLE"));
-			boards.setReviewContent(rs.getString("REVIEW_CONTENT"));
-			boards.setReviewCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
-			boards.setReviewViewCount(rs.getInt("REVIEW_VIEW_COUNT"));
-			
-			allBoardList.add(boards);
-		}
-		rs.close();
-		pstmt.close();
-		connection.close();
-		
-		return allBoardList;
-	}
-	
-	/**
-	 * 검색 조건에 해당하는 총 게시글의 갯수를 반환한다.
-	 * @param criteria 검색조건
-	 * @return 총 게시글 갯수
-	 * @throws SQLException
-	 */
-	public int getAllBoardsCount(Criteria criteria) throws SQLException {
-		int totalRows = 0;
-		String sql = "select count(*) cnt "
-				+ "   from ( select Q.QA_NO, Q.PRODUCT_NO, Q.USER_NO, Q.QA_TITLE, Q.QA_CONTENT, Q.QA_REGDATE, Q.QA_VIEWCOUNT, "
-				+ "				    R.REVIEW_NO, R.PRODUCT_NO, R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_CREATED_DATE, R.REVIEW_VIEW_COUNT "
-				+ "			 from SHOP_QABOARD Q, SHOP_REVIEW R "
-				+ "			 where Q.USER_NO = R.USER_NO ) ";
-		
-		if ("title".equals(criteria.getOption())) {
-			sql += "  and board_title like '%' || ? || '%' ";
-		} else if ("writer".equals(criteria.getOption())) {
-			sql += "  and board_writer = ? ";
-		} else if ("content".equals(criteria.getOption())) {
-			sql += "  and board_content like '%' || ? || '%' ";
-		}
-		
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		if (criteria.getOption() != null) {
-			pstmt.setString(1, criteria.getKeyword());
-		} 
-		
-		ResultSet rs = pstmt.executeQuery();
-		rs.next();
-		totalRows = rs.getInt("cnt");
-		
-		rs.close();
-		pstmt.close();
-		connection.close();
-
-		return totalRows;
-	}
-
-	/**
-	 * 검색조건에 해당하는 게시글 목록을 반환한다.
-	 * @param criteria 검색조건
-	 * @return 게시글 목록
-	 * @throws SQLException
-	 */
-	public List<BoardDto>  getAllBoardList(Criteria criteria) throws SQLException {
-		
-		String sql = "select Q.QA_NO, Q.PRODUCT_NO, Q.USER_NO, Q.QA_TITLE, Q.QA_CONTENT, Q.QA_REGDATE, Q.QA_VIEWCOUNT, "
-			    + "      R.REVIEW_NO, R.PRODUCT_NO, R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_CREATED_DATE, R.REVIEW_VIEW_COUNT "
-				+ "from (select row_number() over (order by Q.QA_RRGDATE, R.REVIEW_CREATED_DATE DESC) rn, "
-				+ "             Q.QA_NO, Q.PRODUCT_NO, Q.USER_NO, Q.QA_TITLE, Q.QA_CONTENT, Q.QA_REGDATE, Q.QA_VIEWCOUNT, "
-				+ "			    R.REVIEW_NO, R.PRODUCT_NO, R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_CREATED_DATE, R.REVIEW_VIEW_COUNT "
-				+ "      where Q.USER_NO = R.USER_NO ) ";
-		
-		if ("title".equals(criteria.getOption())) {
-			sql += "        and board_title like '%' || ? || '%' ";
-		} else if ("writer".equals(criteria.getOption())) {
-			sql += "        and board_writer = ? ";
-		} else if ("content".equals(criteria.getOption())) {
-			sql += "        and board_content like '%' || ? || '%' ";
-		}
-		sql += "            ) "
-			+  "where rn >= ? and rn <= ? ";
-	
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-		if (criteria.getOption() != null) {
-			pstmt.setString(1, criteria.getKeyword());
-			pstmt.setInt(2, criteria.getBeginIndex());
-			pstmt.setInt(3, criteria.getEndIndex());
-		} else {
-			pstmt.setInt(1, criteria.getBeginIndex());
-			pstmt.setInt(2, criteria.getEndIndex());
-		}
-		ResultSet rs = pstmt.executeQuery();
-		List<BoardDto> allBoardList = new ArrayList<>();
-
-		while (rs.next()) {
-			BoardDto boards = new BoardDto();
-			boards.setQaNo(rs.getInt("QA_NO"));
-			boards.setQaProductNo(rs.getInt("PRODUCT_NO"));
-			boards.setUserNo(rs.getInt("USER_NO"));
-			boards.setQaTitle(rs.getString("QA_TITLE"));
-			boards.setQaContent(rs.getString("QA_CONTENT"));
-			boards.setQaRegDate(rs.getDate("QA_REGDATE"));
-			boards.setQaViewCount(rs.getInt("QA_VIEWCOUNT"));
-			
-			boards.setReviewNo(rs.getInt("REVIEW_NO"));
-			boards.setReviewProductNo(rs.getInt("PRODUCT_NO"));
-			boards.setReviewTitle(rs.getString("REVIEW_TITLE"));
-			boards.setReviewContent(rs.getString("REVIEW_CONTENT"));
-			boards.setReviewCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
-			boards.setReviewViewCount(rs.getInt("REVIEW_VIEW_COUNT"));
-			
-			allBoardList.add(boards);
-		}
-		rs.close();
-		pstmt.close();
-		connection.close();
-
-		return allBoardList;
-	}
-	
-	public List<QaBoard> getAllQAByUserNoRN(int userNo, int begin, int end)throws SQLException{
-
-		String sql = "select QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
-				+ "from (select row_number() over (order by O.ORDER_NO) RN, "
-				+ "             QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
-				+ "      from SHOP_QABOARD "
-				+ "      where USER_NO = ? ) "
-				+ "where RN>=? AND RN<=? ";
-
-		Connection connection = getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(sql);
-
-		pstmt.setInt(1, userNo);
-		pstmt.setInt(2, begin);
-		pstmt.setInt(3, end);
-		ResultSet rs = pstmt.executeQuery();
-		List<QaBoard> QAList = new ArrayList<>();
-
-		while(rs.next()) {
-			QaBoard QAboard = new QaBoard();
-			QAboard.setNo(rs.getInt("QA_NO"));
-			QAboard.setTitle(rs.getString("QA_TITLE"));
-			QAboard.setRegdate(rs.getDate("QA_REGDATE"));
-			QAboard.setViewCount(rs.getInt("QA_VIEWCOUNT"));
-
-			QAList.add(QAboard);
-		}
-		rs.close();
-		pstmt.close();
-		connection.close();
-
-
-		return QAList;
-	}
-	
-	/**
-	 * best20 조회를 위한 sql
-	 * @param userNo
-	 * @param begin
-	 * @param end
-	 * @return
-	 * @throws SQLException
-	 */
 	public List<Review> getAllReviewByUserNoRN(int userNo, int begin, int end) throws SQLException{
 		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_VIEW_COUNT, REVIEW_CREATED_DATE "
 				+ "from (select row_number() over (order by REVIEW_NO) RN, "
@@ -507,6 +307,99 @@ public class ReviewDao {
 
 		return reviewList;
 	}
+	
+	/**
+	 * MYSHOP review 검색
+	 * @param criteria
+	 * @param userNo
+	 * @return
+	 * @throws SQLException
+	 */
+	public int getCountReviewByUserNo(Criteria criteria, int userNo)throws SQLException{
+		int totalRows = 0;
+		String sql = "select count(*) cnt "
+				+ "   from SHOP_REVIEW "
+				+ "   where USER_NO = ? ";
+		if("title".equals(criteria.getOption())) {
+			sql += "and REVIEW_TITLE like '%' || ? || '%' ";
+		}else if("content".equals(criteria.getOption())) {
+			sql += "and REVIEW_CONTENT like '%' || ? || '%' ";
+		}
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
+		if(criteria.getOption() != null) {
+			pstmt.setString(2, criteria.getKeyword());
+		}
+		
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		totalRows = rs.getInt("cnt");
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		return totalRows;
+	}
+	
+	/**
+	 * MYSHOP review 검색
+	 * @param criteria
+	 * @param userNo
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Review> getAllReviewByUserNo(Criteria criteria, int userNo)throws SQLException{
+		
+		String sql = "select REVIEW_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_DATE, REVIEW_VIEW_COUNT "
+				+ "from (select row_number() over (order by REVIEW_NO) RN, "
+				+ "             REVIEW_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_DATE, REVIEW_VIEW_COUNT "
+				+ "      from SHOP_REVIEW "
+				+ "      where USER_NO = ? ";
+		if("title".equals(criteria.getOption())) {
+			sql += "and REVIEW_TITLE like '%' || ? || '%' ";
+		}else if("content".equals(criteria.getOption())) {
+			sql += "and REVIEW_CONTENT like '%' || ? || '%' ";
+		}
+			sql	+= "                      )"
+					+ "where RN>=? AND RN<=? ";
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, userNo);
+		if(criteria.getOption() != null) {
+			pstmt.setString(2, criteria.getKeyword());
+			pstmt.setInt(3, criteria.getBeginIndex());
+			pstmt.setInt(4, criteria.getEndIndex());
+			
+		}else {
+			pstmt.setInt(2, criteria.getBeginIndex());
+			pstmt.setInt(3, criteria.getEndIndex());
+			
+		}
+		
+		ResultSet rs = pstmt.executeQuery();
+		List<Review> reviewList = new ArrayList<>();
+
+		while(rs.next()) {
+			Review review = new Review();
+			review.setReviewNo(rs.getInt("REVIEW_NO"));
+			review.setTitle(rs.getString("REVIEW_TITLE"));
+			review.setContent(rs.getString("REVIEW_CONTENT"));
+			review.setCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
+			review.setViewCount(rs.getInt("REVIEW_VIEW_COUNT"));
+
+			reviewList.add(review);
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+
+
+		return reviewList;
+	}
+
 
 	/**
 	 * 리뷰 답글 달기 관련 sql 
@@ -514,7 +407,7 @@ public class ReviewDao {
 	 * @param reviewNo
 	 */
 	public void insertReply(ReviewDto reviewDto) throws SQLException {
-		
+
 
 		
 		String sql ="UPDATE shop_review "
@@ -535,13 +428,45 @@ public class ReviewDao {
 		
 	}
 	
-/**
- * 		String sql = "update shop_review "
-				   + "set "
-				   + "	review_title = ?, "
-				   + "	review_content = ?, "
-				   + "  review_view_count =? "
-				   + "where review_no = ? ";
- */
+	/**
+	 * 리뷰 답글 삭제 관련 sql
+	 * 답변 내용과 답변등록일의 기본값이 null이기 때문에 insert가 아닌 update로 변경해준다.
+	 * @param reviewNo
+	 */
+	public void deleteReply(int reviewNo) throws SQLException {
+		
+		String sql ="UPDATE shop_review "
+					+ "SET "
+					+ " ANSWER_CONTENT = default, "
+					+ " ANSWER_CREATED_DATE = default "
+					+ "where review_no =? ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, reviewNo);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	}	
+	
+	public void insertReview(ReviewDto reviewDto) throws SQLException {
+		
+		String sql ="insert into shop_review(review_no, product_no, user_no, review_title, review_content) "
+				+ 	"values (shop_review_seq.nextval , ?, ?, ?, ?) ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, reviewDto.getProductNo());
+		pstmt.setInt(2, reviewDto.getUserNo());
+		pstmt.setString(3, reviewDto.getTitle());
+		pstmt.setString(4, reviewDto.getReviewContent());	
+		pstmt.executeUpdate();	
+		pstmt.close();
+		connection.close();
+
+	}
 
 }
