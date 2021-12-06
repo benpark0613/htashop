@@ -28,18 +28,13 @@ public class ProductDao {
 	 * @return 검색조건에 일치하는 상품리스트
 	 * @throws SQLException
 	 */
-	public List<Product> getProductListBySearch(String searchKeyword, String searchText) throws SQLException {
+	public List<Product> getProductListBySearch(String searchText) throws SQLException {
 		List<Product> searchResults = new ArrayList<>();
 		
 		String sql = "select PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IS_SOLDOUT "
-				+ "from shop_products ";
-		if ("name".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		} else if ("price".equals(searchKeyword)) {
-			sql	+= "order by PRODUCT_PRICE desc ";
-		} else if ("category".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		}
+				+ "from shop_products "
+				+ "where PRODUCT_NAME like '%' || ? || '%' " ;
+		
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
