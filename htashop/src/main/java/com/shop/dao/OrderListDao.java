@@ -186,7 +186,6 @@ public class OrderListDao {
 		return cnt;
 	}
 	
-	
 	/**
 	 * 관리자페이지 주문관리 
 	 * @param criteria
@@ -266,6 +265,5 @@ public class OrderListDao {
 	}
 	
 	*/
-	
 
 }

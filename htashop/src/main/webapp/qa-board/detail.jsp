@@ -25,6 +25,7 @@
 	
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
+	String pageNo = request.getParameter("pageNo");
 
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);
@@ -61,7 +62,7 @@
 				</tbody>	
 			</table>
 			<div class="mb-3 text-end">
-				<button class="btn btn-danger"><a  href="remove.jsp?no=<%=qaBoard.getNo()%>">삭제</a></button>
+				<a  href="remove.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pageNo %>"" class="btn btn-dark">삭제</a>
 			<%
 				System.out.println(qaBoard.getNo());
 			%>
@@ -75,8 +76,8 @@
 				<div class="row mb-3">
 					<div class="col">
 						<div class="mb-3 text-end">
-							<a href="list.jsp" class="btn btn-secondary">목록</a>
-							<button type="submit" class="btn btn-primary">등록</button>
+							<a href="list.jsp?pageNo=<%=pageNo %>" class="btn btn-secondary" >목록</a>
+							<button type="submit" class="btn btn-primary" name=>등록</button>
 						</div>
 					</div>
 				</div>

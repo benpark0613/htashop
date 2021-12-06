@@ -66,9 +66,13 @@ public class ProductDao {
 	 * @throws SQLException
 	 */
 	public List<Product> getProductListByRN(int begin, int end) throws SQLException {
-		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE "
+		// admin/pproduct-mg/main.jsp에 필요해서
+		// PRODUCT_STOCK, PRODUCT_IS_SOLDOUT, PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE 컬럼 추가(다예) 
+		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE, "
+					+ "			 PRODUCT_STOCK, PRODUCT_IS_SOLDOUT, PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE "
 					+ "from (select row_number() over (order by product_no) RN, "
-					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE "
+					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE, "
+					+ " 			PRODUCT_STOCK, PRODUCT_IS_SOLDOUT, PRODUCT_UPDATED_DATE, PRODUCT_SALES_RATE "
 					+ "      from shop_products) "
 					+ "where rn >= ? and rn <= ? ";
 		
@@ -87,6 +91,10 @@ public class ProductDao {
 			product.setName(rs.getString("PRODUCT_NAME"));
 			product.setPrice(rs.getInt("PRODUCT_PRICE"));
 			product.setImage(rs.getString("PRODUCT_IMAGE"));
+			product.setStock(rs.getInt("PRODUCT_STOCK"));
+			product.setSoldOut(rs.getBoolean("PRODUCT_IS_SOLDOUT"));
+			product.setUpdatedDate(rs.getDate("PRODUCT_UPDATED_DATE"));
+			product.setSalesRate(rs.getInt("PRODUCT_SALES_RATE"));
 			productList.add(product);
 		}
 		
@@ -197,7 +205,6 @@ public class ProductDao {
 		return productList;
 	}
 	
-
 	
 	/**
 	 * shop_products테이블의 전체 레코드 갯수를 반환한다.

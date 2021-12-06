@@ -35,7 +35,7 @@
 	qaBoard.setUserNo(loginedUserInfo.getUserNo());
 	
 	
-	QaBoardDao qaBoardDao = new QaBoardDao();
+	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	qaBoardDao.insertQaBoard(qaBoard);
 	
 	// 클라이언트에 index.jsp를 재요청하는 URL을 응답으로 보낸다.
