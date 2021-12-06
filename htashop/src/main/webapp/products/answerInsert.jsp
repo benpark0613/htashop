@@ -16,8 +16,7 @@
 	if (loginedUserInfo == null) {
 		response.sendRedirect("../loginform.jsp?error=login-required");
 		return;
-	}
-	
+	}	
 	if (!"admin".equals(loginedUserInfo.getUserType())) {
 		response.sendRedirect("../loginform.jsp?error=login-required");
 		return;
