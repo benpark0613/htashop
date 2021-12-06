@@ -20,23 +20,21 @@ public class ProductDao {
 		return self;
 	}
 	
-	
-	
-	
-	
-	
-	public List<Product> getProductListBySearch(String searchKeyword, String searchText) throws SQLException {
+
+	/**
+	 * 사용자가 입력한 값을 바탕으로 db에서 겁색한 결과를 반환한다.
+	 * @param searchKeyword 검색키워드(셀렉트박스에서 선택)
+	 * @param searchText 검색어(사용자 입력)
+	 * @return 검색조건에 일치하는 상품리스트
+	 * @throws SQLException
+	 */
+	public List<Product> getProductListBySearch(String searchText) throws SQLException {
 		List<Product> searchResults = new ArrayList<>();
 		
 		String sql = "select PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IS_SOLDOUT "
-				+ "from shop_products ";
-		if ("name".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		} else if ("price".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		} else if ("category".equals(searchKeyword)) {
-			sql	+= "where PRODUCT_NAME like '%' || ? || '%' ";
-		}
+				+ "from shop_products "
+				+ "where PRODUCT_NAME like '%' || ? || '%' " ;
+		
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -58,10 +56,6 @@ public class ProductDao {
 		
 		return searchResults;
 	}
-	
-	
-	
-	
 	
 	
 	/**
@@ -153,6 +147,7 @@ public class ProductDao {
 			products.setStock(rs.getInt("product_stock"));
 			products.setSoldOut(rs.getBoolean("product_is_soldout"));
 			products.setSalesRate(rs.getInt("PRODUCT_SALES_RATE"));
+			products.setImage(rs.getString("product_image"));
 		}
 		
 		rs.close();
@@ -254,6 +249,7 @@ public class ProductDao {
 		pstmt.setInt(2, begin);
 		pstmt.setInt(3, end);
 
+
 		
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
@@ -272,4 +268,42 @@ public class ProductDao {
 		
 		return productList;
 	}	
+
+	
+	
+	public List<Product> getProductListByBest20(int begin, int end) throws SQLException {
+		String sql = "select RN, PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE, PRODUCT_SALES_RATE "
+					+ "from (select row_number() over (order by product_sales_rate desc) RN, "
+					+ "             PRODUCT_NO, PRODUCT_CATEGORY, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_IMAGE, PRODUCT_SALES_RATE "
+					+ "      from (SELECT * FROM SHOP_PRODUCTS order by PRODUCT_SALES_RATE desc) "
+					+ "		WHERE ROWNUM <= 20) "
+					+ "where rn >= ? and rn <= ? ";
+		
+		List<Product> productList = new ArrayList<Product>();
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, begin);
+		pstmt.setInt(2, end);
+
+
+		
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			Product product = new Product();
+			product.setNo(rs.getInt("PRODUCT_NO"));
+			product.setCategory(rs.getString("PRODUCT_CATEGORY"));
+			product.setName(rs.getString("PRODUCT_NAME"));
+			product.setPrice(rs.getInt("PRODUCT_PRICE"));
+			product.setImage(rs.getString("PRODUCT_IMAGE"));
+			productList.add(product);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return productList;
+	}
 }

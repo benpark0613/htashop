@@ -55,40 +55,67 @@ public class TempCartDao {
 		return carts;
 	}
 	
-	/**
-	 * 모든 사용자가 담은 카트를 조회한다.
-	 * @return 모든 사용자가 담은 카트 리스트
-	 * @throws SQLException
-	 */
-	public List<Cart> getAllCartList() throws SQLException {
+	public Cart getCartByProductNo(int productNo) throws SQLException {
 		String sql = "select * "
-				+ "from shop_cart ";
+				   + "from shop_cart "
+				   + "where product_no = ? ";
 		
-		List<Cart> carts = new ArrayList<Cart>();
+		Cart cart = null;
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, productNo);
 		ResultSet rs = pstmt.executeQuery();
 		
 		while (rs.next()) {
-			Cart cart = new Cart();
-			cart.setUserNo(rs.getInt("user_no"));
+			cart = new Cart();
 			cart.setCartNo(rs.getInt("cart_no"));
+			cart.setUserNo(rs.getInt("user_no"));
 			cart.setProductNo(rs.getInt("product_no"));
 			cart.setQuantity(rs.getInt("cart_quantity"));
-			
-			carts.add(cart);
 		}
 		
 		rs.close();
 		pstmt.close();
 		connection.close();
 		
-		return carts;
+		return cart;
 	}
 	
+//	/**
+//	 * 모든 사용자가 담은 카트를 조회한다.
+//	 * @return 모든 사용자가 담은 카트 리스트
+//	 * @throws SQLException
+//	 */
+//	public List<Cart> getAllCartList() throws SQLException {
+//		String sql = "select * "
+//				+ "from shop_cart ";
+//		
+//		List<Cart> carts = new ArrayList<Cart>();
+//		
+//		Connection connection = getConnection();
+//		PreparedStatement pstmt = connection.prepareStatement(sql);
+//		ResultSet rs = pstmt.executeQuery();
+//		
+//		while (rs.next()) {
+//			Cart cart = new Cart();
+//			cart.setUserNo(rs.getInt("user_no"));
+//			cart.setCartNo(rs.getInt("cart_no"));
+//			cart.setProductNo(rs.getInt("product_no"));
+//			cart.setQuantity(rs.getInt("cart_quantity"));
+//			
+//			carts.add(cart);
+//		}
+//		
+//		rs.close();
+//		pstmt.close();
+//		connection.close();
+//		
+//		return carts;
+//	}
+	
 	public void insertCart(Cart cart) throws SQLException {
-		String sql = "insert into shop_cart(cart_no, user_no, product_no, cart_quantity) "
+		String sql = "insert into shop_cart (cart_no, user_no, product_no, cart_quantity) "
 				+ "values (shop_cart_seq.nextval, ?, ?, ?) ";
 		
 		Connection connection = getConnection();

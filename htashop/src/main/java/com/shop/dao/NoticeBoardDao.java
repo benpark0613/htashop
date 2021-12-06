@@ -183,7 +183,7 @@ public class NoticeBoardDao {
 				   + "	notice_viewcount = ? "
 				   + "where notice_no = ? ";
 		
-		Connection connection = getConnection();
+		Connection connection = getConnection();     
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		pstmt.setString(1, noticeBoardDto.getNoticeTitle());
 		pstmt.setString(2, noticeBoardDto.getNoticeContent());

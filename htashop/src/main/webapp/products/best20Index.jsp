@@ -10,8 +10,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="resources/css/newstyle.css" rel="stylesheet" />
+<link href="../resources/css/newstyle.css" rel="stylesheet" />
 <title>HTA shop::메인페이지</title>
+<style type="text/css"> 
+a { text-decoration:none;
+	color : black;
+	 } 
+</style>
 </head>
 <body>
 <%
@@ -24,6 +29,7 @@
 		<div class="col-sm-2">
 			<%@ include file="../common/left.jsp" %>
 		</div>
+		
 <%
 	ProductDao productDao = ProductDao.getInstance();
 	List<Product> productList = productDao.getAllProducts();
@@ -40,25 +46,30 @@
 	}
 %>
 			<div class="row mt-2">
+				<div class="row mb-3" id="container_title">
+					<div class="col">
+						<h1 class="fs-6"><strong>Best20</strong> | 가장 인기있는 20개의 제품입니다.</h1>
+					</div>
+				</div>
 <%
 	// 페이징 처리하기
 	// 인덱스에서 페이지부분을 누를때마다 pageNo라는 이름으로 현재페이지번호를 보낸다.
 	// 페이지번호가 없으면 1로 되게 페이지네이션 유틸에 구현되어 있음
-	String pageNo = request.getParameter("pageNo");
-	String category = "TOP";		
+	String pageNo = request.getParameter("pageNo");	
 	// productdao 생성하고 전체 데이터 갯수 구하기
-	int totalProductsRecord = productDao.getTotalRecordsByCategory(category);
+	int totalProductsRecord = 20;
 	// 페이지네이션 객체 생성: 조회한 현재 페이지 번호, 전체 데이터 갯수
 	Pagination_index paginationIndex = new Pagination_index(pageNo, totalProductsRecord);
 	// productDao의 getProductListByRN메소드 호출
 	// 페이지네이션 안에서 현재 페이지 번호에 해당하는 범위를 계산함
-	List<Product> products = productDao.getProductListByCategory(paginationIndex.getBegin(), paginationIndex.getEnd(), category);	
+	List<Product> products = productDao.getProductListByBest20(paginationIndex.getBegin(), paginationIndex.getEnd());	
 	// 이제 products에 들어있는 상품정보를 화면에 출력
+	
 	for (Product product : products) {
 %>
 				<div class="col-sm-4 mb-3">
 					<div class="card mt-3">
-						<p><%=product.getImage() %></p>
+						<a href="../products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><img src="../resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
 					</div>
 					<div class="card-body">
 						<!-- 클릭하면 상품상세정보페이지로 이동 -->
@@ -73,30 +84,25 @@
 		</div>
 	</div>
 	<!-- 페이지네이션 -->
-	<div>page : <%=paginationIndex.getPageNo() %></div>
-	<div>totalRows : <%=paginationIndex.getTotalRecords() %></div>
-	<div>totalPages: <%=paginationIndex.getTotalPages() %></div>
-	<div>begiPage : <%=paginationIndex.getBeginPage() %></div>
-	<div>endPage : <%=paginationIndex.getEndPage() %></div>
 	<div class="row mt-5 mb-3">
 		<div class="col-6 offset-3">
 			<ul class="pagination justify-content-center">
 				<!-- 이전버튼 -->
    				<li class="page-item <%=!paginationIndex.isExistPrev() ? "disabled" : "" %>">
-     					<a class="page-link bg-white text-black" href="topIndex.jsp?pageNo=<%=paginationIndex.getPrevPage() %>" aria-label="Previous">
+     					<a class="page-link bg-white text-black" href="best20Index.jsp?pageNo=<%=paginationIndex.getPrevPage() %>" aria-label="Previous">
        				<span aria-hidden="true">&laquo;</span>
      					</a>
    				</li>
 <%
 	for (int num = paginationIndex.getBeginPage(); num <= paginationIndex.getEndPage(); num++) {
 %>
-    			<li class="page-item <%=paginationIndex.getPageNo() == num ? "active" : "" %>"><a class="page-link bg-white text-black" href="topIndex.jsp?pageNo=<%=num%>"><%=num %></a></li>
+    			<li class="page-item <%=paginationIndex.getPageNo() == num ? "active" : "" %>"><a class="page-link bg-white text-black" href="best20Index.jsp?pageNo=<%=num%>"><%=num %></a></li>
 <%
 	}
 %>
    				<!-- 다음버튼 -->
    				<li class="page-item <%=!paginationIndex.isExistNext() ? "disabled" : "" %>">
-     					<a class="page-link bg-white text-black" href="topIndex.jsp?pageNo=<%=paginationIndex.getNextPage() %>" aria-label="Next">
+     					<a class="page-link bg-white text-black" href="best20Index.jsp?pageNo=<%=paginationIndex.getNextPage() %>" aria-label="Next">
        				<span aria-hidden="true">&raquo;</span>
      					</a>
    				</li>

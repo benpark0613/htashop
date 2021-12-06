@@ -10,8 +10,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="resources/css/newstyle.css" rel="stylesheet" />
+<link href="../resources/css/newstyle.css" rel="stylesheet" />
 <title>HTA shop::메인페이지</title>
+<style type="text/css"> 
+a { text-decoration:none;
+	color : black;
+	 } 
+</style> 
+</head>
 </head>
 <body>
 <%
@@ -40,6 +46,11 @@
 	}
 %>
 			<div class="row mt-2">
+				<div class="row mb-3" id="container_title">
+					<div class="col">
+						<h1 class="fs-6"><strong>bottom</strong> | 하의</h1>
+					</div>
+				</div>
 <%
 	// 페이징 처리하기
 	// 인덱스에서 페이지부분을 누를때마다 pageNo라는 이름으로 현재페이지번호를 보낸다.
@@ -58,7 +69,7 @@
 %>
 				<div class="col-sm-4 mb-3">
 					<div class="card mt-3">
-						<p><%=product.getImage() %></p>
+						<a href="../products/detail.jsp?no=<%=product.getNo()%>&pageNo=<%=1%>"><img src="../resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
 					</div>
 					<div class="card-body">
 						<!-- 클릭하면 상품상세정보페이지로 이동 -->
@@ -73,11 +84,6 @@
 		</div>
 	</div>
 	<!-- 페이지네이션 -->
-		<div>page : <%=paginationIndex.getPageNo() %></div>
-	<div>totalPages: <%=paginationIndex.getTotalPages() %></div>
-	<div>begiPage : <%=paginationIndex.getBeginPage() %></div>
-	<div>endPage : <%=paginationIndex.getEndPage() %></div>
-	
 	<div class="row mt-5 mb-3">
 		<div class="col-6 offset-3">
 			<ul class="pagination justify-content-center">
