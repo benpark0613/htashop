@@ -17,12 +17,7 @@
 </head>
 <body>
 <%@ include file="../../common/admin-navbar.jsp" %>
-<%
-	if (loginedUserInfo == null || !"admin".equals(loginedUserInfo.getUserType())) {
-		response.sendRedirect("../../loginform.jsp?fail=login-required");
-		return;
-	}
-%>
+
 <%
 	pageContext.setAttribute("menu", "customer-search");
 	pageContext.setAttribute("leftMenu", "customer-search");

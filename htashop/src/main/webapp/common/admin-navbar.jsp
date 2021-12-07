@@ -4,6 +4,12 @@
 	String menu = (String) pageContext.getAttribute("menu");
  	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 %>
+<%
+	if (loginedUserInfo == null || !"admin".equals(loginedUserInfo.getUserType())) {
+		response.sendRedirect("../loginform.jsp?fail=login-required");
+		return;
+	}
+%>
 <nav class="navbar navbar-expand navbar-dark bg-dark">
 	<div class="collapse navbar-collapse">
 	<div class="container">
