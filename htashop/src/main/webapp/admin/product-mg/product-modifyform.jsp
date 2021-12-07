@@ -16,7 +16,9 @@
 <%
 	pageContext.setAttribute("menu", "product-modifyform");
 	pageContext.setAttribute("leftMenu", "product-modifyform");
-	
+%>
+
+<%	
 	int productNo = Integer.parseInt(request.getParameter("productNo"));
 	
 	ProductDao productDao = ProductDao.getInstance();
