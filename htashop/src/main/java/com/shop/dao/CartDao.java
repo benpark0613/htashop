@@ -136,14 +136,14 @@ public class CartDao {
 	public void updateCartQuantityByNo(Cart cart) throws SQLException {
 		String sql = "update shop_cart "
 				   + "set "
-				   + "	product_quantity = ? "
-				   + "where"
+				   + "	cart_quantity = ? "
+				   + "where "
 				   + "cart_no = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		pstmt.setInt(1, cart.getQuantity());
-		pstmt.setInt(2, cart.getProductNo());
+		pstmt.setInt(2, cart.getCartNo());
 		
 		pstmt.executeUpdate();
 		
@@ -152,13 +152,13 @@ public class CartDao {
 	}
 	
 	// 장바구니 번호 조회하여, 해당 장바구니 정보를 삭제
-	public void deleteCartByNo(int no) throws SQLException {
-		String sql = "delete shop_cart"
+	public void deleteCartByNo(int cartNo) throws SQLException {
+		String sql = "delete shop_cart "
 				   + "where cart_no= ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, no);
+		pstmt.setInt(1, cartNo);
 		
 		pstmt.executeUpdate();
 		

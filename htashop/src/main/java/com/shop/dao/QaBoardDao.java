@@ -323,4 +323,24 @@ public class QaBoardDao {
 		return QAList;
 	}
 
+	public int getTodayTotalRecords() throws SQLException {
+		String sql = "select count(*) cnt "
+				   + "from shop_qaboard "
+				   + "where qa_regdate >= to_date(trunc(sysdate)) "
+				   + "and qa_regdate < to_date(trunc(sysdate+1)) ";
+		
+		int totalRecords = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		totalRecords = rs.getInt("cnt");
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return totalRecords;
+	}
+	
 }

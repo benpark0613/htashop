@@ -10,6 +10,10 @@
 	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 	
 %>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 <nav class="navbar navbar-expand-sm bg-light navbar-light mb-3">
 	<div class="container">
 		<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-1">

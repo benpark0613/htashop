@@ -113,17 +113,12 @@
 							<div class="col-3 text-end">
 
 
-								<%
-								// 로그인되지 않은 경우 새 글 버튼이 출력되지않는다.
-								if (loginedUserInfo != null) {
-								%>
+								
 										<form class="border p-3 bg-light" method="post"
 											action="writeform.jsp">
 											<button type="submit" class="btn btn-primary">글쓰기</button>
 										</form>
-								<%
-								}
-								%>
+								
 							</div>
 						</div>
 					</div>

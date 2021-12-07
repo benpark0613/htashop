@@ -46,9 +46,9 @@ img {width:50px; height:50px; }
 			<div class="row mb-3">
 				<div class="col-10 mb-3 ">
 				<div class="row">
-						<form id="cart-form" action="cartOrder.jsp">
 				</div>
-					<table class="col-10 table table-hover">
+				<form id="cart-form" action="cartOrder.jsp">
+					<table class="col-10 table table-hover" id="cart">
 						<thead>
 							
 							<tr>
@@ -89,8 +89,8 @@ img {width:50px; height:50px; }
 							<td><%=Math.round(product.getPrice() * cart.getQuantity() * 0.01) %>원</td>
 							<td><%=product.getPrice() * cart.getQuantity()%>원</td>
 							<td>
-							<button type="button" class="btn btn-outline-dark btn-sm" onclick="thisOrder(<%=product.getNo() %>)">구매</button>
-							<button type="button" class="btn btn-outline-dark btn-sm" onclick="deleteCart(<%=product.getNo() %>)">삭제</button>
+							<button type="button" class="btn btn-outline-dark btn-sm" onclick="thisOrder(<%=cart.getCartNo()  %>)">구매</button>
+							<button type="button" class="btn btn-outline-dark btn-sm" onclick="deletedCart(<%=cart.getCartNo()  %>)">삭제</button>
 							</td>
 						</tr>
 <%
@@ -99,7 +99,7 @@ img {width:50px; height:50px; }
 						</tbody>
 					</table>
 							<div class="text-center">
-								<button class="btn btn-lg btn-warning" type="submit"  onclick="checkOrder()">주문하기</button>
+								<button class="btn btn-lg btn-warning" type="button"  onclick="checkOrder()">주문하기</button>
 							</div>		
 					</form>
 				</div>
@@ -133,18 +133,18 @@ function minus(cartNo) {
 
 function changeQty(cartNo) {
 	var Qty = document.getElementById("Qty-" + cartNo).value;
-	location.href = "changeQty.jsp?no=" + cartNo + "&amount=" + Qty;
+	location.href = "changeQty.jsp?no=" + cartNo + "&quantity=" + Qty;
 }
 
 function deletedCart(cartNo) {
-	location.href = "deletedCart.jsp?no=" + cartNo; 
+	location.href = "deleteCart.jsp?no=" + cartNo; 
 }
 
 function toggleCheckbox() {
 	var checkboxAll = document.getElementById("ck-all");
 			
 	var currentCheckedStatus = checkboxAll.checked;
-	var checkboxList = document.querySelectorAll(".cart-table tbody input[name=no]");
+	var checkboxList = document.querySelectorAll(".table tbody input[name=no]");
 	for (var i = 0; i < checkboxList.length; i++) {
 		var checkbox = checkboxList[i];
 		checkbox.checked = currentCheckedStatus;
@@ -153,11 +153,17 @@ function toggleCheckbox() {
 
 function thisOrder(cartNo) {
 	var no = document.getElementById("ck-" + cartNo).value;
-	location.href="order-cart.jsp?no=" + no;
+	location.href="orderCart.jsp?no=" + no;
 }
 
 function checkOrder() {
-	//수정중
+	var form = document.getElementById("cart-form");
+	var checkedList = document.querySelector(".table tbody input[name=no]:checked")
+	
+	for(var i = 0; i<checkedList.length; i++){
+		var checked = checkedList[i];
+	}
+	
 	if (checked == null){
 		alert('선택된 상품 정보가 존재하지 않습니다.');
 		return;

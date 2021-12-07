@@ -140,7 +140,7 @@
 										} else if ((reviewDto.getAnswerContent() == null)){		
 									%>
 										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
-										class="btn btn-danger">리뷰 삭제</a> 										
+										class="btn btn-danger">리뷰 삭제</a>										
 										<a href="replyForm.jsp?reviewNo=<%=reviewNo%>&pageNo=<%=pageNo%>"
 										class="btn btn-primary">답글 작성</a>
 																		
