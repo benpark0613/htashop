@@ -66,7 +66,7 @@
 		<div class="col-10">
 			<div class="row mb-2">
 				<div class="col m-1">
-					<form class="" method="get" id="form-search" action="customer-search.jsp">
+					<form class="" method="post" id="form-search" action="customer-search.jsp">
 						<input type="hidden" id="page-field" name="page" value="<%=pageNo %>">
 						<table class="table table-bordered caption-top">
 							<caption class="fs-4 fw-bold">회원정보조회</caption>
