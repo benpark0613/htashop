@@ -5,38 +5,42 @@
 <!doctype html>
 <html lang="ko">
 <head>
-   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-   <link href="../resources/css/newstyle.css" rel="stylesheet" />
-    <title>qa 목록</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
+<link href="../resources/css/newstyle.css" rel="stylesheet" />
+<title>qa 목록</title>
 </head>
 <body>
 <%@ include file="../common/navbar.jsp" %>
 <div class="container">
 	<div class="row mb-3">
+		<div class="col-2">
+			<%@ include file="../common/left.jsp"%>
+		</div>
 		<div class="col">
+			<div class="row mb-3">
+				<div class="col">
 			<h4>
 				<font color=#777777>Q & A</font> |
 				상품 Q&A입니다.
 			</h4>
-		</div>
-	</div>
-	
+				</div>
+				</div>
 <%
 	int no = Integer.parseInt(request.getParameter("no"));
 	String pageNo = request.getParameter("pageNo");
 
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);
-	System.out.println("아이디"+ qaBoard.getUserId());
 	
 	if(loginedUserInfo!= null &&( qaBoard.getUserId().equals(loginedUserInfo.getId()) || "admin".equals(loginedUserInfo.getId()))){
 %>	
+		<div class="col">
 			<table class="table border p-3 bg-light">
 				<tbody>
 					<tr class="d-flex">
-						<th class="col-2">번호</th>
+						<th class="col-2">게시글 번호</th>
 						<td class="col-4"><%=qaBoard.getNo() %></td>
 					</tr>
 					<tr class="d-flex">
@@ -53,7 +57,7 @@
 					</tr>
 					<tr class="d-flex">
 						<th class="col-2">내용</th>
-						<td class="col-10"><%=qaBoard.getContent() %></td>
+						<td class="col-10" ><%=qaBoard.getContent() %></td>
 					</tr>
 					<tr class="d-flex">
 						<th class="col-2">댓글</th>
@@ -61,11 +65,13 @@
 					</tr>
 				</tbody>	
 			</table>
+			</div>
+				
+			</div>
+		</div>
 			<div class="mb-3 text-end">
+				<a  href="modifyform.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pageNo %>"" class="btn btn-dark">수정</a>
 				<a  href="remove.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pageNo %>"" class="btn btn-dark">삭제</a>
-			<%
-				System.out.println(qaBoard.getNo());
-			%>
 			</div>
 			<form method="post" action="reply.jsp">
 				<input type="hidden" name="no" value="<%=qaBoard.getNo()%>">
@@ -83,12 +89,16 @@
 				</div>
 			</form>
 <%
-	}else{
-		response.sendRedirect("list.jsp");
+	}else if(loginedUserInfo== null){
+		response.sendRedirect("../loginform.jsp?fail=login-required");
+		return;
+	}else if(!qaBoard.getUserId().equals(loginedUserInfo.getId()) || !"admin".equals(loginedUserInfo.getId())){
+		response.sendRedirect("list.jsp?fail=other");
+		return;
 	}
 %>	
 		
-</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

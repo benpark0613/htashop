@@ -24,10 +24,11 @@ public class QaBoardDao {
 
 		String sql =  " select rn, qa_no, product_no, qa_title, " 
 					+ " user_no, qa_regdate " 
-					+ " from (select row_number() over (order by product_no) RN, "
+					+ " from (select row_number() over (order by product_no) rn, "
 					+ " qa_no, product_no, qa_title, user_no, qa_regdate "
 					+ " from shop_qaboard) "
-					+ " where rn >= ? and rn <= ? ";
+					+ " where rn >= ? and rn <= ? "
+					+ " order by qa_regdate desc ";
 
 		List<QaBoard> qaboardList = new ArrayList<>();
 
@@ -103,8 +104,9 @@ public class QaBoardDao {
 	}
 
 	public QaBoard getQuestionByNo(int no) throws SQLException {
-		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no, u.user_id, q.qa_reply "
-				+ "from shop_qaboard q, shop_user U " + "where q.user_no = U.user_no " + "and qa_no=?";
+		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no, u.user_id, q.qa_reply, q.product_no "
+				+ "from shop_qaboard q, shop_user U "
+				+ "where q.user_no = U.user_no and qa_no=? ";
 
 		QaBoard qaBoard = null;
 
@@ -122,6 +124,8 @@ public class QaBoardDao {
 			qaBoard.setUserName(rs.getString("user_name"));
 			qaBoard.setUserId(rs.getString("user_id"));
 			qaBoard.setReply(rs.getString("qa_reply"));
+			qaBoard.setProductNo(rs.getInt("product_no"));
+			
 
 		}
 		rs.close();
@@ -197,6 +201,24 @@ public class QaBoardDao {
 
 	}
 	
+	public void updateQuestion(QaBoard qaBoard) throws SQLException {
+		String sql = "update shop_qaboard " 
+					 + "set " 
+					 + "qa_title = ?, qa_content = ? "
+					 + "where qa_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setString(1, qaBoard.getTitle());
+		pstmt.setString(2, qaBoard.getContent());
+		pstmt.setInt(3, qaBoard.getNo());
+
+		pstmt.executeUpdate();
+
+		pstmt.close();
+		connection.close();
+
+	}
+	
 	public int getTotalRecords() throws SQLException {
 		String sql = "select count(*) cnt "
 				   + "from shop_qaboard";
@@ -228,5 +250,4 @@ public class QaBoardDao {
 		pstmt.close();
 		connection.close();
 	}
-
 }
