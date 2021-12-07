@@ -25,7 +25,7 @@ String leftMenu = (String)pageContext.getAttribute("leftMenu");
 	} else if ("product-main".equals(leftMenu) || "product-modifyform".equals(leftMenu)) {
 %>
 		<li class="list-group-item <%="product-main".equals(leftMenu) ? "fw-bold" : "" %>"><a href="product-main.jsp" class="link-dark nav-link align-middle">상품현황</a></li>
-		<li class="list-group-item <%="product-main".equals(leftMenu) ? "fw-bold" : "" %>"><a href="product-modifyform.jsp" class="link-dark nav-link align-middle">상품수정</a></li>
+		<li class="list-group-item <%="product-modifyform".equals(leftMenu) ? "fw-bold" : "" %>"><a href="product-modifyform.jsp" class="link-dark nav-link align-middle">상품수정</a></li>
 <%
 	}
 %>

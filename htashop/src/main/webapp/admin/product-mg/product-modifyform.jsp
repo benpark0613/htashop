@@ -18,8 +18,6 @@
 	pageContext.setAttribute("leftMenu", "product-modifyform");
 	
 	int productNo = Integer.parseInt(request.getParameter("productNo"));
-
-	System.out.println(productNo);
 	
 	ProductDao productDao = ProductDao.getInstance();
 	Product product = productDao.getProductDetailById(productNo);
