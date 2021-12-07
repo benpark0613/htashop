@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.vo.Criteria;
 import com.shop.vo.QaBoard;
 import com.shop.vo.User;
 
@@ -249,5 +250,117 @@ public class QaBoardDao {
 		
 		pstmt.close();
 		connection.close();
+	}
+	/**
+	 * MYSHOP Board검색
+	 * @param criteria
+	 * @param userNo
+	 * @return
+	 * @throws SQLException
+	 */
+	public int getCountQaBoardsByUserNo(Criteria criteria, int userNo)throws SQLException{
+		int totalRows = 0;
+		String sql = "select count(*) cnt "
+				+ "   from SHOP_QABOARD "
+				+ "   where USER_NO = ? ";
+		if("title".equals(criteria.getOption())) {
+			sql += "and QA_TITLE like '%' || ? || '%' ";
+		}else if("content".equals(criteria.getOption())) {
+			sql += "and QA_CONTENT like '%' || ? || '%' ";
+		}
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
+		if(criteria.getOption() != null) {
+			pstmt.setString(2, criteria.getKeyword());
+		}
+		
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		totalRows = rs.getInt("cnt");
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		return totalRows;
+	}
+	
+	/**
+	 * MYSHOP Board검색
+	 * @param criteria
+	 * @param userNo
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<QaBoard> getAllQAByUserNoRN(Criteria criteria, int userNo)throws SQLException{
+
+
+		String sql = "select QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
+
+				+ "from (select row_number() over (order by QA_NO) RN, "
+				+ "             QA_NO, QA_TITLE, QA_REGDATE, QA_VIEWCOUNT "
+				+ "      from SHOP_QABOARD "
+				+ "      where USER_NO = ? ";
+		if("title".equals(criteria.getOption())) {
+			sql += "and QA_TITLE like '%' || ? || '%' ";
+		}else if("content".equals(criteria.getOption())) {
+			sql += "and QA_CONTENT like '%' || ? || '%' ";
+		}
+			sql	+= "                      )"
+					+ "where RN>=? AND RN<=? ";
+
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, userNo);
+		
+		if(criteria.getOption() != null) {
+			pstmt.setString(2, criteria.getKeyword());
+			pstmt.setInt(3, criteria.getBeginIndex());
+			pstmt.setInt(4, criteria.getEndIndex());
+			
+		}else {
+			pstmt.setInt(2, criteria.getBeginIndex());
+			pstmt.setInt(3, criteria.getEndIndex());
+			
+		}
+		ResultSet rs = pstmt.executeQuery();
+		List<QaBoard> QAList = new ArrayList<>();
+
+		while (rs.next()) {
+			QaBoard QAboard = new QaBoard();
+			QAboard.setNo(rs.getInt("QA_NO"));
+			QAboard.setTitle(rs.getString("QA_TITLE"));
+			QAboard.setRegdate(rs.getDate("QA_REGDATE"));
+			QAboard.setViewCount(rs.getInt("QA_VIEWCOUNT"));
+
+			QAList.add(QAboard);
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+
+		return QAList;
+	}
+
+	public int getTodayTotalRecords() throws SQLException {
+		String sql = "select count(*) cnt "
+				   + "from shop_qaboard "
+				   + "where qa_regdate >= to_date(trunc(sysdate)) "
+				   + "and qa_regdate < to_date(trunc(sysdate+1)) ";
+		
+		int totalRecords = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		totalRecords = rs.getInt("cnt");
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return totalRecords;
 	}
 }

@@ -15,7 +15,6 @@
 	<!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 	<title>관리자페이지::상품관리</title>
-<%@ include file="../../common/admin-navbar.jsp" %>		
 <style type="text/css"> 
 	a { 
 		text-decoration:none;
@@ -24,13 +23,14 @@
 </style> 
 </head>
 <body>
+<%@ include file="../../common/admin-navbar.jsp" %>		
 <%
 	pageContext.setAttribute("menu", "product-main");
 	pageContext.setAttribute("leftMenu", "product-main");
 %>
-<div class="container">
+<div class="container-fluid">
 	<div class="row justify-content-center text-center mb-3">
-		<div class="col-sm-2">
+		<div class="col-2 min-vh-100 bg-light" id="sidebar">
 			<%@ include file="../../common/admin-left.jsp" %>
 		</div>
 			<div class="col-10 justify-content-center text-center mt-3">
@@ -87,7 +87,7 @@
 							<td class="col-2"><%=product.getPrice() %> 원</td>
 							<td class="col-2"><%=product.getStock() %> 개</td>
 							<td class="col-2"><%=product.isSoldOut() %></td>
-							<td class="col-1"><a href="product-modify.jsp?productNo=<%=product.getNo() %>" class="btn-sm btn-secondary" type="button"><i class="bi bi-pencil"></i></a></td>
+							<td class="col-1"><a href="product-modifyform.jsp?productNo=<%=product.getNo() %>" class="btn-sm btn-secondary" type="button"><i class="bi bi-pencil"></i></a></td>
 						</tr>
 <%
 		}

@@ -50,7 +50,6 @@ img {width:50px; height:50px; }
 				<form id="cart-form" action="cartOrder.jsp">
 					<table class="col-10 table table-hover" id="cart">
 						<thead>
-							
 							<tr>
 								<th>
 					<div class="col">
@@ -133,7 +132,7 @@ function minus(cartNo) {
 
 function changeQty(cartNo) {
 	var Qty = document.getElementById("Qty-" + cartNo).value;
-	location.href = "changeQty.jsp?no=" + cartNo + "&quantity=" + Qty;
+	location.href = "changeQuantity.jsp?no=" + cartNo + "&quantity=" + Qty;
 }
 
 function deletedCart(cartNo) {
@@ -153,7 +152,7 @@ function toggleCheckbox() {
 
 function thisOrder(cartNo) {
 	var no = document.getElementById("ck-" + cartNo).value;
-	location.href="orderCart.jsp?no=" + no;
+	location.href="orderForm.jsp?no=" + no;
 }
 
 function checkOrder() {

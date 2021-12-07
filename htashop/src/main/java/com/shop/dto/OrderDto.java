@@ -12,8 +12,25 @@ public class OrderDto {
 	private String orderState;
 	private int usedPoint;
 	private int expectedPoint;
+	private int productNo;
+	
+	private String userName;
 
 	public OrderDto() {}
+	
+	public int getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	
 	public int getUsedPoint() {
 		return usedPoint;
