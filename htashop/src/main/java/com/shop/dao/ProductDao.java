@@ -22,6 +22,36 @@ public class ProductDao {
 	
 
 	/**
+	 * 지정된 번호에 해당하는 상품의 정보를 수정한다.
+	 * @param product 상품정보
+	 * @throws SQLException
+	 */
+	public void updateProductInfo(Product product) throws SQLException {
+		String sql = "update shop_products "
+					+ "set "
+					+ "    PRODUCT_CATEGORY = ?, "
+					+ "	   PRODUCT_NAME = ?, " 
+					+ "	   PRODUCT_PRICE = ?, "
+					+ "	   PRODUCT_STOCK = ? "
+					+ "where PRODUCT_NO = ? ";		// 파라미터와 같을 때
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		
+		pstmt.setString(1, product.getCategory());
+		pstmt.setString(2, product.getName());
+		pstmt.setInt(3, product.getPrice());
+		pstmt.setInt(4, product.getStock());
+		pstmt.setInt(5, product.getNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
+	
+	/**
 	 * 사용자가 입력한 값을 바탕으로 db에서 겁색한 결과를 반환한다.
 	 * @param searchKeyword 검색키워드(셀렉트박스에서 선택)
 	 * @param searchText 검색어(사용자 입력)
@@ -146,7 +176,7 @@ public class ProductDao {
 		pstmt.setInt(1, no);
 		ResultSet rs = pstmt.executeQuery();
 		
-		while(rs.next()) {
+		if (rs.next()) {
 			products = new Product();
 			products.setNo(rs.getInt("product_no"));
 			products.setName(rs.getString("product_name"));
