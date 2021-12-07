@@ -83,7 +83,7 @@ a { text-decoration:none;
 									</tbody>
 								</table>
 								<p>
-								<form method="get" action="buy.jsp">
+								<form method="get" action="orderForm.jsp">
 									<label for="quantity">수량</label> <select
 										class="form-select form-select-sm" id="quantity"
 										name="quantity" size="1">
@@ -220,7 +220,7 @@ a { text-decoration:none;
 	</script>
 	<script>
 		function submit1(frm) {
-			frm.action = '../order/form.jsp';
+			frm.action = '../order/orderForm.jsp';
 			frm.submit();
 			return true;
 		}

@@ -41,7 +41,7 @@
 	}
 %>
 				<li class="nav-item"><a href="/htashop/cart/cart.jsp" class="nav-link <%="cart".equals(menu) ? "active" : "" %>">CART</a></li>
-				<li class="nav-item"><a href="/htashop/order/list.jsp" class="nav-link <%="order".equals(menu) ? "active" : "" %>">ORDER</a></li>
+				<li class="nav-item"><a href="/htashop/myshop/orderList.jsp" class="nav-link <%="order".equals(menu) ? "active" : "" %>">ORDER</a></li>
 				<li class="nav-item"><a href="/htashop/myshop/main.jsp" class="nav-link <%="myshop".equals(menu) ? "active" : "" %>">MYSHOP</a></li>
 			</ul>
 			

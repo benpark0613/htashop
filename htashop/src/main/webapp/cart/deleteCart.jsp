@@ -6,7 +6,11 @@
 	// 주문정보 삭제 메소드
 	
 	// 회원 로그인 정보를 조회
-	User loginedUserInfo = (User) session.getAttribute("LOGIN_USER_INFO");
+	User loginedUserInfo = (User) session.getAttribute("logined_user_info");
+	if(loginedUserInfo == null) {
+		response.sendRedirect("../loginform.jsp?fail=login-required");
+		return;
+	}
 	// 장바구니 번호 정보를 가져온다.
 	int no = Integer.parseInt(request.getParameter("no"));
 	
@@ -15,5 +19,5 @@
 	
 	cartDao.deleteCartByNo(no);
 	
-	response.sendRedirect("cart.jsp?userNo=" + loginedUserInfo.getUserNo());
+	response.sendRedirect("cart.jsp");
 %>
