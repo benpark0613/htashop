@@ -106,7 +106,7 @@
 							<tr>
 								<th scope="row"><%=order.getOrderNo()%></th>
 								<td><%=order.getOrderDate()%></td>
-								<td><%=order.getProductName()%></td>
+								<td><a href="../products/detail.jsp?productNo=<%=order.getProductNo() %>"><%=order.getProductName()%></a></td>
 								<td><%=order.getOrderCount()%></td>
 								<td><%=order.getOrderTotalPrice()%></td>
 								<td><%=order.getOrderState()%></td>

@@ -1,3 +1,7 @@
+<%@page import="com.shop.dao.OrderDao"%>
+<%@page import="com.shop.vo.Order"%>
+<%@page import="java.util.List"%>
+<%@page import="com.shop.dao.OrderListDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="ko">
@@ -8,31 +12,42 @@
 	<title></title>
 <%@ include file="../../common/admin-navbar.jsp" %>		
 </head>
+<%
+	pageContext.setAttribute("leftMenu", "orderMain");
+%>
 <body>
 <div class="container">
+
 	<div class="row">
-		<div class="col-1">
-<%@ include file="../../common/admin-left.jsp" %>		
+		<div class="col-1 min-vh-100 bg-light" id="sidebar">
+			<%@ include file="../../common/admin-left.jsp" %>
 		</div>
 			
 		
 		<div class="col-11">
+<%
+OrderListDao orderList = new OrderListDao();
+	List<Order> orderListWeek = orderList.getOrderListByTerm("week");
+	int totalOrderNumbersWeek = orderList.getOrderCountByTerm("week");
+	List<Order> orderListToday = orderList.getOrderListByTerm("today");
+	int totalOrderNumbersToday = orderList.getOrderCountByTerm("today");
+	
+	int totalOrderPriceToday = 0;
+	int totalOrderPriceWeek = 0;
+	
+	
+	for(Order orders : orderListWeek){
+		totalOrderPriceWeek += orders.getTotalPrice();
+	}
+	
+	
+	for(Order orders : orderListToday){
+		totalOrderPriceToday += orders.getTotalPrice();
+	}
+	
+%>
 				<div class="container">
 					<p>실시간 매출현황</p>
-					<div class="p-4 p-lg-2 bg-light rounded-3 text-center border">
-						<div class="row">
-							총 적립금 : []원
-						</div>
-						<div class="row">
-							사용된 적립금 : []원
-						</div>
-						<div class="row">
-							사용가능 적립금 : []원
-						</div>
-					</div>
-				</div>
-
-				<div class="container">
 
 					<hr class="featurette-divider">
 
@@ -48,21 +63,15 @@
 						<tbody>
 							<tr>
 								<th scope="row">총 주문금액 (건수)</th>
-								<td>[]원 ([]건)</td>
-								<td>[]원 ([]건)</td>
-								<td>주문조회 버튼</td>
+								<td>[<%=totalOrderPriceToday %>]원 ([<%=totalOrderNumbersToday %>]건)</td>
+								<td>[<%=totalOrderPriceWeek %>]원 ([<%=totalOrderNumbersWeek %>]건)</td>
+								<td><button type="button" class="btn btn-dark">주문조회</button></td>
 							</tr>
 							<tr>
 								<th scope="row">총 실 결제금액 (건수)</th>
-								<td>[]원 ([]건)</td>
-								<td>[]원 ([]건)</td>
-								<td>주문조회 버튼</td>
-							</tr>
-							<tr>
-								<th scope="row">총 환불 금액(건수)</th>
-								<td>[]원 ([]건)</td>
-								<td>[]원 ([]건)</td>
-								<td>주문조회 버튼</td>
+								<td>[<%=totalOrderPriceToday %>]원 ([<%=totalOrderNumbersToday %>]건)</td>
+								<td>[<%=totalOrderPriceWeek %>]원 ([<%=totalOrderNumbersWeek %>]건)</td>
+								<td><button type="button" class="btn btn-dark">결제조회</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -75,15 +84,15 @@
 						<tbody>
 							<tr>
 								<th scope="row">입금전</th>
-								<td>[]건</td>
+								<td>[<%=orderList.countOrderStatus("입금전") %>]건</td>
 							</tr>
 							<tr>
-								<th scope="row">배송준비중/배송보류중</th>
-								<td>[]건 / []건</td>
+								<th scope="row">배송준비중</th>
+								<td>[<%=orderList.countOrderStatus("배송준비중") %>]건</td>
 							</tr>
 							<tr>
 								<th scope="row">배송중</th>
-								<td>[]건</td>
+								<td>[<%=orderList.countOrderStatus("배송중") %>]건</td>
 							</tr>
 						</tbody>
 					</table>
@@ -103,7 +112,7 @@
 							</tr>
 							<tr>
 								<th scope="row">배송완료</th>
-								<td>[]건</td>
+								<td>[<%=orderList.countOrderStatus("배송완료") %>]건</td>
 							</tr>
 						</tbody>
 					</table>

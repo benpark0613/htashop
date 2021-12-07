@@ -3,17 +3,34 @@ package com.shop.vo;
 public class CriteriaOrderList {
 	
 	private String option;
+	
+	
 	private String term;
-	
 	private String orderOption;
+	private String orderTermOption;
+	private String productOption;
 	private String state;
-	private String pay;
-	private String orderTerm;
-	
 	private String userkeyword;
 	private String productkeyword;
+	private String orderDateBox;
+	private String orderDateBox2;
 	private int beginIndex;
 	private int endIndex;
+	
+	public String getOrderDateBox2() {
+		return orderDateBox2;
+	}
+	public void setOrderDateBox2(String orderDateBox2) {
+		this.orderDateBox2 = orderDateBox2;
+	}
+	
+	public String getOrderDateBox() {
+		return orderDateBox;
+	}
+	public void setOrderDateBox(String orderDateBox) {
+		this.orderDateBox = orderDateBox;
+	}
+	
 	public String getOption() {
 		return option;
 	}
@@ -32,23 +49,23 @@ public class CriteriaOrderList {
 	public void setOrderOption(String orderOption) {
 		this.orderOption = orderOption;
 	}
+	public String getOrderTermOption() {
+		return orderTermOption;
+	}
+	public void setOrderTermOption(String orderTermOption) {
+		this.orderTermOption = orderTermOption;
+	}
+	public String getProductOption() {
+		return productOption;
+	}
+	public void setProductOption(String productOption) {
+		this.productOption = productOption;
+	}
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
-	}
-	public String getPay() {
-		return pay;
-	}
-	public void setPay(String pay) {
-		this.pay = pay;
-	}
-	public String getOrderTerm() {
-		return orderTerm;
-	}
-	public void setOrderTerm(String orderTerm) {
-		this.orderTerm = orderTerm;
 	}
 	public String getUserkeyword() {
 		return userkeyword;
@@ -74,6 +91,10 @@ public class CriteriaOrderList {
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
 	}
+	
+	
+	
+
 	
 	
 	

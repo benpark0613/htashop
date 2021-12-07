@@ -313,4 +313,31 @@ public class ProductDao {
 		
 		return productList;
 	}
+	/**
+	 * 지정된 번호에 해당하는 상품의 정보를 수정한다.
+	 * @param product 상품정보
+	 * @throws SQLException
+	 */
+	public void updateProductInfo(Product product) throws SQLException {
+		String sql = "update shop_products "
+					+ "set PRODUCT_CATEGORY = ?, "
+					+ "	   PRODUCT_NAME = ?, " 
+					+ "	   PRODUCT_PRICE = ?, "
+					+ "	   PRODUCT_STOCK = ? "
+					+ "where PRODUCT_NO = ? ";		// 파라미터와 같을 때
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		
+		pstmt.setString(1, product.getCategory());
+		pstmt.setString(2, product.getName());
+		pstmt.setInt(3, product.getPrice());
+		pstmt.setInt(4, product.getStock());
+		pstmt.setInt(5, product.getNo());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
 }
