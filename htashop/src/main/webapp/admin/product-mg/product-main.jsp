@@ -15,7 +15,6 @@
 	<!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 	<title>관리자페이지::상품관리</title>
-<%@ include file="../../common/admin-navbar.jsp" %>		
 <style type="text/css"> 
 	a { 
 		text-decoration:none;
@@ -24,6 +23,7 @@
 </style> 
 </head>
 <body>
+<%@ include file="../../common/admin-navbar.jsp" %>		
 <%
 	pageContext.setAttribute("menu", "product-main");
 	pageContext.setAttribute("leftMenu", "product-main");
