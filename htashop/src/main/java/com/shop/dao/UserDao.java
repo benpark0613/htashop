@@ -222,8 +222,10 @@ public class UserDao {
    
    public void deleteUser(int userNo)throws SQLException{
 	   
-	   String sql = "DELETE from SHOP_USER "
-	   		+ "      WHERE USER_NO = ? ";
+	   String sql = "update SHOP_USER "
+			   + "set "
+			   + "USER_IN_OUT = 'Y' "
+			   + "where USER_NO = ? ";
 	   Connection connection = getConnection();
 	   PreparedStatement pstmt = connection.prepareStatement(sql);
 	   pstmt.setInt(1, userNo);

@@ -77,10 +77,12 @@
 					
 						<h4 class="mb-3">회원정보 수정</h4>
 						<hr class="featurette-divider">
-						<a href="deleteUser.jsp?userNo=<%=loginedUserInfo.getUserNo() %>"><button class="btn btn-danger btn-lg">회원 탈퇴</button></a>
+								<div>
+								<a href="deleteUser.jsp?userNo=<%=loginedUserInfo.getUserNo()%>"><button class="btn btn-danger" style="float:right;">탈퇴</button></a>
+								</div>
 						<div class="container">
 
-						<form class="needs-validation" method="post" action="updateUser.jsp">
+						<form class="needs-validation" method="post" action="updateUser.jsp?productNo">
 							
 							<div class="row g-3">
 								<div class="col-sm-6">
@@ -155,7 +157,9 @@
 									</select>
 								</div>
 								<hr class="my-4">
+								<div class="col">
 								<button class="btn btn-primary btn-lg" type="submit">회원정보 수정</button>
+								</div>
 							</div>
 						</form>
 						</div>
