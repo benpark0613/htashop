@@ -14,10 +14,9 @@
 		<li class="list-group-item <%="customer-search".equals(leftMenu) ? "fw-bold" : "" %>"><a href="customer-search.jsp" class="link-dark nav-link align-middle">회원정보조회</a></li>
 <%
 	// 상품관리파트 레프트메뉴
-	} else if ("product-main".equals(leftMenu) || "product-modifyform".equals(leftMenu)) {
+	} else if ("product-main".equals(leftMenu)) {
 %>
 		<li class="list-group-item <%="product-main".equals(leftMenu) ? "fw-bold" : "" %>"><a href="product-main.jsp" class="link-dark nav-link align-middle">상품현황</a></li>
-		<li class="list-group-item <%="product-modifyform".equals(leftMenu) ? "fw-bold" : "" %>"><a href="product-modifyform.jsp" class="link-dark nav-link align-middle">상품수정</a></li>
 <%
 	}else if ("orderMain".equals(leftMenu)){
 %>
