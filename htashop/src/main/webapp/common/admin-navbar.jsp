@@ -1,7 +1,8 @@
-<%@page import="com.shop.vo.User"%>
+<%@ page import="com.shop.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-String menu = (String) pageContext.getAttribute("menu");
+	String menu = (String) pageContext.getAttribute("menu");
+ 	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 %>
 <nav class="navbar navbar-expand navbar-dark bg-dark">
 	<div class="collapse navbar-collapse">

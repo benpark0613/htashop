@@ -17,6 +17,12 @@
 
 %>
 <%@ include file="../../common/admin-navbar.jsp" %>
+<%
+	if (loginedUserInfo == null || !"admin".equals(loginedUserInfo.getUserType())) {
+		response.sendRedirect("../../loginform.jsp?fail=login-required");
+		return;
+	}
+%>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-2 min-vh-100 bg-light" id="sidebar">
