@@ -91,6 +91,7 @@ public class ProductDao {
 		connection.close();
 	}
 	
+
 	
 	/**
 	 * 사용자가 입력한 값을 바탕으로 db에서 겁색한 결과를 반환한다.

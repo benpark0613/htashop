@@ -8,7 +8,6 @@
 <%@page import="com.shop.dao.OrderDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/navbar.jsp"%>
-
 <!doctype html>
 <html lang="ko">
 <head>
@@ -39,22 +38,20 @@
     
     List<OrderDto> orderList = orderListDao.getOrderList(criteria, loginedUserInfo.getUserNo());
 	
-	
 %>
 	<div class="container">
 		<div class="row">
 			<div class="col-1">
 				<%@ include file="../common/left.jsp"%>
 			</div>
-
 			<div class="col-11">
-				<div class="container">
-					<div class="border text-center">
+				<div class="container py-4">
+					<div class="bg-light rounded-3 text-center border">
 					
 						<form action="orderList.jsp" method="GET" id="form-search">
-							<div class="card-body row " id="1">
+							<div class="card-body row ">
 								<input type="hidden" id="page-field" name="page" value="<%=pageNo%>">
-								<div class="col-3">
+								<div class="col-2">
 									<select class="form-select form-select-sm" id="search-option" aria-label=".form-select-sm example" name="option">
 										<option value="전체" <%="전체".equals(option) ? "selected" : "" %>>전체 주문처리상태</option>
 										<option value="입금전" <%="입금전".equals(option) ? "selected" : "" %>>입금전</option>
@@ -66,27 +63,34 @@
 										<option value="반품" <%="반품".equals(option) ? "selected" : "" %>>반품</option>
 									</select>
 								</div>
-								<div class="col-3">
-									<select class="form-select form-select-sm" id="search-term" aria-label=".form-select-sm example" name="term">
-
-										<option value="전체" <%="전체".equals(term) ? "selected" : "" %>>전체기간 조회</option>
-										<option value="오늘" <%="오늘".equals(term) ? "selected" : "" %>>오늘</option>
-										<option value="1주일" <%="1주일".equals(term) ? "selected" : "" %>>1주일</option>
-										<option value="1개월" <%="1개월".equals(term) ? "selected" : "" %>>1개월</option>
-										<option value="3개월" <%="3개월".equals(term) ? "selected" : "" %>>3개월</option>
-										<option value="6개월" <%="6개월".equals(term) ? "selected" : "" %>>6개월</option>
-
-									</select>
+								<div class="col-4">
+									<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+												<input type="radio" class="btn-check" value="전체"  id="전체" name="term" <%="전체".equals(term) ? "checked" : "" %>> 
+												<label class="btn btn-outline-secondary" for="전체" >전체</label>
+												
+												<input type="radio" class="btn-check" value="오늘"  id="오늘" name="term" <%="오늘".equals(term) ? "checked" : "" %>> 
+												<label class="btn btn-outline-secondary" for="오늘" >오늘</label>
+												 
+												<input type="radio" class="btn-check" value="1주일" id="1주일" name="term" <%="1주일".equals(term) ? "checked" : "" %>> 
+												<label class="btn btn-outline-secondary" for="1주일">1주일</label>
+												
+												<input type="radio" class="btn-check" value="1개월" id="1개월" name="term" <%="1개월".equals(term) ? "checked" : "" %>> 
+												<label class="btn btn-outline-secondary" for="1개월">1개월</label>
+												
+												<input type="radio" class="btn-check" value="3개월" id="3개월" name="term" <%="3개월".equals(term) ? "checked" : "" %>> 
+												<label class="btn btn-outline-secondary" for="3개월">3개월</label>
+												
+												<input type="radio" class="btn-check" value="6개월" id="6개월" name="term" <%="6개월".equals(term) ? "checked" : "" %>> 
+												<label class="btn btn-outline-secondary" for="6개월">6개월</label>
+											</div>
 								</div>
-								<div class="btn col">
+								<div class="col-1">
 									<button type="button" class="btn btn-secondary" onclick="searchBoards(1)">조회</button>
 								</div>
-
 							</div>
 						</form>
 					</div>
 				</div>
-
 				<div class="container">
 					<table class="table">
 						<thead>
@@ -106,7 +110,7 @@
 							<tr>
 								<th scope="row"><%=order.getOrderNo()%></th>
 								<td><%=order.getOrderDate()%></td>
-								<td><a href="../products/detail.jsp?productNo=<%=order.getProductNo() %>"><%=order.getProductName()%></a></td>
+								<td><a id="new-link" href="../products/detail.jsp?productNo=<%=order.getProductNo() %>"><%=order.getProductName()%></a></td>
 								<td><%=order.getOrderCount()%></td>
 								<td><%=order.getOrderTotalPrice()%></td>
 								<td><%=order.getOrderState()%></td>
@@ -135,7 +139,6 @@
 						<%
 							}
 						%>
-						
 						<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>">
 							<a class="page-link" href="" onclick="" aria-label="Next"> 
 							<span aria-hidden="true">&raquo;</span>

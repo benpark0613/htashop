@@ -41,6 +41,20 @@ public class UserDao {
 		pstmt.close();
 		connection.close();
 	}
+
+	
+	public void deleteUser(int userNo) throws SQLException {
+
+		String sql = "DELETE from SHOP_USER " + "      WHERE USER_NO = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
+
+		pstmt.executeUpdate();
+		pstmt.close();
+		connection.close();
+	}
+
 	
    /**
     * 모든 사용자 정보를 반환한다.
@@ -222,7 +236,7 @@ public class UserDao {
 
    }
    
-   public void deleteUser(int userNo)throws SQLException{
+   public void modifyUser(int userNo)throws SQLException{
 	   
 	   String sql = "update SHOP_USER "
 			   + "set "
