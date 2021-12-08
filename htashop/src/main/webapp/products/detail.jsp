@@ -66,8 +66,7 @@ a { text-decoration:none;
 	}
 %>
 					<div class="col">
-						<img src="../resources/images/<%=product.getName()%>.jpg"
-							style="width: 500px; height: 500px">
+						<img src="../resources/images/<%=product.getName()%>.jpg" style="width: 500px; height: 500px">
 					</div>
 					<div class="col">
 						<h3><%=product.getName()%></h3>
@@ -220,13 +219,12 @@ a { text-decoration:none;
 </script>
 <script>
 	function submit1(frm) {
-		frm.action = '../order/orderForm.jsp';
+		frm.action = '../cart/addCart1.jsp';
 		frm.submit();
 		return true;
 	}
 	function submit2(frm) {
 		frm.action = '../cart/addCart.jsp';
-
 		frm.submit();
 		return true;
 	}
