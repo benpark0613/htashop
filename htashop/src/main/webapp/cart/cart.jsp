@@ -47,7 +47,7 @@ img {width:50px; height:50px; }
 				<div class="col-10 mb-3 ">
 				<div class="row">
 				</div>
-				<form>
+				<form class="" method="post" action="../order/orderCartForm.jsp">
 					<table class="col-10 table table-hover" id="cart">
 						<thead>
 							<tr>
@@ -56,14 +56,17 @@ img {width:50px; height:50px; }
 								<th>상품가격</th>
 								<th>수량</th>
 								<th>예상적립금</th>
-								<th>총 결제금액</th>
+								<th>결제금액</th>
+								<th></th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 <%
+	int totalOrderPrice = 0;
 	for (Cart cart : carts) {
 		Product product = productDao.getProductDetailById(cart.getProductNo());
+		totalOrderPrice += product.getPrice() * cart.getQuantity();
 %>						
 						<tr>
 							<td><img src="/htashop/resources/images/<%=product.getImage()%>"/></td>
@@ -84,12 +87,27 @@ img {width:50px; height:50px; }
 							</td>
 						</tr>
 <%
-}
+	}
 %>
 						</tbody>
+						<tfoot >
+								<tr>
+									<td class="text-end col-2"><strong>총 주문금액: </strong></td>
+									<td class="text-end col-2"><%=totalOrderPrice %></td>
+								</tr>
+								<tr>
+									<td class="text-end col-2"><strong>보유 포인트: </strong></td>
+									<td class="text-end col-2"><%=loginedUserInfo.getPoint() %></td>
+								</tr>
+								<!-- TODO 사용할 포인트가 보유 포인트 보다 많으면 에러메세지를 띄워야한다. -->
+								<tr>
+									<td class="text-end col-2">사용할 포인트:</td>
+									<td class="text-end col-2"><input type="number" name="pointUse" ></td>
+								</tr>
+							</tfoot>
 					</table>
 					<div class="text-center">
-						<a class="btn btn-lg btn-warning" href="../order/orderCartForm.jsp" >주문하기</a>
+						<button class="btn btn-primary" type="submit">주문하기</button>
 					</div>		
 				</form>
 				</div>
