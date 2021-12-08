@@ -9,13 +9,8 @@
 	String pageNo = request.getParameter("pageNo");
 	int no = Integer.parseInt(request.getParameter("no"));
 	
-	if(title == null || title.isBlank()){
-		response.sendRedirect("form.jsp?fail=title");
-		return;
-	}
-	
 	if(content == null|| content.isBlank()){
-		response.sendRedirect("form.jsp?fail=content");
+		response.sendRedirect("modifyform.jsp?fail=content&no="+no);
 		return;
 	}
 	
@@ -25,7 +20,6 @@
 		response.sendRedirect("../loginform.jsp?fail=login-required");
 		return;
 	}
-	
 	
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);

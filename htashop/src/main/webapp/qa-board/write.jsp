@@ -9,13 +9,18 @@
 	String content = request.getParameter("content");
 	int productNo = Integer.parseInt(request.getParameter("productNo"));
 
-	if (title != null && title.isBlank()) {
+	if (title == null || title.isBlank()) {
 		response.sendRedirect("writeform.jsp?fail=emptyTitle");
 		return;
 	}
 	
-	if (content != null && content.isBlank()) {
+	if (content == null || content.isBlank()) {
 		response.sendRedirect("writeform.jsp?fail=emptyContent");
+		return;
+	}
+	
+	if (productNo == 0) {
+		response.sendRedirect("writeform.jsp?fail=emptyProductName");
 		return;
 	}
 	
@@ -32,7 +37,6 @@
 	qaBoard.setContent(content);
 	qaBoard.setUserNo(loginedUserInfo.getUserNo());
 	qaBoard.setProductNo(productNo);
-	
 	
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	qaBoardDao.insertQaBoard(qaBoard);

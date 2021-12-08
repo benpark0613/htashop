@@ -37,12 +37,11 @@
 				QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 				String pageNo = request.getParameter("pageNo");
 				int totalRecords = qaBoardDao.getTotalRecords();
-				
+
 				// 페이징 처리 필요한 값을 계산하는 Pagination객체를 생성한다.
 				Pagination pagination = new Pagination(pageNo, totalRecords);
 
 				// 현재 페이지번호에 해당하는 게시글 목록을 조회한다.
-
 				List<QaBoard> qaBoardList = qaBoardDao.getAllQuestions(pagination.getBegin(), pagination.getEnd());
 				%>
 				<div class="row mb-3">
@@ -59,7 +58,6 @@
 									</tr>
 								</thead>
 								<tbody>
-
 									<%
 									if (qaBoardList.isEmpty()) {
 									%>
@@ -72,8 +70,8 @@
 									%>
 									<tr>
 										<td><%=qaBoard.getNo()%></td>
-										<td>
-											<a href="detail.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pagination.getPageNo()%>"><%=qaBoard.getTitle()%></a>
+										<td><a
+											href="detail.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pagination.getPageNo()%>"><%=qaBoard.getTitle()%></a>
 										</td>
 										<td><%=qaBoard.getUserName()%></td>
 										<td><%=qaBoard.getViewCount()%></td>
