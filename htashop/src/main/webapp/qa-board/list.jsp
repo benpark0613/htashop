@@ -50,7 +50,6 @@
 								<thead>
 									<tr>
 										<th>번호</th>
-										<th>상품번호</th>
 										<th>제목</th>
 										<th>작성자번호</th>
 										<th>작성일</th>
@@ -71,9 +70,6 @@
 									<tr>
 										<td>
 											<%=qaBoard.getNo()%>
-										</td>
-										<td>
-											<a href="../products/detail.jsp?productNo=<%=qaBoard.getProductNo()%>&pageNo=<%=pagination.getPageNo()%>"><%=qaBoard.getProductNo()%></a>
 										</td>
 										<td>
 											<a href="detail.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pagination.getPageNo()%>"><%=qaBoard.getTitle()%></a>
