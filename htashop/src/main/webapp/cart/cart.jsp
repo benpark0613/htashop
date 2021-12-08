@@ -31,6 +31,7 @@ img {width:50px; height:50px; }
 		response.sendRedirect("../loginform.jsp?fail=login-required");
 		return;
 	}
+
 	CartDao cartDao = CartDao.getInstance();
 	ProductDao productDao = ProductDao.getInstance();
 
@@ -42,66 +43,70 @@ img {width:50px; height:50px; }
 	<div class="col-sm-2">
 		<%@ include file="../common/left.jsp" %>
 		</div>
-		<div class="col-10 align-self-end">
+		<div class="col-10">
 			<div class="row mb-3">
-				<div class="col-10 mb-3 ">
-				<div class="row">
-				</div>
-				<form id="cart-form" action="cartOrder.jsp">
-					<table class="col-10 table table-hover" id="cart">
+				<form class="" method="post" action="../order/orderCartForm.jsp">
+					<table class="col ms-1 table table-hover align-middle" id="cart">
 						<thead>
-							<tr>
-								<th>
-					<div class="col">
-						<div class="check-total">
-							<input type="checkbox" id="ck-all" onchange="toggleCheckbox()" />
-						</div>
-					</div>
-								</th>
-								<th>이미지</th>
-								<th>상품명</th>
-								<th>상품가격</th>
-								<th>수량</th>
-								<th>예상적립금</th>
-								<th>총 결제금액</th>
-								<th></th>
+							<tr class="text-center">
+								<th style="width: 10%;">이미지</th>
+								<th style="width: 20%;">상품명</th>
+								<th style="width: 20%;">상품가격</th>
+								<th style="width: 15%;">수량</th>
+								<th style="width: 20%;">예상적립금</th>
+								<th style="width: 10%;">결제금액</th>
+								<th style="width: 5%;"></th>
 							</tr>
 						</thead>
 						<tbody>
 <%
+	int totalOrderPrice = 0;
 	for (Cart cart : carts) {
 		Product product = productDao.getProductDetailById(cart.getProductNo());
+		totalOrderPrice += product.getPrice() * cart.getQuantity();
 %>						
-						<tr>
-							<td><input type="checkbox" id="ck-<%=cart.getCartNo() %>" name="no" value="<%=cart.getCartNo() %>"/></td>
-							<td><img src="/htashop/resources/images/<%=product.getImage()%>"/></td>
-							<td><%=product.getName() %></td>
-							<td><%=product.getPrice() %>원</td>
-							<td><div class="product-stock">
-									<span class="minus" onclick="minus(<%=cart.getCartNo() %>)"></span>
-									<input type="number" id="Qty-<%=cart.getCartNo() %>" class="count" value="<%=cart.getQuantity() %>" min="1" max="20" />
-									<span class="plus" onclick="plus(<%=cart.getCartNo() %>)"></span>
-
-									<button class="btn-modify btn-dark btn-sm" type="button" onclick="changeQty(<%=cart.getCartNo() %>)">변경</button>
-								</div>
+							<tr class="text-center">
+								<td style="width: 10%;"><img src="/htashop/resources/images/<%=product.getImage()%>"/></td>
+								<td style="width: 20%;"><%=product.getName() %></td>
+								<td style="width: 20%;"><%=product.getPrice() %>원</td>
+								<td style="width: 15%;">
+									<div class="">
+										<span class="minus" onclick="minus(<%=cart.getCartNo() %>)"></span>
+										<input type="number" id="Qty-<%=cart.getCartNo() %>" class="count" value="<%=cart.getQuantity() %>" min="1" max="20" />
+										<span class="plus" onclick="plus(<%=cart.getCartNo() %>)"></span>
+										<button class="btn-modify btn-dark btn-sm" type="button" onclick="changeQty(<%=cart.getCartNo() %>)">변경</button>
+									</div>
 								</td>
-							<td><%=Math.round(product.getPrice() * cart.getQuantity() * 0.01) %>원</td>
-							<td><%=product.getPrice() * cart.getQuantity()%>원</td>
-							<td>
-							<button type="button" class="btn btn-outline-dark btn-sm" onclick="thisOrder(<%=cart.getCartNo()  %>)">구매</button>
-							<button type="button" class="btn btn-outline-dark btn-sm" onclick="deletedCart(<%=cart.getCartNo()  %>)">삭제</button>
-							</td>
-						</tr>
+								<td style="width: 20%;"><%=Math.round(product.getPrice() * cart.getQuantity() * 0.01) %>원</td>
+								<td style="width: 10%;"><%=product.getPrice() * cart.getQuantity()%>원</td>
+								<td style="width: 5%;">
+									<button type="button" class="btn btn-outline-dark btn-sm" onclick="deletedCart(<%=cart.getCartNo()  %>)">삭제</button>
+								</td>
+							</tr>
 <%
-}
+	}
 %>
 						</tbody>
+						<tfoot >
+								<tr>
+									<td class="text-end col-2" colspan="6"><strong>총 주문금액:</strong></td>
+									<td class="text-end col-1"><%=totalOrderPrice %></td>
+								</tr>
+								<tr>
+									<td class="text-end col-2" colspan="6"><strong>보유 포인트:</strong></td>
+									<td class="text-end col-1"><%=loginedUserInfo.getPoint() %></td>
+								</tr>
+								<!-- TODO 사용할 포인트가 보유 포인트 보다 많으면 에러메세지를 띄워야한다. -->
+								<tr>
+									<td class="text-end col-2" colspan="6"><strong>사용할 포인트:</strong></td>
+									<td class="text-end col-1"><input type="number" name="pointUse" ></td>
+								</tr>
+							</tfoot>
 					</table>
-							<div class="text-center">
-								<button class="btn btn-lg btn-warning" type="button"  onclick="checkOrder()">주문하기</button>
-							</div>		
-					</form>
-				</div>
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">주문하기</button>
+					</div>		
+				</form>
 			</div>
 		</div>
 	</div>
@@ -139,37 +144,7 @@ function deletedCart(cartNo) {
 	location.href = "deleteCart.jsp?no=" + cartNo; 
 }
 
-function toggleCheckbox() {
-	var checkboxAll = document.getElementById("ck-all");
-			
-	var currentCheckedStatus = checkboxAll.checked;
-	var checkboxList = document.querySelectorAll(".table tbody input[name=no]");
-	for (var i = 0; i < checkboxList.length; i++) {
-		var checkbox = checkboxList[i];
-		checkbox.checked = currentCheckedStatus;
-	}
-}
 
-function thisOrder(cartNo) {
-	var no = document.getElementById("ck-" + cartNo).value;
-	location.href="orderForm.jsp?no=" + no;
-}
-
-function checkOrder() {
-	var form = document.getElementById("cart-form");
-	var checkedList = document.querySelector(".table tbody input[name=no]:checked")
-	
-	for(var i = 0; i<checkedList.length; i++){
-		var checked = checkedList[i];
-	}
-	
-	if (checked == null){
-		alert('선택된 상품 정보가 존재하지 않습니다.');
-		return;
-	}
-	
-	form.submit();
-}	
 </script>
 </body>
 </html>

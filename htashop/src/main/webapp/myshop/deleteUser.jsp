@@ -6,10 +6,7 @@
 <%
 	int userNo = Integer.parseInt(request.getParameter("userNo"));
 	UserDao userDao = new UserDao();
-	userDao.deleteUser(userNo);
+	userDao.modifyUser(userNo);
 	
 	response.sendRedirect("../index.jsp?quit=complete");
-	
-	
-	
 %>

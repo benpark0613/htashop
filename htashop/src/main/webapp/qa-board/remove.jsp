@@ -5,20 +5,21 @@
     pageEncoding="UTF-8"%>
     
 <%
+
 	int no = Integer.parseInt(request.getParameter("no"));
 	String pageNo = request.getParameter("pageNo");
-
 	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 
 	if (loginedUserInfo == null) {
 		response.sendRedirect("../loginform.jsp?fail=login-required");
 		return;
 	}
-	
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
-
 	QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);
-	
+
+	if ((!qaBoard.getUserId().equals(loginedUserInfo.getId()) && !"admin".equals(loginedUserInfo.getId()))) {
+		response.sendRedirect("detail.jsp?pageNo=" + pageNo+"&fail=other");
+	}
 	
 	qaBoardDao.deleteQuestion(no);
 	response.sendRedirect("list.jsp?pageNo=" + pageNo);

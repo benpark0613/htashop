@@ -1,3 +1,4 @@
+<%@page import="com.shop.dao.ReviewDao"%>
 <%@page import="com.shop.dao.QaBoardDao"%>
 <%@page import="com.shop.dao.NoticeBoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -19,6 +20,7 @@
     </style>
 </head>
 <body>
+
 <%@ include file="../../common/admin-navbar.jsp" %>
 <%
 	pageContext.setAttribute("menu", "boardMain");
@@ -26,8 +28,9 @@
 
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
-	
+	ReviewDao reviewDao = new ReviewDao();
 %>
+<%@ include file="../../common/admin-navbar.jsp" %>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-2 min-vh-100 bg-light" id="sidebar">
@@ -64,7 +67,21 @@
 								<td>회원 / 비회원</td>
 								<td><%=qaBoardDao.getTodayTotalRecords() %> / <%=qaBoardDao.getTotalRecords() %></td>
 							</tr>
-						
+							<tr>
+								<td>기본</td>
+								<td>상품</td>
+								<td><a href="../../products/detail.jsp?productNo=1">리뷰</a></td>
+								<td>회원 / 비회원</td>
+								<td><%=reviewDao.getTodayTotalRecords() %> / <%=reviewDao.getTotalRecords() %></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><%=noticeBoardDao.getTodayTotalRecords() + qaBoardDao.getTodayTotalRecords() + reviewDao.getTodayTotalRecords()%> / 
+									<%=noticeBoardDao.getTotalRecords()+qaBoardDao.getTotalRecords()+reviewDao.getTotalRecords() %></td>
+							</tr>																					
 						</tbody>
 					</table>	
 				</div>

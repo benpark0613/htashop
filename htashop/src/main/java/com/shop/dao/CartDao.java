@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.dto.CartDto;
 import com.shop.vo.Cart;
 
 public class CartDao {
@@ -17,6 +18,41 @@ public class CartDao {
 	private CartDao() {}
 	public static CartDao getInstance() {
 		return self;
+	}
+	
+	public List<CartDto> getAllMyCarts(int userNo) throws SQLException {
+		String sql = "select c.cart_no, p.product_no, c.cart_quantity, p.product_name, " 
+				+ "p.product_price, p.product_stock, p.product_image "
+				+ "from shop_cart c, shop_products p, shop_user u "
+				+ "where c.product_no = p.product_no "
+				+ "and u.user_no = c.user_no "
+				+  "and u.user_no = ? ";
+		List<CartDto> cartDtoList = new ArrayList<CartDto>();
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			CartDto cart = new CartDto();
+			cart.setCartNo(rs.getInt("cart_no"));
+			cart.setProductNo(rs.getInt("product_no"));
+			cart.setQuantity(rs.getInt("cart_quantity"));
+			cart.setProductName(rs.getString("product_name"));
+			cart.setProductPrice(rs.getInt("product_price"));
+			cart.setProductStock(rs.getInt("product_stock"));
+			cart.setProductImage(rs.getString("product_image"));
+			
+			cartDtoList.add(cart);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		
+		return cartDtoList;
 	}
 	
 	/**

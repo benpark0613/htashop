@@ -18,16 +18,15 @@
 	pageContext.setAttribute("menu", "home");
 %>
 <%@include file="../common/navbar.jsp"%>
-<div class="container">
-	<div class="row justify-content-end">
-		<div  class="col-sm-2">
-			<%@ include file="../common/left.jsp" %>
-		</div>
+	<div class="container">
+		<div class="row justify-content-end">
+			<div  class="col-sm-2">
+				<%@ include file="../common/left.jsp" %>
+			</div>
 <%
 	int productNo = Integer.parseInt(request.getParameter("productNo"));
 	String pageNo = request.getParameter("pageNo");
 	ReviewDao reviewDao = new ReviewDao();
-//	ReviewDto reviewDto = reviewDao.getReviewDetailByNo(reviewNo);
 %>		
 		<div class="col-sm-10 align-self-end mt-4">
 			<div class="row mb-3">

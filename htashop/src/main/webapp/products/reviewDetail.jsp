@@ -21,16 +21,16 @@
 	pageContext.setAttribute("leftMenu", "review");
 	%>
 	<%@include file="../common/navbar.jsp"%>
-	<div class="container">
-		<div class="row justify-content-end">
-			<div class="col-sm-2">
-				<%@ include file="../common/left.jsp"%>
-			</div>
-			<div class="col-sm-10 align-self-end mt-4">
-				<div class="row mb-3">
-					<div class="col">
-						<h1 class="fs-4"><strong>리뷰상세</strong></h1>
-					</div>
+		<div class="container">
+			<div class="row justify-content-end">
+				<div class="col-sm-2">
+					<%@ include file="../common/left.jsp"%>
+				</div>
+					<div class="col-sm-10 align-self-end mt-4">
+						<div class="row mb-3">
+							<div class="col">
+								<h1 class="fs-4"><strong>리뷰상세</strong></h1>
+							</div>
 					<%
 					int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 					String pageNo = request.getParameter("pageNo");
@@ -43,47 +43,44 @@
 					<div class="row mb-3">
 						<div class="col">
 							<%
-							if ("deny-delete".equals(error)) {
+								if ("deny-delete".equals(error)) {
 							%>
-							<div class="alert alert-danger">
-								<strong>삭제 실패!!</strong> 자신이 작성한 글이 아닌 경우 삭제할 수 없습니다.
-							</div>
+								<div class="alert alert-danger">
+									<strong>삭제 실패!!</strong> 자신이 작성한 글이 아닌 경우 삭제할 수 없습니다.
+								</div>
 							<%
-							} else if ("deny-update".equals(error)) {
+								} else if ("deny-update".equals(error)) {
 							%>
-							<div class="alert alert-danger">
-								<strong>수정 실패!!</strong> 자신이 작성한 글이 아닌 경우 수정할 수 없습니다.
-							</div>
+								<div class="alert alert-danger">
+									<strong>수정 실패!!</strong> 자신이 작성한 글이 아닌 경우 수정할 수 없습니다.
+								</div>
 							<%
-							}
+								}
 							%>
-							<img
-								src="../resources/images/<%=reviewDto.getProductName()%>.jpg"
-								style="width: 200px; height: 200px">
-							<table class="table">
-								<tbody>
-									<tr class="d-flex">
-										<th class="col-2">물품명</th>
-										<td class="col-10"><%=reviewDto.getProductName()%></td>
-									</tr>								
-									<tr class="d-flex">
-										<th class="col-2">작성자</th>
-										<td class="col-4"><%=reviewDto.getUserName()%></td>
-										<th class="col-2">등록일</th>
-										<td class="col-4"><%=reviewDto.getReviewCreatedDate()%></td>
-									</tr>
-									<tr class="d-flex">
-										<th class="col-2">제목</th>
-										<td class="col-4"><%=reviewDto.getTitle()%></td>
-
-									</tr>
-									<tr class="d-flex">
-										<th class="col-2">내용</th>
-										<td class="col-10"><%=reviewDto.getReviewContent()%></td>
-									</tr>
-								</tbody>
-							</table>
-				
+							<img src="../resources/images/<%=reviewDto.getProductName()%>.jpg" style="width: 200px; height: 200px">
+								<table class="table">
+									<tbody>
+										<tr class="d-flex">
+											<th class="col-2">물품명</th>
+											<td class="col-10"><%=reviewDto.getProductName()%></td>
+										</tr>								
+										<tr class="d-flex">
+											<th class="col-2">작성자</th>
+											<td class="col-4"><%=reviewDto.getUserName()%></td>
+											<th class="col-2">등록일</th>
+											<td class="col-4"><%=reviewDto.getReviewCreatedDate()%></td>
+										</tr>
+										<tr class="d-flex">
+											<th class="col-2">제목</th>
+											<td class="col-4"><%=reviewDto.getTitle()%></td>
+	
+										</tr>
+										<tr class="d-flex">
+											<th class="col-2">내용</th>
+											<td class="col-10"><%=reviewDto.getReviewContent()%></td>
+										</tr>
+									</tbody>
+								</table>
 							<%
 								if(reviewDto.getAnswerContent() != null){
 							%>
@@ -91,8 +88,7 @@
 					<div class="col">
 						<h1 class="fs-4"><strong>답글</strong></h1>
 					</div>
-
-							<hr>											
+						<hr>											
 							<table class="table">
 								<tbody>							
 									<tr class="d-flex">
@@ -117,17 +113,17 @@
 							<div class="d-flex justify-content-between">
 								<div>
 									<%
-									if (loginedUserInfo != null && (loginedUserInfo.getUserNo() == reviewDto.getUserNo())) {
+										if (loginedUserInfo != null && (loginedUserInfo.getUserNo() == reviewDto.getUserNo())) {
 									%>
 										<a href="delete.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>&productNo=<%=reviewDto.getProductNo()%>"
 										class="btn btn-danger">리뷰 삭제</a> 
 										<a href="modifyForm.jsp?reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
 										class="btn btn-warning">리뷰 수정</a>
 									<%
-									}
+										}
 									%>
 									<%
-									if (loginedUserInfo != null && "admin".equals(loginedUserInfo.getUserType())) {
+										if (loginedUserInfo != null && "admin".equals(loginedUserInfo.getUserType())) {
 									%>
 									<%
 										if(reviewDto.getAnswerContent() != null) {
@@ -152,12 +148,11 @@
 									<div>
 									</div>
 									<%
-									}
+										}
 									%>
 								</div>
 								<a
-									href="detail.jsp?productNo=<%=reviewDto.getProductNo() %>&reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>"
-									class="btn btn-primary">목록</a>
+									href="detail.jsp?productNo=<%=reviewDto.getProductNo() %>&reviewNo=<%=reviewDto.getReviewNo()%>&pageNo=<%=pageNo%>" class="btn btn-primary">목록</a>
 							</div>
 						</div>
 					</div>
@@ -165,7 +160,6 @@
 			</div>
 		</div>
 	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

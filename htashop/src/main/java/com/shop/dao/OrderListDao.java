@@ -557,5 +557,24 @@ public class OrderListDao {
 		return cnt;
 	}
 
+	public void addOrderList(OrderList orderList)throws SQLException{
+
+		String sql = "insert into SHOP_ORDERLIST "
+				+ "(ORDER_NO, PRODUCT_NO, ORDER_COUNT) "
+				+ "VALUES(?, ?, ? ) ";
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, orderList.getOrderNo());
+		pstmt.setInt(2, orderList.getProductNo());
+		pstmt.setInt(3, orderList.getOrderCount());
+
+		pstmt.executeUpdate();
+		pstmt.close();
+		connection.close();
+
+	}
+
 
 }

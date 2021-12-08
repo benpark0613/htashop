@@ -1,3 +1,5 @@
+<%@page import="com.shop.vo.Product"%>
+<%@page import="com.shop.dao.ProductDao"%>
 <%@page import="utils.Pagination"%>
 <%@page import="com.shop.dao.QaBoardDao"%>
 <%@page import="java.util.List"%>
@@ -40,7 +42,6 @@
 				Pagination pagination = new Pagination(pageNo, totalRecords);
 
 				// 현재 페이지번호에 해당하는 게시글 목록을 조회한다.
-
 				List<QaBoard> qaBoardList = qaBoardDao.getAllQuestions(pagination.getBegin(), pagination.getEnd());
 				%>
 				<div class="row mb-3">
@@ -51,12 +52,12 @@
 									<tr>
 										<th>번호</th>
 										<th>제목</th>
-										<th>작성자번호</th>
-										<th>작성일</th>
+										<th>작성자</th>
+										<th>조회수</th>
+										<th>등록일</th>
 									</tr>
 								</thead>
 								<tbody>
-
 									<%
 									if (qaBoardList.isEmpty()) {
 									%>
@@ -68,13 +69,12 @@
 									for (QaBoard qaBoard : qaBoardList) {
 									%>
 									<tr>
-										<td>
-											<%=qaBoard.getNo()%>
+										<td><%=qaBoard.getNo()%></td>
+										<td><a
+											href="detail.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pagination.getPageNo()%>"><%=qaBoard.getTitle()%></a>
 										</td>
-										<td>
-											<a href="detail.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pagination.getPageNo()%>"><%=qaBoard.getTitle()%></a>
-										</td>
-										<td><%=qaBoard.getUserNo()%></td>
+										<td><%=qaBoard.getUserName()%></td>
+										<td><%=qaBoard.getViewCount()%></td>
 										<td><%=qaBoard.getRegdate()%></td>
 									</tr>
 									<%

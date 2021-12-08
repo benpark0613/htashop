@@ -41,6 +41,20 @@ public class UserDao {
 		pstmt.close();
 		connection.close();
 	}
+
+	
+	public void deleteUser(int userNo) throws SQLException {
+
+		String sql = "DELETE from SHOP_USER " + "      WHERE USER_NO = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
+
+		pstmt.executeUpdate();
+		pstmt.close();
+		connection.close();
+	}
+
 	
    /**
     * 모든 사용자 정보를 반환한다.
@@ -222,7 +236,7 @@ public class UserDao {
 
    }
    
-   public void deleteUser(int userNo)throws SQLException{
+   public void modifyUser(int userNo)throws SQLException{
 	   
 	   String sql = "update SHOP_USER "
 			   + "set "
@@ -436,6 +450,33 @@ public class UserDao {
 		connection.close();
 		
 		return totalRows;
+	}
+	
+	public void updateOrderuser(int userNo, int point)throws SQLException{
+		
+		String sql = "update SHOP_USER "
+				+ "   set user_point = ? "
+				+ "   where user_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, point);
+		pstmt.setInt(2, userNo);
+	}
+	public void updateOrder(int userNo, int point)throws SQLException{
+		
+		String sql = "insert into SHOP_ORDER "
+				+ "   set order_no = ? "
+				+ "       USER_NO = ? "
+				+ "       ORDER_DATE = ? "
+				+ "      ORDER_STATE = ? "
+				+ "      ORDER_TOTAL_PRICE = ?"
+				+ "     POINT_USED = ? "
+				+ "    EXPECTED_POINT = ? "
+				+ "   where user_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, point);
+		pstmt.setInt(2, userNo);
 	}
 
 }
