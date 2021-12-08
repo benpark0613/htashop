@@ -332,9 +332,25 @@ public class OrderDao {
 		return orderList;
 	}
 	
-	
-	
-
+	public void addOrders(Order order)throws SQLException{
+		
+		String sql = "insert into SHOP_ORDER "
+			 	   + "(ORDER_NO, USER_NO, ORDER_TOTAL_PRICE, POINT_USED, EXPECTED_POINT) "
+			 	   + "VALUES(SHOP_ORDER_SEQ.nextval, ?, ?, ?, ? ) ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		
+		pstmt.setInt(1, order.getUserNo());
+		pstmt.setInt(2, order.getTotalPrice());
+		pstmt.setInt(3, order.getPointUsed());
+		pstmt.setInt(4, order.getExpectedPoint());
+		
+		pstmt.executeUpdate();
+		pstmt.close();
+		connection.close();
+		
+	}
 	
 	
 }
