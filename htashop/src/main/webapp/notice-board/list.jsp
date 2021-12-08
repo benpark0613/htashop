@@ -11,7 +11,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="../resources/css/newstyle.css" rel="stylesheet" />
-<title>NOTICE - htashop</title>
+<title>HTA shop::NOTICE</title>
+<style type="text/css"> 
+a { text-decoration:none;
+	color : black;
+	 } 
+</style> 
 </head>
 <body>
 <%
@@ -41,19 +46,19 @@
 	
 %>
 	<div class="container">
-		<div class="row mb-3">
-			<div class="col-2">
+		<div class="row justify-content-end">
+			<div class="col-sm-2">
 				<%@ include file="../common/left.jsp" %>
 			</div>
-			<div class="col-10">
-				<div class="row mb-3" id="container_title">
+			<div class="col-sm-10">
+				<div class="row mt-2" id="container_title">
 					<div class="col">
 						<h1 class="fs-6"><strong>NOTICE</strong> | 공지사항입니다.</h1>
 					</div>
 				</div>
 				<div class="row mb-3" id="board_list">
 					<div class="col">
-						<table class="table table-hover">
+						<table class="table table-hover mt-3">
 							<thead>
 								<tr>
 									<th class="col-2">번호</th>
@@ -89,9 +94,9 @@
 						</table>
 					</div>
 				</div>
-				<div class="row mb-3">
+				<div class="row mt-5 mb-3">
 					<div class="col-6 offset-3">
-						<ul class="pagination justify-content-center">
+						<ul class="pagination justify-content-center mt-3">
 							<li class="page-item <%=!pagination.isExistPrev() ? "disabled" : "" %>"><a class="page-link bg-white text-black" href="list?pageNo=<%=pagination.getPrevPage() %>">이전</a></li>
 <%
 	for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
@@ -106,8 +111,8 @@
 <%
 	if (loginedUserInfo != null && "admin".equals(loginedUserInfo.getUserType())) {
 %>
-					<div class="col-3" id="board_write">
-						<a href="form.jsp" class="btn btn-light">새 글</a>
+					<div class="col-3 text-end" id="board_write">
+						<a href="form.jsp" class="btn btn-dark mt-3">새 글</a>
 					</div>
 <%
 	}
@@ -128,7 +133,7 @@
 								<input class="form-control" type="text" placeholder="검색어(필수)" name="searchText" />
 							</div>
 							<div class="col-2">
-								<input type="submit" value="검색" class="btn btn-light" />
+								<input type="submit" value="검색" class="btn btn-dark" />
 							</div>
 						</form>
 					</div>

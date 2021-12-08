@@ -30,7 +30,6 @@
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 	ReviewDao reviewDao = new ReviewDao();
 %>
-<%@ include file="../../common/admin-navbar.jsp" %>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-2 min-vh-100 bg-light" id="sidebar">

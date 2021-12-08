@@ -65,7 +65,7 @@ a { text-decoration:none;
 	}
 %>
 					<div class="col">
-						<img src="../resources/images/<%=product.getName()%>.jpg" style="width: 500px; height: 500px">
+						<img src="../resources/images/<%=product.getImage()%>" style="width: 500px; height: 500px">
 					</div>
 
 					<div class="col">
@@ -112,15 +112,15 @@ a { text-decoration:none;
 <%
                                 } else {	// 판매종료 상품일때
 %>
-                                    <div class="alert alert-success" role="alert">
+                                    <div class="alert alert-danger" role="alert">
                                         <strong> 품절된 상품입니다.</strong>
                                     </div>
 <%
                                 }
                             } else {	// 로그인하지 않은 경우
 %>
-                                <div class="alert alert-success" role="alert">
-                                    <strong> 로그인 후 구매하세요.</strong>
+                                <div class="alert alert-primary" role="alert">
+                                    <strong> 로그인 후 구매할 수 있습니다.</strong>
                                 </div>
 <%
                             }
