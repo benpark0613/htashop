@@ -13,11 +13,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
     <title></title>
+<style type="text/css"> 
+	a { 
+		text-decoration:none;
+		color : black;
+	 } 
+</style> 
 </head>
-<%@ include file="../../common/admin-navbar.jsp" %>		
 <body>
+<%@ include file="../../common/admin-navbar.jsp" %>		
 <%
-pageContext.setAttribute("leftMenu", "orderList");
+	pageContext.setAttribute("menu", "orderList");
+	pageContext.setAttribute("leftMenu", "orderList");
 
 	OrderListDao orderListDao = new OrderListDao();
 	CriteriaOrderList criteria = new CriteriaOrderList();
@@ -61,11 +68,11 @@ pageContext.setAttribute("leftMenu", "orderList");
 %>
 <div class="container">   
 	<div class="row">
-		<div class="col-1 min-vh-100 bg-light" id="sidebar">
+		<div class="col-2 min-vh-100 bg-light" id="sidebar">
 			<%@ include file="../../common/admin-left.jsp" %>
 		</div>
 		
-		<div class="col-11">
+		<div class="col-10">
 		<h1>전체주문 조회</h1>
 		<hr class="featurette-divider">
 

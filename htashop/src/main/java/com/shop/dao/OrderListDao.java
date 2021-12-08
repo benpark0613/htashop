@@ -550,6 +550,9 @@ public class OrderListDao {
 		rs.next();
 		int cnt = rs.getInt("cnt");
 		
+		rs.close();
+		pstmt.close();
+		connection.close();
 		
 		return cnt;
 	}

@@ -9,14 +9,14 @@
 	<title>관리자:회원현황</title>
 </head>
 <body>
+<%@ include file="../../common/admin-navbar.jsp" %>
 <%
-	pageContext.setAttribute("menu", "customer-status");
-	pageContext.setAttribute("leftMenu", "customer-status");
+	pageContext.setAttribute("menu", "customerMain");
+	pageContext.setAttribute("leftMenu", "customerMain");
 	
 	UserDao userDao = new UserDao();
 
 %>
-<%@ include file="../../common/admin-navbar.jsp" %>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-2 min-vh-100 bg-light" id="sidebar">

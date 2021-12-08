@@ -97,18 +97,32 @@ a { text-decoration:none;
 									</select> <br> <input type="hidden" id="no" name="productNo"
 										value="<%=product.getNo()%>">
 
-									<%
-									if (loginedUserInfo != null) {
-									%>
-									<input class="btn btn-outline-primary" type='submit' id="no"
-										value='구매' onclick='return submit1(this.form);'> <input
-										class="btn btn-outline-dark" type='submit' value='장바구니'
-										onclick='return submit2(this.form);'>
+<%
+									if (loginedUserInfo != null) {	// 로그인한 상태 중에서
+										if (product.isSoldOut() == false) {		// 판매중인 상품일때
+%>
+											<input class="btn btn-outline-primary" type='submit' id="no"
+												value='구매' onclick='return submit1(this.form);'> <input
+												class="btn btn-outline-dark" type='submit' value='장바구니'
+												onclick='return submit2(this.form);'>
+<%
+										} else {	// 판매종료 상품일때
+%>
+											<div class="alert alert-success" role="alert">
+												<strong> 품절된 상품입니다.</strong>
+											</div>
+<%
+										}
+									} else {	// 로그인하지 않은 경우
+%>
+										<div class="alert alert-success" role="alert">
+											<strong> 로그인 후 구매하세요.</strong>
+										</div>
+<%
+									}
+%>
 								<%
-								}
-								%>
-								<% // %>
-								<%
+								
 								if ("empty-quantity".equals(error)) {
 								%>
 									

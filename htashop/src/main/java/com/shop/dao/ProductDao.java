@@ -57,10 +57,7 @@ public class ProductDao {
 		pstmt.close();
 		connection.close();
 	}
-	
-	
-	
-	
+
 	
 	/**
 	 * 지정된 번호에 해당하는 상품의 정보를 수정한다.
@@ -73,7 +70,8 @@ public class ProductDao {
 					+ "    PRODUCT_CATEGORY = ?, "
 					+ "	   PRODUCT_NAME = ?, " 
 					+ "	   PRODUCT_PRICE = ?, "
-					+ "	   PRODUCT_STOCK = ? "
+					+ "	   PRODUCT_STOCK = ?, "
+					+ "	   PRODUCT_IS_SOLDOUT = ? "
 					+ "where PRODUCT_NO = ? ";		// 파라미터와 같을 때
 		
 		Connection connection = getConnection();
@@ -83,7 +81,8 @@ public class ProductDao {
 		pstmt.setString(2, product.getName());
 		pstmt.setInt(3, product.getPrice());
 		pstmt.setInt(4, product.getStock());
-		pstmt.setInt(5, product.getNo());
+		pstmt.setBoolean(5, product.isSoldOut());
+		pstmt.setInt(6, product.getNo());
 		
 		pstmt.executeUpdate();
 		
