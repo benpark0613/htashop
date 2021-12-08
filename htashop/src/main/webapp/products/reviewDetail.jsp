@@ -29,7 +29,7 @@
 			<div class="col-sm-10 align-self-end mt-4">
 				<div class="row mb-3">
 					<div class="col">
-						<h1 class="fs-3">리뷰 상세</h1>
+						<h1 class="fs-4"><strong>리뷰상세</strong></h1>
 					</div>
 					<%
 					int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
@@ -87,10 +87,12 @@
 							<%
 								if(reviewDto.getAnswerContent() != null){
 							%>
-							<hr>
+					<br>
 					<div class="col">
-						<h5 class="fs-3">리뷰 답글</h5>
-					</div>							
+						<h1 class="fs-4"><strong>답글</strong></h1>
+					</div>
+
+							<hr>											
 							<table class="table">
 								<tbody>							
 									<tr class="d-flex">
