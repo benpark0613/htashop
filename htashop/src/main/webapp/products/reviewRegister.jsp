@@ -9,19 +9,23 @@
 	String pageNo = request.getParameter("pageNo");
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
+	
 	if (title != null && title.isBlank()) {
 		response.sendRedirect("reviewform.jsp?error=empty-title");
 		return;
 	}
+	
 	if (content != null && content.isBlank()) {
 		response.sendRedirect("reviewform.jsp?error=empty-content");
 		return;
 	}
+	
 	User loginedUserInfo = (User) session.getAttribute("logined_user_info");
 	if (loginedUserInfo == null) {
 		response.sendRedirect("../loginform.jsp?error=login-required");
 		return;
 	}
+	
 	ReviewDto review = new ReviewDto();
 	review.setTitle(title);
 	review.setProductNo(productNo);
@@ -29,5 +33,6 @@
 	review.setReviewContent(content);
 	ReviewDao reviewDao = new ReviewDao();
 	reviewDao.insertReview(review);
+	
 	response.sendRedirect("detail.jsp?productNo=" + productNo);
 %>

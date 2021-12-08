@@ -39,9 +39,6 @@
 		<div class="col-sm-10 align-self-end mt-4">
 			<div class="row mb-3">
 <%
-	// form.jsp에서는 요청객체에서 요청파라미터값 error을 조회한다.
-	// 새 글 링크를 눌러서 form.jsp를 요청하는 경우에는 요청파라미터 error값이 존재하지 않는다.
-	// 새 글 등록에 실패한 경우에만 form.jsp를 요청할 때 생성한 요청객체에 요청파라미터로 error값이 존재한다.
 	String error = request.getParameter("error");
 
 	if ("empty-title".equals(error)) {
@@ -58,12 +55,6 @@
 <%
 	}
 %>
-			<!-- 
-				게시글 정보 입력폼이다.
-				title, content 정보를 입력받아서 register.jsp로 제출한다.
-				register.jsp에서 게시글을 등록하고, 오류가 발생하면 이 페이지를 재요청하는 URL을 응답으로 보낸다.
-				register.jsp에서 게시글 등록이 완료되면, list.jsp를 재요청하는 URL을 클라이언트에 응답으로 보낸다. 
-			 -->
 			<form class="border p-3 bg-light" method="post" action="modifyRegister.jsp?reviewNo=<%=reviewNo%>&pageNo=<%=pageNo%>">
 				<div class="mb-3">
 					<label class="form-label" for="board-title">제목</label>
