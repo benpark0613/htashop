@@ -56,7 +56,7 @@
 					<h1><strong>ORDER  PAGE</strong></h1>
 				</div>
 						<h4 class=" mb-3"><strong>Orderer Information</strong></h4>
-						<form class="needs-validation" novalidate>
+						<form class="needs-validation" novalidate action="orderExev">
 							<div class="row g-3">
 								<div class="col-sm-8">
 									<label for="firstName" class="form-label">이름</label> <input type="text" class="form-control" id="Name" value="<%=user.getName()%>">
@@ -87,6 +87,7 @@
 						</thead>
 						<tbody>
 								<tr>
+									<input type="hidden" name="productNo" value="<%=product.getNo() %>">
 									<td><img src="/htashop/resources/images/<%=product.getImage()%>" style="widhth:100px; height:100px;"/></td>
 									<td><%=product.getName() %></td>
 									<td><%=product.getPrice() %>원</td>
@@ -105,7 +106,7 @@
 						</table>		
 						
 
-							<button class="w-50 btn btn-primary btn-lg " type="submit">주문하기</button>
+							<button class="w-50 btn btn-primary btn-lg mb-5 type="submit" >주문하기</button>
 						</form>
 					</div>
 				</div>
