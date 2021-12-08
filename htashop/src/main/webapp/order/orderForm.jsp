@@ -103,13 +103,9 @@ charset=UTF-8" pageEncoding="UTF-8"%>
 										<img src="/htashop/resources/images/<%=product.getImage()%>" style="widhth: 100px; height: 100px" />
 									</td>
 									<td><%=product.getName() %></td>
-									<td><%=product.getPrice() %>원
-									</td>
-									<td><%=quantity%>개
-									</td>
-									<td>
-										<%=Math.round(product.getPrice()*quantity*0.01) %>원
-									</td>
+									<td><%=product.getPrice() %>원</td>
+									<td><%=quantity%>개</td>
+									<td><%=Math.round(product.getPrice()*quantity*0.01) %>원</td>
 									<td><%=product.getPrice()*quantity %>원
 									</td>
 								</tr>

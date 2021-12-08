@@ -5,8 +5,8 @@
 	pageEncoding="UTF-8"%>
 <%
 	/*
-		products > detail 에서 장바구니 버튼을 눌렀을 때 실행되는 로직이다.
-		로직 실행 후 detail 화면으로 넘어간 후 alert창이 뜨면서 장바구니에 담긴 것을 사용자에게 알려준다.
+		products > detail 에서 구매 버튼을 눌렀을 때 실행되는 로직이다.
+		로직 실행 후 카트 화면으로 넘어간다.
 	*/
 	int productNo = Integer.parseInt(request.getParameter("productNo"));
 	int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -34,5 +34,5 @@
 		cart.setQuantity(quantity);
 		cartDao.insertCart(cart);
 	}
-	response.sendRedirect("../products/detail.jsp?productNo=" + productNo + "&pageNo=" + pageNo + "&cart=complete");
+	response.sendRedirect("../cart/cart.jsp");
 %>
