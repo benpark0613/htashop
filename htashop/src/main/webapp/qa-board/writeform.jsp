@@ -40,8 +40,7 @@
 			<div class="col">
 				<form class="border p-3 bg-light" method="post" action="write.jsp">
 					<div class="mb-3">
-						<label class="col-1 col-form-label text-front">제목</label> 
-						<select
+						<label class="col-1 col-form-label text-front">제목</label> <select
 							name="title">
 							<option selected="selected" value="상품문의">상품문의</option>
 							<option value="배송문의">배송문의</option>
@@ -50,15 +49,15 @@
 						</select>
 					</div>
 					<div class="mb-3">
-						<label class="col-1 col-form-label text-front">상품명</label> 
-						<select name="productNo">
-							<option selected="selected" disabled="disabled" value="상품">--상품--</option>
+						<label class="col-1 col-form-label text-front">상품명</label> <select
+							name="productNo">
+							<option selected="selected" value="0">--상품--</option>
 							<%
-								for(Product product : productList){
+							for (Product product : productList) {
 							%>
-							<option value="<%=product.getNo()%>"><%=product.getName() %></option>
+							<option value="<%=product.getNo()%>"><%=product.getName()%></option>
 							<%
-								}
+							}
 							%>
 						</select>
 					</div>
@@ -79,21 +78,27 @@
 			</div>
 		</div>
 		<%
-			if("emptyTitle".equals(fail)){
+		if ("emptyTitle".equals(fail)) {
 		%>
-			<div class="alert alert-danger">
-				<strong>[제목 없음]</strong> 제목은 반드시 기입하셔야합니다.
-			</div>
+		<div class="alert alert-danger">
+			<strong>[제목 없음]</strong> 제목은 반드시 기입하셔야합니다.
+		</div>
 		<%
-			}else if("emptyContent".equals(fail)){
+		} else if ("emptyContent".equals(fail)) {
 		%>
-			<div class="alert alert-danger">
-				<strong>[내용 없음]</strong> 내용은 반드시 기입하셔야합니다.
-			</div>
+		<div class="alert alert-danger">
+			<strong>[내용 없음]</strong> 내용은 반드시 기입하셔야합니다.
+		</div>
 		<%
-			}
+		} else if ("emptyProductName".equals(fail)) {
 		%>
-		
+		<div class="alert alert-danger">
+			<strong>[상품명 없음]</strong> 상품명은 반드시 선택하셔야합니다.
+		</div>
+		<%
+		}
+		%>
+		%>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
