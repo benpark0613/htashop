@@ -451,6 +451,33 @@ public class UserDao {
 		
 		return totalRows;
 	}
+	
+	public void updateOrderuser(int userNo, int point)throws SQLException{
+		
+		String sql = "update SHOP_USER "
+				+ "   set user_point = ? "
+				+ "   where user_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, point);
+		pstmt.setInt(2, userNo);
+	}
+	public void updateOrder(int userNo, int point)throws SQLException{
+		
+		String sql = "insert into SHOP_ORDER "
+				+ "   set order_no = ? "
+				+ "       USER_NO = ? "
+				+ "       ORDER_DATE = ? "
+				+ "      ORDER_STATE = ? "
+				+ "      ORDER_TOTAL_PRICE = ?"
+				+ "     POINT_USED = ? "
+				+ "    EXPECTED_POINT = ? "
+				+ "   where user_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, point);
+		pstmt.setInt(2, userNo);
+	}
 
 }
 

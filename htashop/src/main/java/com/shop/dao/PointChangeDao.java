@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.shop.dto.PointDto;
+import com.shop.vo.OrderList;
+import com.shop.vo.PointChange;
+
 import static utils.ConnectionUtil.getConnection;
 
 public class PointChangeDao {
@@ -50,6 +53,27 @@ public class PointChangeDao {
 		connection.close();
 		
 		return pointDto;
+	}
+	
+	
+	public void addPointChange(PointChange pointChange)throws SQLException{
+
+		String sql = "insert into SHOP_POINT_CHANGE "
+				+ "(POINT_NO, POINT_CHANGE, POINT_CHANGE_REASON, USER_NO, ORDER_NO) "
+				+ "VALUES(SHOP_POINT_SEQ.nextval, ?, ?, ?, ? ) ";
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+
+		pstmt.setInt(1, pointChange.getPointChange());
+		pstmt.setString(2, pointChange.getPointChangeReason());
+		pstmt.setInt(3, pointChange.getUserNo());
+		pstmt.setInt(4, pointChange.getOrderNo());
+
+		pstmt.executeUpdate();
+		pstmt.close();
+		connection.close();
+
 	}
 
 }
