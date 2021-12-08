@@ -25,30 +25,30 @@ a { text-decoration:none;
 	pageContext.setAttribute("leftMenu", "bottomIndex");
 %>
 <%@include file="../common/navbar.jsp"%>
-<div class="container">
-	<div class="row justify-content-end">
-		<div class="col-sm-2">
-			<%@ include file="../common/left.jsp" %>
-		</div>
+	<div class="container">
+		<div class="row justify-content-end">
+			<div class="col-sm-2">
+				<%@ include file="../common/left.jsp" %>
+			</div>
 <%
 	ProductDao productDao = ProductDao.getInstance();
 	List<Product> productList = productDao.getAllProducts();
 %>		
-		<div class="col-sm-10 align-self-end">
+				<div class="col-sm-10 align-self-end">
 <%
 	String failReason = request.getParameter("fail");
 	if("unlogined".equals(failReason)){
 %>
-			<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
+					<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
 <%
 	}
 %>
-			<div class="row mt-2">
-				<div class="row mb-3" id="container_title">
-					<div class="col">
-						<h1 class="fs-6"><strong>bottom</strong> | 하의</h1>
-					</div>
-				</div>
+						<div class="row mt-2">
+							<div class="row mb-3" id="container_title">
+								<div class="col">
+							<h1 class="fs-6"><strong>bottom</strong> | 하의</h1>
+								</div>
+							</div>
 <%
 	String pageNo = request.getParameter("pageNo");
 	String category = "BOTTOM";

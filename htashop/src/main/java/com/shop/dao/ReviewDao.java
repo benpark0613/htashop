@@ -468,5 +468,27 @@ public class ReviewDao {
 		connection.close();
 
 	}
+	
+	public int getTodayTotalRecords() throws SQLException {
+		String sql ="select count(*) cnt "
+					+"from shop_review "
+					+ "where REVIEW_CREATED_DATE >= to_date(trunc(sysdate)) "
+					+ "and REVIEW_CREATED_DATE < to_date(trunc(sysdate+1)) ";				
+		
+		int totalRecords = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		totalRecords = rs.getInt("cnt");
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return totalRecords;
+	}
 
 }
