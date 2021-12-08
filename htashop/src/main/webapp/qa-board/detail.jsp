@@ -111,6 +111,12 @@
 			<strong>[관리자 권한]</strong> 관리자만 댓글을 달 수 있습니다.
 		</div>
 		<%
+		}else if ("other".equals(fail)){
+		%>
+		<div class="alert alert-danger">
+			<strong>[불가]</strong> 관리자 또는 작성자의 권한입니다..
+		</div>
+		<%
 		}
 		%>
 
