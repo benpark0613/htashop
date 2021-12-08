@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.dto.OrderCartDto;
 import com.shop.dto.OrderDto;
 import com.shop.vo.Order;
 
@@ -352,5 +353,77 @@ public class OrderDao {
 		
 	}
 	
+	public void orderTransaction(OrderCartDto orderCartDto) throws SQLException {
+		Connection connection = getConnection();
+
+		String sql = "insert into shop_order (order_no, user_no, order_total_price, point_used, expected_point) "
+				   + "values (shop_order_seq.nextval, ?, ?, ?, ?) ";
+
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, orderCartDto.getUserNo());
+		pstmt.setInt(2, orderCartDto.getOrderPrice());
+		pstmt.setInt(3, orderCartDto.getPointUsed());
+		pstmt.setInt(4, orderCartDto.getExpectedPoint());
+		pstmt.executeQuery();
+
+		String sql2 = "insert into shop_point_change (point_no, point_change, point_change_reason, user_no, order_no) "
+				    + "values (shop_point_seq.nextval, ?, ?, ?, shop_order_seq.currval) ";
+
+		pstmt = connection.prepareStatement(sql2);
+		pstmt.setInt(1, orderCartDto.getPointChange());
+		pstmt.setString(2, orderCartDto.getPointChangeReason());
+		pstmt.setInt(3, orderCartDto.getUserNo());
+		pstmt.executeQuery();
+		
+		String sql3 = "insert into shop_orderlist (order_no, product_no, order_count) "
+				    + "values (shop_order_seq.currval, ?, ?) ";
+		
+		pstmt = connection.prepareStatement(sql3);
+		pstmt.setInt(1, orderCartDto.getProductNo());
+		pstmt.setInt(2, orderCartDto.getCartQuantity());
+		pstmt.executeQuery();
+		
+		String sql4 = "update shop_user "
+				    + "set "
+				    + "	 user_point = ? "
+				    + "where user_no = ? ";
+		
+		pstmt = connection.prepareStatement(sql4);
+		pstmt.setInt(1, orderCartDto.getCustomerPoint());
+		pstmt.setInt(2, orderCartDto.getUserNo());
+		pstmt.executeQuery();
+		
+		pstmt.close();
+		connection.close();
+	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

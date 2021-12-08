@@ -1,3 +1,5 @@
+<%@page import="com.shop.dto.OrderCartDto"%>
+<%@page import="com.shop.dto.CartDto"%>
 <%@page import="com.shop.dao.UserDao"%>
 <%@page import="com.shop.dao.PointChangeDao"%>
 <%@page import="com.shop.vo.PointChange"%>
@@ -14,67 +16,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-User loginedUserInfo = (User) session.getAttribute("logined_user_info");
+	User loginedUserInfo = (User) session.getAttribute("logined_user_info");
+	
 	if (loginedUserInfo == null) {
-		
+		response.sendRedirect("../loginform.jsp?fail=login-required");
 		return;
 	}
 	
 	int pointUse = Integer.parseInt(request.getParameter("pointUse"));
 	
+	ProductDao productDao = ProductDao.getInstance();
+	OrderDao orderDao = OrderDao.getInstance();
+	OrderCartDto orderCartDto = new OrderCartDto();
+	
 	List<Cart> cartList = CartDao.getInstance().selectAllCartListByUserNo(loginedUserInfo.getUserNo());
 	
-	int totalOrderPrice = 0;
-	int expectedPoint = 0;
-	Product product = new Product();
-	
-	Order order = new Order();
-	OrderDao orderDao = OrderDao.getInstance();
-	
-	OrderList orderList = new OrderList();
-	OrderListDao orderListDao = new OrderListDao();
-	
-	
-	PointChange pointChange = new PointChange();
-	PointChangeDao pointChangeDao = new PointChangeDao();
-	
-	User user = new User();
-	UserDao userDao = new UserDao();
-	
-	
-
-
-	for (Cart carts : cartList) {
-
-		// 포인트 사용시 가격
-		totalOrderPrice = product.getPrice() * carts.getQuantity();
-		expectedPoint = (int) (Math.round(totalOrderPrice * 0.01));
-
-		order.setExpectedPoint(expectedPoint);
-		order.setUserNo(loginedUserInfo.getUserNo());
-		
-		
-		order.setTotalPrice(totalOrderPrice);
-		order.setPointUsed(pointUse);
-		orderDao.addOrders(order);
-
-		
-		orderList.setOrderNo(order.getOrderNo());
-		orderList.setProductNo(carts.getProductNo());
-		orderList.setOrderCount(carts.getQuantity());
-		orderListDao.addOrderList(orderList);
-
-		pointChange.setOrderNo(order.getOrderNo());
-		pointChange.setUserNo(loginedUserInfo.getUserNo());
-
-		// 2. pointChange 
-		pointChange.setPointChange(expectedPoint - pointUse);
-		pointChange.setPointChangeReason("0.01");
-
-		pointChangeDao.addPointChange(pointChange);
-
-		user.setPoint(point);
-		userDao.updateOrder(loginedUserInfo.getUserNo(), point);
-
+	for (Cart cart : cartList) {
+		orderCartDto.setCartNo(cart.getCartNo());
+		orderCartDto.setCartQuantity(cart.getQuantity());
+		orderCartDto.setUserNo(loginedUserInfo.getUserNo());
+		orderCartDto.setProductNo(cart.getProductNo());
+		orderCartDto.setOrderPrice(productDao.getProductDetailById(cart.getProductNo()).getPrice() * cart.getQuantity());
+		orderCartDto.setPointUsed((int)(pointUse / cartList.size()));
+		orderCartDto.setExpectedPoint((int)(productDao.getProductDetailById(cart.getProductNo()).getPrice() * cart.getQuantity() * 0.01));
+		orderCartDto.setPointChange(orderCartDto.getExpectedPoint() - orderCartDto.getPointUsed());
+		orderCartDto.setPointChangeReason("구매");
+		orderCartDto.setCustomerPoint(loginedUserInfo.getPoint() + orderCartDto.getExpectedPoint() - orderCartDto.getPointUsed());
+		orderDao.orderTransaction(orderCartDto);
 	}
+	
+	response.sendRedirect("order-completed.jsp");
+	
+	
+	
 %>

@@ -88,6 +88,7 @@
 					</h1>
 					<hr>
 					<form method="post" action="orderCartExecute.jsp">
+						<input type="hidden" name="pointUse" value="<%=pointUse %>">
 						<table class="table table-hover " id="cart">
 							<thead>
 								<tr>
@@ -148,10 +149,8 @@
 		</div>
 	</div>
 <%
-
 	UserDao userDao = new UserDao();
 	loginedUserInfo = userDao.getUserByNo(loginedUserInfo.getUserNo());
-
 %>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
