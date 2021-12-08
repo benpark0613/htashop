@@ -26,6 +26,10 @@
 %>
 		<li class="list-group-item"><a href="../order-mg/main.jsp" class="nav-link align-middle <%="orderList".equals(leftMenu) ? "active" : "" %>">영업관리</a></li>
 <%
+	} else if("board-all".equals(leftMenu) || "board-ListAll".equals(leftMenu)) {
+%>
+		<li class="list-group-item <%="board-all".equals(leftMenu) ? "fw-bold" : "" %>"><a href="board-mg.jsp" class="link-dark nav-link align-middle">게시판 현황</a></li>
+<% 		
 	}
 %>		
 

@@ -24,30 +24,30 @@ a { text-decoration:none;
 	pageContext.setAttribute("leftMenu", "best20");
 %>
 <%@include file="../common/navbar.jsp"%>
-<div class="container">
-	<div class="row justify-content-end">
-		<div class="col-sm-2">
-			<%@ include file="../common/left.jsp" %>
-		</div>		
+	<div class="container">
+		<div class="row justify-content-end">
+			<div class="col-sm-2">
+				<%@ include file="../common/left.jsp" %>
+			</div>		
 <%
 	ProductDao productDao = ProductDao.getInstance();
 	List<Product> productList = productDao.getAllProducts();
 %>		
-		<div class="col-sm-10 align-self-end">
+				<div class="col-sm-10 align-self-end">
 <%
 	String failReason = request.getParameter("fail");
 	if("unlogined".equals(failReason)){
 %>
-			<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
+					<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
 <%
 	}
 %>
-			<div class="row mt-2">
-				<div class="row mb-3" id="container_title">
-					<div class="col">
-						<h1 class="fs-6"><strong>Best20</strong> | 가장 인기있는 20개의 제품입니다.</h1>
-					</div>
-				</div>
+						<div class="row mt-2">
+							<div class="row mb-3" id="container_title">
+								<div class="col">
+									<h1 class="fs-6"><strong>Best20</strong> | 가장 인기있는 20개의 제품입니다.</h1>
+								</div>
+						</div>
 <%
 	String pageNo = request.getParameter("pageNo");	
 	int totalProductsRecord = 20;
@@ -55,12 +55,11 @@ a { text-decoration:none;
 	List<Product> products = productDao.getProductListByBest20(paginationIndex.getBegin(), paginationIndex.getEnd());	
 	for (Product product : products) {
 %>
-				<div class="col-sm-4 mb-3">
-					<div class="card mt-3">
-						<a href="../products/detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=1%>"><img src="../resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
-					</div>
+	<div class="col-sm-4 mb-3">
+		<div class="card mt-3">
+			<a href="../products/detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=1%>"><img src="../resources/images/<%=product.getImage() %>" class="card-img-top"/></a>
+				</div>
 					<div class="card-body">
-						<!-- 클릭하면 상품상세정보페이지로 이동 -->
 						<h5 class="card-title text-center"><a href="../products/detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=1%>"><%=product.getName() %></a></h5>
 						<p class="card-text text-danger text-center"><strong class="fw-bold"><%=product.getPrice() %></strong> 원</p>
 					</div>
@@ -78,7 +77,7 @@ a { text-decoration:none;
 				<!-- 이전버튼 -->
    				<li class="page-item <%=!paginationIndex.isExistPrev() ? "disabled" : "" %>">
      					<a class="page-link bg-white text-black" href="best20Index.jsp?pageNo=<%=paginationIndex.getPrevPage() %>" aria-label="Previous">
-       				<span aria-hidden="true">&laquo;</span>
+       						<span aria-hidden="true">&laquo;</span>
      					</a>
    				</li>
 <%
@@ -91,7 +90,7 @@ a { text-decoration:none;
    				<!-- 다음버튼 -->
    				<li class="page-item <%=!paginationIndex.isExistNext() ? "disabled" : "" %>">
      					<a class="page-link bg-white text-black" href="best20Index.jsp?pageNo=<%=paginationIndex.getNextPage() %>" aria-label="Next">
-       				<span aria-hidden="true">&raquo;</span>
+       						<span aria-hidden="true">&raquo;</span>
      					</a>
    				</li>
   			</ul>
