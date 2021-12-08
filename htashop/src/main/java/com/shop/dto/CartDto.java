@@ -2,34 +2,34 @@ package com.shop.dto;
 
 
 public class CartDto {
-		
+	
+		private int cartNo;
 		private int userNo;
-		private String productImage;
-		private String productName;
+		private int productNo;
 		private int quantity;
-		private int price;
-		private int expectedPoint;
-		private int totalPrice;
-				
-		public CartDto() {}
-		
-		public int getuserNo() {
+		private String category;
+		private String productName;
+		private int productStock;
+		private int productPrice;
+		private int productSaleRate;
+		private String productImage;
+		public int getCartNo() {
+			return cartNo;
+		}
+		public void setCartNo(int cartNo) {
+			this.cartNo = cartNo;
+		}
+		public int getUserNo() {
 			return userNo;
 		}
-		public void setuserNo(int userNo) {
+		public void setUserNo(int userNo) {
 			this.userNo = userNo;
 		}
-		public String getProductImage() {
-			return productImage;
+		public int getProductNo() {
+			return productNo;
 		}
-		public void setProductImage(String productImage) {
-			this.productImage = productImage;
-		}
-		public String getProductName() {
-			return productName;
-		}
-		public void setProductName(String productName) {
-			this.productName = productName;
+		public void setProductNo(int productNo) {
+			this.productNo = productNo;
 		}
 		public int getQuantity() {
 			return quantity;
@@ -37,20 +37,45 @@ public class CartDto {
 		public void setQuantity(int quantity) {
 			this.quantity = quantity;
 		}
+		public String getCategory() {
+			return category;
+		}
+		public void setCategory(String category) {
+			this.category = category;
+		}
+		public String getProductName() {
+			return productName;
+		}
+		public void setProductName(String productName) {
+			this.productName = productName;
+		}
+		public int getProductStock() {
+			return productStock;
+		}
+		public void setProductStock(int productStock) {
+			this.productStock = productStock;
+		}
 		public int getProductPrice() {
-			return price;
+			return productPrice;
 		}
 		public void setProductPrice(int productPrice) {
-			this.price = productPrice;
+			this.productPrice = productPrice;
 		}
-	
-		public int getTotalPrice() {
-			return price*quantity;
+		public int getProductSaleRate() {
+			return productSaleRate;
 		}
+		public void setProductSaleRate(int productSaleRate) {
+			this.productSaleRate = productSaleRate;
+		}
+		public String getProductImage() {
+			return productImage;
+		}
+		public void setProductImage(String productImage) {
+			this.productImage = productImage;
+		} 
 		
-		public int getExpectedPoint() {
-			return (int)(getTotalPrice()*0.01);}
-		}
 		
+		
+}
 
 		
