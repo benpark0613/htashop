@@ -33,13 +33,13 @@ a { text-decoration:none;
 //	User loginedUserInfo = (User)session.getAttribute("logined_user_info");
 %>
 <%@include file="../common/navbar.jsp"%>
-<div class="container">
-	<div class="row justify-content-end">
-		<div class="col-sm-2">
-		<%@ include file="../common/left.jsp" %>
-		</div>
-		<div class="col-sm-10 align-self-end mt-4">
-			<div class="row mb-3">
+	<div class="container">
+		<div class="row justify-content-end">
+			<div class="col-sm-2">
+				<%@ include file="../common/left.jsp" %>
+			</div>
+				<div class="col-sm-10 align-self-end mt-4">
+					<div class="row mb-3">
 <%
 	int productNo = Integer.parseInt(request.getParameter("productNo"));
 	String pageNo = request.getParameter("pageNo");
@@ -53,7 +53,6 @@ a { text-decoration:none;
 	ReviewDao reviewDao = new ReviewDao();
 	int totalRecords = reviewDao.getTotalRecordsByReview(product.getNo());
 	Pagination pagination = new Pagination(pageNo, totalRecords);
-	// 현재 페이지번호에 해당하는 게시글 목록을 조회한다.
 	List<ReviewDto> reviewList = reviewDao.getReviewListByNo(pagination.getBegin(), pagination.getEnd(), product.getNo());
 %>
 			<div class="container">

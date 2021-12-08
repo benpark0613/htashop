@@ -14,7 +14,7 @@
 		response.sendRedirect("../loginform.jsp?error=login-required");
 		return;
 	}
-	
+
 	ReviewDao reviewDao = new ReviewDao();
 	ReviewDto dto = reviewDao.getReviewDetailByNo(reviewNo);
 
@@ -23,13 +23,11 @@
 		response.sendRedirect("detail.jsp?productNo="+productNo+"&pageNo="+pageNo);
 		return;
 	}
-	
+		
 	if (dto.getUserNo() != loginedUserInfo.getUserNo()) {
 		response.sendRedirect("detail.jsp?productNo="+ productNo +"&reviewNo="+ reviewNo + "&pageNo=" + pageNo);
 		return;
 	}
-	
-	
 	reviewDao.deleteReview(reviewNo);
 	response.sendRedirect("detail.jsp?productNo="+productNo+"&pageNo="+pageNo);
 	
