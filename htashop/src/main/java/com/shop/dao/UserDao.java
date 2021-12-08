@@ -43,7 +43,6 @@ public class UserDao {
 	}
 
 	
-
 	public void deleteUser(int userNo) throws SQLException {
 
 		String sql = "DELETE from SHOP_USER " + "      WHERE USER_NO = ? ";
@@ -56,7 +55,6 @@ public class UserDao {
 		connection.close();
 	}
 
-	
 	
    /**
     * 모든 사용자 정보를 반환한다.

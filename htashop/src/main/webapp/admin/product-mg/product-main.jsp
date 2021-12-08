@@ -86,12 +86,24 @@
 							<td class="col-2"><a href="../../../htashop/products/detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=1 %>"><%=product.getName() %></a></td>
 							<td class="col-2"><%=product.getPrice() %> 원</td>
 							<td class="col-2"><%=product.getStock() %> 개</td>
-							<td class="col-2"><%=product.isSoldOut() %></td>
-							<td class="col-1"><a href="product-modifyform.jsp?productNo=<%=product.getNo() %>" class="btn-sm btn-secondary" type="button"><i class="bi bi-pencil"></i></a></td>
-						</tr>
 <%
+	String soldOut = Boolean.toString(product.isSoldOut());
+	
+			if (soldOut == "true") {
+%>
+							<td class="col-2 text-info"><strong><%=product.isSoldOut() %></strong></td>
+<%
+			} else {
+%>
+							<td class="col-2"><%=product.isSoldOut() %></td>
+<%
+			}
+%>
+							<td class="col-1"><a href="product-modifyform.jsp?productNo=<%=product.getNo() %>" class="btn-sm btn-secondary" type="button"><i class="bi bi-pencil"></i></a></td>
+<%			
 		}
-%>				
+%>			
+						</tr>
 					</tbody>
 				</table>
 			</div>

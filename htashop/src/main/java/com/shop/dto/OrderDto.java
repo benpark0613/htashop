@@ -6,13 +6,13 @@ public class OrderDto {
 	
 	private int orderNo;
 	private Date OrderDate;
+	private int productNo;
 	private String productName;
 	private int orderCount;
 	private int orderTotalPrice;
 	private String orderState;
 	private int usedPoint;
 	private int expectedPoint;
-	private int productNo;
 	
 	private String userName;
 

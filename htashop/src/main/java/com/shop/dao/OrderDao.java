@@ -1,5 +1,7 @@
 package com.shop.dao;
 
+import static utils.ConnectionUtil.getConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,10 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shop.dto.OrderDto;
-import com.shop.vo.Cart;
 import com.shop.vo.Order;
-
-import static utils.ConnectionUtil.getConnection;
 
 public class OrderDao {
 	
@@ -21,6 +20,52 @@ public class OrderDao {
 		return self;
 	}
 
+	/**
+	 * 새 주문번호를 반환한다.
+	 * @return
+	 * @throws SQLException
+	 */
+	public int getOrderNo() throws SQLException {
+		String sql = "select order_no_seq.nextval seq from dual";
+		
+		int orderNo = 0;
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		
+		orderNo = rs.getInt("seq");
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return orderNo;
+	}
+	
+	
+	//신규 주문 정보를 저장
+	
+	public void insertOrder(Order order) throws SQLException {
+		
+		String sql = "insert into shop_order"
+				   + "(order_no, user_no, order_total_price) "
+				   + "values (?, ?, ?) ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		
+		pstmt.setInt(1, order.getOrderNo());
+		pstmt.setInt(2, order.getUserNo());
+		pstmt.setInt(3, order.getTotalPrice());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
 	public Order getOrdersByNo(int userNo)throws SQLException{
 
 		String sql = "select ORDER_NO, USER_NO, ORDER_DATE, ORDER_STATE, ORDER_TOTAL_PRICE, "

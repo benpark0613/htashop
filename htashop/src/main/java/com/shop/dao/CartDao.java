@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.dto.CartDto;
 import com.shop.vo.Cart;
 
 public class CartDao {
@@ -17,6 +18,13 @@ public class CartDao {
 	private CartDao() {}
 	public static CartDao getInstance() {
 		return self;
+	}
+	
+	public List<CartDto> getAllMyCarts(int userNo) throws SQLException {
+		List<CartDto> cartDtoList = new ArrayList<CartDto>();
+		
+		
+		return cartDtoList;
 	}
 	
 	/**

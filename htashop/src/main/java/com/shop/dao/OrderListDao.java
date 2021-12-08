@@ -12,8 +12,27 @@ import java.util.List;
 import com.shop.dto.OrderDto;
 import com.shop.vo.CriteriaOrderList;
 import com.shop.vo.Order;
+import com.shop.vo.OrderList;
 
 public class OrderListDao {
+	
+	// 주문정보를 테이블에 저장
+	public void insertOrderList(OrderList orderlist) throws SQLException{
+		String sql = "insert into shop_OrderList (order_no, product_no, order_count) "
+				   + "values (?, ?, ?) ";
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, orderlist.getOrderNo());
+		pstmt.setInt(2, orderlist.getProductNo());
+		pstmt.setInt(3, orderlist.getOrderCount());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
 	
 	/**
 	 * MYSHOP 주문검색
