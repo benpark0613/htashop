@@ -1,3 +1,5 @@
+<%@page import="com.shop.vo.Product"%>
+<%@page import="com.shop.dao.ProductDao"%>
 <%@page import="utils.Pagination"%>
 <%@page import="com.shop.dao.QaBoardDao"%>
 <%@page import="java.util.List"%>
@@ -35,7 +37,7 @@
 				QaBoardDao qaBoardDao = QaBoardDao.getInstance();
 				String pageNo = request.getParameter("pageNo");
 				int totalRecords = qaBoardDao.getTotalRecords();
-
+				
 				// 페이징 처리 필요한 값을 계산하는 Pagination객체를 생성한다.
 				Pagination pagination = new Pagination(pageNo, totalRecords);
 
@@ -51,8 +53,9 @@
 									<tr>
 										<th>번호</th>
 										<th>제목</th>
-										<th>작성자번호</th>
-										<th>작성일</th>
+										<th>작성자</th>
+										<th>조회수</th>
+										<th>등록일</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -68,13 +71,12 @@
 									for (QaBoard qaBoard : qaBoardList) {
 									%>
 									<tr>
-										<td>
-											<%=qaBoard.getNo()%>
-										</td>
+										<td><%=qaBoard.getNo()%></td>
 										<td>
 											<a href="detail.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pagination.getPageNo()%>"><%=qaBoard.getTitle()%></a>
 										</td>
-										<td><%=qaBoard.getUserNo()%></td>
+										<td><%=qaBoard.getUserName()%></td>
+										<td><%=qaBoard.getViewCount()%></td>
 										<td><%=qaBoard.getRegdate()%></td>
 									</tr>
 									<%
