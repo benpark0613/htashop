@@ -32,14 +32,15 @@
 				<div class="col">
 					<form class="d-flex justify-content-center" id="form-search" name="search" method="post" action="search.jsp">
 						<!-- 검색 키워드 선택 -->
-						<div class="col-5">
+						<div class="col-5 mt-5">
 							<input class="form-control" type="text" name="searchText" placeholder="찾으시는 상품명을 입력하세요." />
 						</div>
-						<div class="col-2">
+						<div class="col-2 mt-5">
 							<button class="btn btn-dark" type="submit">검색</button>
 						</div>
 						
-						<!-- 검색키워드 변경시 옆에 셀렉트박스 내용도 바뀌는 부분 -->
+						<!-- 
+						검색키워드 변경시 옆에 셀렉트박스 내용도 바뀌는 부분
 						<div>
 							<div class="col">
 								<select name="searchRequirement" onchange="categoryChange(this)">
@@ -53,6 +54,7 @@
 								</select>
 							</div>
 						</div>
+						 -->
 						<!-- 검색어 입력필드 -->
 					</form>
 				</div>
@@ -71,7 +73,7 @@
 	if (searchText != null && !searchText.isEmpty()) {
 		productResults = productDao.getProductListBySearch(searchText);
 %>
-			<div class="row ustify-content-center mb-3">
+			<div class="row justify-content-center mt-5">
 				<div class="col-10 justify-content-center mt-3">
 					<table class="table">
 						<thead>
@@ -106,6 +108,7 @@
 	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- 
 <script>
 	function categoryChange(e) {
 		var requirement_price = ["낮은가격순", "높은가격순"];
@@ -125,5 +128,6 @@
 		}
 	}
 </script>
+ -->
 </body>
 </html>

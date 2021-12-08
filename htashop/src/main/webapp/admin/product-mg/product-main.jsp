@@ -42,21 +42,22 @@
 							<thead>
 								<tr class="d-flex ">
 									<th class="col-4">전체등록 상품</th>
-									<th class="col-4">판매중 상품</th>
 									<th class="col-4">품절 상품</th>
+									<th class="col-4">판매중 상품</th>
 								</tr>
 							</thead>
-							<!-- 아직 -->
+
 							<tbody>
 								<tr class="d-flex">
 <%
 	ProductDao productDao = ProductDao.getInstance();
 	int productCount = productDao.getTotalRecords();
+	int soldOutCount = productDao.getCountSoldOut();	
 	
 %>
-									<td class="col-4"><%=productCount %>개</td>
-									<td class="col-4">28건</td>				
-									<td class="col-4">2건</td>				
+									<td class="col-4"><%=productCount %> 건</td>
+									<td class="col-4"><%=soldOutCount %> 건</td>				
+									<td class="col-4"><%=productCount - soldOutCount %> 건</td>				
 								</tr>
 							</tbody>
 						</table>

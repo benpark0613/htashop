@@ -384,5 +384,28 @@ public class ProductDao {
 		
 		return productList;
 	}
+	
+	
+	/**
+	 * 품절상품 갯수를 조회한다.
+	 * @return 품절상품 갯수
+	 * @throws SQLException
+	 */
+	public int getCountSoldOut() throws SQLException {
+		String sql = "select count(*) cnt "
+				+ "from shop_products "
+				+ "where PRODUCT_IS_SOLDOUT = '1' ";
+		
+		int soldoutCount = 0;
+		
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		rs.next();
+		soldoutCount = rs.getInt("cnt");
+		
+		return soldoutCount;
+	}
 
 }
