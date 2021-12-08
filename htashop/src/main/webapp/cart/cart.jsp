@@ -47,6 +47,7 @@ img {width:50px; height:50px; }
 				<div class="col-10 mb-3 ">
 				<div class="row">
 				</div>
+				<form>
 					<table class="col-10 table table-hover" id="cart">
 						<thead>
 							<tr>
@@ -90,6 +91,7 @@ img {width:50px; height:50px; }
 					<div class="text-center">
 						<a class="btn btn-lg btn-warning" href="../order/orderCartForm.jsp" >주문하기</a>
 					</div>		
+				</form>
 				</div>
 			</div>
 		</div>
