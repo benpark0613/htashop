@@ -6,22 +6,25 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<title></title>
-<%@ include file="../../common/admin-navbar.jsp"%>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<title></title>
 </head>
-<%
-pageContext.setAttribute("leftMenu", "orderMain");
-%>
 <body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-2 min-vh-100 bg-light" id="sidebar">
-				<%@ include file="../../common/admin-left.jsp"%>
-			</div>
-			<div class="col-10">
+<%@ include file="../../common/admin-navbar.jsp" %>		
+<%
+	pageContext.setAttribute("menu", "orderMain");
+	pageContext.setAttribute("leftMenu", "orderMain");
+%>
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-2 min-vh-100 bg-light" id="sidebar">
+			<%@ include file="../../common/admin-left.jsp" %>
+		</div>
+
+		<div class="col-10">
 <%
 	OrderListDao orderList = new OrderListDao();
 	List<Order> orderListWeek = orderList.getOrderListByTerm("week");

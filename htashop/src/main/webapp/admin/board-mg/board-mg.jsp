@@ -9,7 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<title></title>
-</head>
     <style>
       table {
         width: 800px;
@@ -19,11 +18,13 @@
         text-align: center;
       }
     </style>
+</head>
 <body>
 
+<%@ include file="../../common/admin-navbar.jsp" %>
 <%
-	pageContext.setAttribute("menu", "board-all");
-	pageContext.setAttribute("leftMenu", "board-all");
+	pageContext.setAttribute("menu", "boardMain");
+	pageContext.setAttribute("leftMenu", "boardMain");
 
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
 	QaBoardDao qaBoardDao = QaBoardDao.getInstance();

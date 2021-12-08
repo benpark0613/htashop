@@ -8,15 +8,22 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<title></title>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <title></title>
+<style type="text/css"> 
+	a { 
+		text-decoration:none;
+		color : black;
+	 } 
+</style> 
 </head>
-<%@ include file="../../common/admin-navbar.jsp"%>
 <body>
-	<%
-pageContext.setAttribute("leftMenu", "orderList");
+<%@ include file="../../common/admin-navbar.jsp" %>		
+<%
+	pageContext.setAttribute("menu", "orderList");
+	pageContext.setAttribute("leftMenu", "orderList");
 
 	OrderListDao orderListDao = new OrderListDao();
 	CriteriaOrderList criteria = new CriteriaOrderList();
@@ -57,6 +64,7 @@ pageContext.setAttribute("leftMenu", "orderList");
 
 	List<OrderDto> orderList = orderListDao.getOrderList(criteria);
 %>
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-2 min-vh-100 bg-light" id="sidebar">
@@ -66,6 +74,7 @@ pageContext.setAttribute("leftMenu", "orderList");
 				<h1>전체주문 조회</h1>
 				<hr class="featurette-divider">
 				<div class="container py-4">
+
 					<div class="row">
 						<form id="form-search" method="get" action="orderList.jsp">
 							<input type="hidden" id="page-field" name="page" value="<%=pageNo%>">
