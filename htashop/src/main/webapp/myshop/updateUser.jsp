@@ -20,17 +20,10 @@
     	String tel2 = request.getParameter("tel2");
     	String tel3 = request.getParameter("tel3");
     	String tel = tel1 +"-" + tel2 +"-" + tel3;
-    	
     	String strBirthDay = year + "-" + month + "-" + day;
     	
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     	java.util.Date birthDay = sdf.parse(strBirthDay);
-    	
-      	System.out.println(strBirthDay);    	
-    	
-    	System.out.println(birthDay);
-    	
-    	
     	
     	User user = loginedUserInfo;
     	
@@ -41,10 +34,9 @@
     	user.setTel(tel);
     	user.setEmail(email);
     	
-    	// user.setUserNo(loginedUserInfo.getUserNo());
-    	
     	UserDao userDao = new UserDao();
     	userDao.updateUser(user);
+    	
     	if(password == null){
     		response.sendRedirect("userInfo.jsp?fail=password");
     		return;
@@ -79,7 +71,15 @@
     		return;
     	}
     	
-    	if(birthDay == null){
+    	if(year == null){
+    		response.sendRedirect("userInfo.jsp?fail=birthday");
+    		return;
+    	}
+    	if(month == null){
+    		response.sendRedirect("userInfo.jsp?fail=birthday");
+    		return;
+    	}
+    	if(day == null){
     		response.sendRedirect("userInfo.jsp?fail=birthday");
     		return;
     	}
