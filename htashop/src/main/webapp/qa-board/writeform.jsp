@@ -1,3 +1,6 @@
+<%@page import="com.shop.vo.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="com.shop.dao.ProductDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!doctype html>
@@ -18,6 +21,8 @@
 		response.sendRedirect("../loginform.jsp?fail=login-required");
 		return;
 	}
+	ProductDao productDao = ProductDao.getInstance();
+	List<Product> productList = productDao.getAllProducts();
 	%>
 	<div class="container">
 		<div class="row mb-3">
@@ -44,8 +49,17 @@
 						</select>
 					</div>
 					<div class="mb-3">
-						<label class="col-1 col-form-label text-front" for="qa-productNo">상품번호</label>
-						<input class="form-control" name="productNo" id="productNo"></input>
+						<label class="col-1 col-form-label text-front">상품명</label> 
+						<select name="productNo">
+							<option selected="selected" disabled="disabled" value="상품">--상품--</option>
+							<%
+								for(Product product : productList){
+							%>
+							<option value="<%=product.getNo()%>"><%=product.getName() %></option>
+							<%
+								}
+							%>
+						</select>
 					</div>
 					<div class="mb-3">
 						<label class="col-1 col-form-label text-front" for="qa-content">내용</label>

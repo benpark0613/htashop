@@ -24,13 +24,15 @@ public class QaBoardDao {
 	public List<QaBoard> getAllQuestions(int begin, int end) throws SQLException {
 
 		String sql =  " select rn, qa_no, product_no, qa_title, " 
-					+ " user_no, qa_regdate " 
-					+ " from (select row_number() over (order by product_no) rn, "
-					+ " qa_no, product_no, qa_title, user_no, qa_regdate "
-					+ " from shop_qaboard) "
+					+ " user_no, qa_regdate, user_name, qa_viewcount " 
+					+ " from (select row_number() over (order by q.qa_regdate desc) rn, "
+					+ " q.qa_no, q.product_no, q.qa_title, q.user_no, q.qa_regdate, u.user_name, q.qa_viewcount "
+					+ " from shop_qaboard q, shop_user u"
+					+ " where q.user_no = u.user_no) "
 					+ " where rn >= ? and rn <= ? "
 					+ " order by qa_regdate desc ";
 
+		
 		List<QaBoard> qaboardList = new ArrayList<>();
 
 		Connection connection = getConnection();
@@ -47,6 +49,8 @@ public class QaBoardDao {
 			qaboard.setTitle(rs.getString("qa_title"));
 			qaboard.setUserNo(rs.getInt("user_no"));
 			qaboard.setRegdate(rs.getDate("qa_regdate"));
+			qaboard.setUserName(rs.getString("user_name"));
+			qaboard.setViewCount(rs.getInt("qa_viewcount"));
 
 			qaboardList.add(qaboard);
 		}
@@ -60,15 +64,15 @@ public class QaBoardDao {
 
 	// User에서 user정보를 거ㅏ져와서 박아야함
 	public void insertQaBoard(QaBoard qaboard) throws SQLException {
-		String sql = "insert into shop_qaboard (qa_no, product_no, qa_title, qa_content, user_no, qa_regdate ) "
+		String sql = "insert into shop_qaboard (qa_no, qa_title, user_no, product_no, qa_content, qa_regdate ) "
 				+ "values (SHOP_QA_SEQ.nextval, ?, ?, ?, ?, sysdate )";
 
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, qaboard.getProductNo());
-		pstmt.setString(2, qaboard.getTitle());
-		pstmt.setString(3, qaboard.getContent());
-		pstmt.setInt(4, qaboard.getUserNo());
+		pstmt.setString(1, qaboard.getTitle());
+		pstmt.setInt(2, qaboard.getUserNo());
+		pstmt.setInt(3, qaboard.getProductNo());
+		pstmt.setString(4, qaboard.getContent());
 
 		pstmt.executeUpdate();
 
@@ -105,7 +109,7 @@ public class QaBoardDao {
 	}
 
 	public QaBoard getQuestionByNo(int no) throws SQLException {
-		String sql = "select q.qa_title, u.user_name, q.qa_regdate, q.qa_content, q.qa_no, u.user_id, q.qa_reply, q.product_no "
+		String sql = "select q.qa_title, u.user_name, q.qa_viewcount, q.qa_regdate, q.qa_content, q.qa_no, u.user_id, q.qa_reply, q.product_no "
 				+ "from shop_qaboard q, shop_user U "
 				+ "where q.user_no = U.user_no and qa_no=? ";
 
@@ -119,6 +123,7 @@ public class QaBoardDao {
 			qaBoard = new QaBoard();
 
 			qaBoard.setNo(rs.getInt("qa_no"));
+			qaBoard.setViewCount(rs.getInt("qa_viewcount"));
 			qaBoard.setTitle(rs.getString("qa_title"));
 			qaBoard.setContent(rs.getString("qa_content"));
 			qaBoard.setRegdate(rs.getDate("qa_regdate"));
@@ -193,6 +198,20 @@ public class QaBoardDao {
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
 		pstmt.setString(1, qaBoard.getReply());
+		pstmt.setInt(2, qaBoard.getNo());
+
+		pstmt.executeUpdate();
+
+		pstmt.close();
+		connection.close();
+
+	}
+	
+	public void updateViewCount(QaBoard qaBoard) throws SQLException {
+		String sql = "update shop_qaboard " + "set " + "qa_viewcount = ? " + "where qa_no = ? ";
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, qaBoard.getViewCount());
 		pstmt.setInt(2, qaBoard.getNo());
 
 		pstmt.executeUpdate();

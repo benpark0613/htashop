@@ -9,7 +9,11 @@
 	
 	User loginedUserInfo  = (User)session.getAttribute("logined_user_info");
 	if (loginedUserInfo == null) {
-		response.sendRedirect("");
+		response.sendRedirect("../loginform.jsp?fail=login-required");
+		return;
+	}
+	if ("admin".equals(loginedUserInfo.getId())){
+		response.sendRedirect("detail.jsp?fail=notAdmin");
 		return;
 	}
 	//loginform가서 fail=login-required 이걸 만들어야함
