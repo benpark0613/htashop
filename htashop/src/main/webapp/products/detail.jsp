@@ -67,6 +67,7 @@ a { text-decoration:none;
 					<div class="col">
 						<img src="../resources/images/<%=product.getName()%>.jpg" style="width: 500px; height: 500px">
 					</div>
+
 					<div class="col">
 						<h3><%=product.getName()%></h3>
 						<p>카테고리 : <%=product.getCategory()%></p>
@@ -101,14 +102,30 @@ a { text-decoration:none;
 							<br>
 							<input type="hidden" id="no" name="productNo" value="<%=product.getNo()%>">
 <%
-	if (loginedUserInfo != null) {
+                            if (loginedUserInfo != null) {	// 로그인한 상태 중에서
+                                if (product.isSoldOut() == false) {		// 판매중인 상품일때
 %>
-							<input class="btn btn-outline-primary" type='submit' id="no" value='구매' onclick='return submit1(this.form);'> 
-							<input class="btn btn-outline-dark" type='submit' value='장바구니'	onclick='return submit2(this.form);'>
+                                    <input class="btn btn-outline-primary" type='submit' id="no"
+                                        value='구매' onclick='return submit1(this.form);'> <input
+                                        class="btn btn-outline-dark" type='submit' value='장바구니'
+                                        onclick='return submit2(this.form);'>
 <%
-	}
+                                } else {	// 판매종료 상품일때
 %>
-<% // %>
+                                    <div class="alert alert-success" role="alert">
+                                        <strong> 품절된 상품입니다.</strong>
+                                    </div>
+<%
+                                }
+                            } else {	// 로그인하지 않은 경우
+%>
+                                <div class="alert alert-success" role="alert">
+                                    <strong> 로그인 후 구매하세요.</strong>
+                                </div>
+<%
+                            }
+%>
+
 <%
 	if ("empty-quantity".equals(error)) {
 %>
@@ -192,7 +209,7 @@ a { text-decoration:none;
 											<a	class="page-link" href="detail.jsp?productNo=<%=product.getNo()%>&pageNo=<%=num%>"><%=num%></a>
 										</li>
 <%
-}
+    }
 %>
 										<!-- 
 							                 Pagination객체가 제공하는 isExistNext()는 다음 블록이 존재하는 경우 true를 반환한다.

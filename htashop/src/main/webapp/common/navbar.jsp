@@ -34,7 +34,7 @@
 		if ("admin".equals(loginedUserInfo.getUserType())) {
 %>
 				<li class="nav-item"><a href="/htashop/logout.jsp" class="nav-link"><%=loginedUserInfo.getName() %> LOGOUT</a></li>
-				<li class="nav-item"><a href="/htashop/admin/admin-index.jsp" class="nav-link">ADMIN HOME</a></li>
+				<li class="nav-item"><a href="/htashop/admin/product-mg/product-main.jsp" class="nav-link">ADMIN HOME</a></li>
 <%			
 		} else if ("customer".equals(loginedUserInfo.getUserType())) {
 %>
