@@ -25,6 +25,14 @@
 			<div class="col-2">
 				<%@include file="../common/left.jsp" %>
 			</div>
+	/*
+		1. loginedUserInfo가 null이면 로그인폼으로 리다이렉션 시킨다.
+		2. loginedUserInfo의 사용자정보를 아래에 표시한다.	
+	*/
+	if(loginedUserInfo == null) {
+		response.sendRedirect("../loginform.jsp?fail=login-required");
+		return;
+	}
 			<div class="col-10">
 				<div class="row mb-3 p-3 border">
 					<div class="col">
@@ -118,14 +126,6 @@
 			</div>
 		</div>
 <%
-	/*
-		1. loginedUserInfo가 null이면 로그인폼으로 리다이렉션 시킨다.
-		2. loginedUserInfo의 사용자정보를 아래에 표시한다.	
-	*/
-	if(loginedUserInfo == null) {
-		response.sendRedirect("../loginform.jsp?fail=login-required");
-		return;
-	}
 
 	UserDao userDao = new UserDao();
 	loginedUserInfo = userDao.getUserByNo(loginedUserInfo.getUserNo());
