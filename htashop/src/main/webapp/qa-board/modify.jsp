@@ -35,6 +35,9 @@
 	qaBoard.setUserNo(loginedUserInfo.getUserNo());
 	
 	qaBoardDao.updateQuestion(qaBoard);
+	if ((!qaBoard.getUserId().equals(loginedUserInfo.getId()) && !"admin".equals(loginedUserInfo.getId()))) {
+		response.sendRedirect("detail.jsp?pageNo=" + pageNo+"&fail=other");
+	}
 	
 	response.sendRedirect("detail.jsp?no="+no+"&pageNo="+pageNo);
 %>

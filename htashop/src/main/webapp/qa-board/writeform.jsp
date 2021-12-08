@@ -17,6 +17,7 @@
 <body>
 	<%@ include file="../common/navbar.jsp"%>
 	<%
+	String fail = request.getParameter("fail");
 	if (loginedUserInfo == null) {
 		response.sendRedirect("../loginform.jsp?fail=login-required");
 		return;
@@ -77,6 +78,22 @@
 				</form>
 			</div>
 		</div>
+		<%
+			if("emptyTitle".equals(fail)){
+		%>
+			<div class="alert alert-danger">
+				<strong>[제목 없음]</strong> 제목은 반드시 기입하셔야합니다.
+			</div>
+		<%
+			}else if("emptyContent".equals(fail)){
+		%>
+			<div class="alert alert-danger">
+				<strong>[내용 없음]</strong> 내용은 반드시 기입하셔야합니다.
+			</div>
+		<%
+			}
+		%>
+		
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

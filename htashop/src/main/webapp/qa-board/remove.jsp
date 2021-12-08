@@ -20,9 +20,9 @@
 
 	QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);
 
-//	if ((!qaBoard.getUserId().equals(loginedUserInfo.getId()) || !"admin".equals(loginedUserInfo.getId()))) {
-//		response.sendRedirect("detail.jsp?pageNo=" + pageNo+"&fail=");
-//	}
+	if ((!qaBoard.getUserId().equals(loginedUserInfo.getId()) && !"admin".equals(loginedUserInfo.getId()))) {
+		response.sendRedirect("detail.jsp?pageNo=" + pageNo+"&fail=other");
+	}
 	
 	qaBoardDao.deleteQuestion(no);
 	response.sendRedirect("list.jsp?pageNo=" + pageNo);
