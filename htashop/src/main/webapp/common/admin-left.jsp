@@ -20,11 +20,11 @@
 <%
 	}else if ("orderMain".equals(leftMenu)){
 %>
-		<li class="list-group-item"><a href="../order-mg/orderList.jsp" class="nav-link align-middle <%="home".equals(leftMenu) ? "active" : "" %>">전체주문조회</a></li>
+		<li class="list-group-item"><a href="../order-mg/orderList.jsp" class="fw-bold link-dark nav-link align-middle <%="home".equals(leftMenu) ? "active" : "" %>">전체주문조회</a></li>
 <%
 	}else if ("orderList".equals(leftMenu)){
 %>
-		<li class="list-group-item"><a href="../order-mg/main.jsp" class="nav-link align-middle <%="orderList".equals(leftMenu) ? "active" : "" %>">영업관리</a></li>
+		<li class="list-group-item"><a href="../order-mg/main.jsp" class="fw-bold link-dark nav-link align-middle <%="orderList".equals(leftMenu) ? "active" : "" %>" >영업관리</a></li>
 <%
 	} else if("board-all".equals(leftMenu) || "board-ListAll".equals(leftMenu)) {
 %>

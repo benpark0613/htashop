@@ -104,19 +104,19 @@ pageContext.setAttribute("leftMenu", "orderMain");
 									<tr>
 										<th scope="row">입금확인</th>
 										<td>
-											<h4><strong>0건</strong></h4>
+											<h4><strong><a href="orderList.jsp?page=1&orderOption=주문번호&userkeyword=&productOption=상품명&productkeyword=&state=입금완료"><%=orderList.countOrderStatus("입금완료")%>건</a></strong></h4>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">배송중처리</th>
 										<td>
-											<h4><strong>0건</strong></h4>
+											<h4><strong><a href="orderList.jsp?page=1&orderOption=주문번호&userkeyword=&productOption=상품명&productkeyword=&state=배송중"><%=orderList.countOrderStatus("배송중")%>건</a></strong></h4>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">배송완료</th>
 										<td>
-											<h4><strong><%=orderList.countOrderStatus("배송완료")%>건</strong></h4>
+											<h4><strong><a href="orderList.jsp?page=1&orderOption=주문번호&userkeyword=&productOption=상품명&productkeyword=&state=배송완료"><%=orderList.countOrderStatus("배송완료")%>건</a></strong></h4>
 										</td>
 									</tr>
 								</tbody>

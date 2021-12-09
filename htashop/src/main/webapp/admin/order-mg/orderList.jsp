@@ -123,6 +123,8 @@ pageContext.setAttribute("leftMenu", "orderList");
 													<label class="btn btn-outline-secondary" for="전체상태">전체상태</label> 
 												<input type="radio" class="btn-check" value="입금전" id="입금전" name="state" autocomplete="off" <%="입금전".equals(state) ? "checked" : ""%>> 
 													<label class="btn btn-outline-secondary" for="입금전">입금전</label> 
+												<input type="radio" class="btn-check" value="입금완료" id="입금완료" name="state" autocomplete="off" <%="입금완료".equals(state) ? "checked" : ""%>> 
+													<label class="btn btn-outline-secondary" for="입금완료">입금완료</label> 
 												<input type="radio" class="btn-check" value="상품준비중" id="배송준비중" name="state" autocomplete="off" <%="배송준비중".equals(state) ? "checked" : ""%>> 
 													<label class="btn btn-outline-secondary" for="배송준비중">배송준비중</label> 
 												<input type="radio" class="btn-check" value="배송대기" id="배송대기" name="state" autocomplete="off" <%="배송대기".equals(state) ? "checked" : ""%>> 
@@ -148,6 +150,14 @@ pageContext.setAttribute("leftMenu", "orderList");
 				<div class="row">
 					<h2>검색결과</h2>
 					<div class="container">
+					<form method="post" action="orderStateUpdate.jsp">
+						<div class="col">
+						<button class="btn btn-secondary" style="float: right;" type="submit" name="orderState" value="배송완료처리">배송완료처리</button>
+						<button class="btn btn-secondary" style="float: right;" type="submit" name="orderState" value="배송중처리">배송중처리</button>
+						<button class="btn btn-secondary" style="float: right;" type="submit" name="orderState" value="배송준비중처리">배송준비중처리</button>
+						<button class="btn btn-secondary" style="float: right;" type="submit" name="orderState" value="배송대기처리">배송대기처리</button>
+						<button class="btn btn-secondary" style="float: right;" type="submit" name="orderState" value="입금완료처리">입금완료처리</button>
+						</div>
 						<table class="table">
 							<thead>
 								<tr>
@@ -172,7 +182,7 @@ pageContext.setAttribute("leftMenu", "orderList");
 		for (OrderDto order : orderList) {
 %>
 								<tr>
-									<th scope="row"><%=order.getOrderNo()%></th>
+									<th scope="row"><input type="checkbox" name="orderNo" value="<%=order.getOrderNo()%>"> <%=order.getOrderNo()%></th>
 									<td><%=order.getOrderDate()%></td>
 									<td><%=order.getUserName()%></td>
 									<td><%=order.getProductName()%></td>
@@ -186,8 +196,8 @@ pageContext.setAttribute("leftMenu", "orderList");
 %>
 							</tbody>
 						</table>
+				</form>
 					</div>
-
 				</div>
 				<div class="col text-center">
 					<div class="container">
