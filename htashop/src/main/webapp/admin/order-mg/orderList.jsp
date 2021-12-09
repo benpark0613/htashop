@@ -202,17 +202,24 @@
 				<div class="col text-center">
 					<div class="container">
 						<ul class="pagination justify-content-center">
-							<li class="page-item <%=pagination.isExistPrev() ? "" : "disabled"%>"><a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getPrevPage()%>)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
+							<li class="page-item <%=pagination.isExistPrev() ? "" : "disabled"%>">
+								<a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getPrevPage()%>)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
 <%
 	for (int no = pagination.getBeginPage(); no <= pagination.getEndPage(); no++) {
 %>
-							<li class="page-item <%=no == pagination.getPageNo() ? "active" : ""%>"><a class="page-link" href="" onclick="moveToPage(event, <%=no%>)"><%=no%></a></li>
-<%
+							<li class="page-item <%=no == pagination.getPageNo() ? "active" : ""%>">
+								<a class="page-link" href="" onclick="moveToPage(event, <%=no%>)"><%=no%>
+								</a>
+							</li>
+<%	
 	}
 %>
-							<li class="page-item <%=!pagination.isExistNext() ? "disabled" : ""%>"><a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getNextPage()%>)" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
+							<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>">
+								<a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getNextPage()%>)" aria-label="Next"><span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>

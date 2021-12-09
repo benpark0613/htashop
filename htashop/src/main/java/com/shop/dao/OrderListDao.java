@@ -103,6 +103,7 @@ public class OrderListDao {
 		
 		sql += " ) O "
 				+ "WHERE RN>=? AND RN<= ? ";
+				//+ "ORDER BY O.ORDER_DATE DESC";
 		
 		
 		Connection connection = getConnection();

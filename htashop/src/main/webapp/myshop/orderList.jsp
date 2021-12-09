@@ -140,7 +140,7 @@
 							}
 						%>
 						<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>">
-							<a class="page-link" href="" onclick="" aria-label="Next"> 
+							<a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getNextPage()%>)" aria-label="Next"> 
 							<span aria-hidden="true">&raquo;</span>
 							</a>
 						</li>
