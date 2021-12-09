@@ -84,7 +84,7 @@ img {width:50px; height:50px; }
 	}
 %>
 						</tbody>
-						<tfoot >
+						<tfoot>
 								<tr>
 									<td class="text-end col-2" colspan="6"><strong>총 주문금액:</strong></td>
 									<td class="text-end col-1"><%=totalOrderPrice %></td>
@@ -95,9 +95,9 @@ img {width:50px; height:50px; }
 								</tr>
 								<tr>
 									<td class="text-end col-2" colspan="6"><strong>사용할 포인트:</strong></td>
-									<td class="text-end col-1"><input type="number" id="use-point" name="pointUse" ></td>
+									<td class="text-end col-1"><input type="number" id="use-point" name="pointUse" value="0" ></td>
 								</tr>
-							</tfoot>
+						</tfoot>
 					</table>
 					<div class="alert alert-danger align-items-center" id="alert-error-point" role="alert" style="display:none;">사용할포인트가 보유포인트를 초과하지 않도록 입력해주세요.</div>
 					<div class="text-center">
@@ -138,6 +138,7 @@ function changeQty(cartNo) {
 function deletedCart(cartNo) {
 	location.href = "deleteCart.jsp?no=" + cartNo; 
 }
+
 <!-- TODO 사용할 포인트가 보유 포인트 보다 많으면 에러메세지를 띄워야한다. -->
 // function기능을 쓰기 위해, 각각의 id를 꼭 부여해줘야한다.
 function checkForm(event) {
@@ -145,7 +146,7 @@ function checkForm(event) {
 	var userPoint = parseInt(document.getElementById("user-point").textContent);	// 보유 포인트를 읽어서 숫자로 바꾼다.
 	var usePoint = parseInt(document.getElementById("use-point").value);			// 입력필드에 입력된 사용할 포인트를 읽어서 숫자로 바꾼다.
 	var alertElement = document.getElementById("alert-error-point");				// 경고를 표시하는 엘리먼트객체를 조회한다.
-	var formElement = document.getElementById("form-cart");							// 폼엘리먼트를 조회한다.	
+	var formElement = document.getElementById("form-cart");	// 폼엘리먼트를 조회한다.	
 	if (usePoint > userPoint) {
 		alertElement.style.display = "";	// 경고를 표시하는 엘리먼트가 화면에 표시되게 한다.
 		return;
