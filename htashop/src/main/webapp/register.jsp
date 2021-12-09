@@ -58,3 +58,4 @@
 	userDao.insertNewUser(newUser);
 	
 	response.sendRedirect("index.jsp?register=success");
+%>
