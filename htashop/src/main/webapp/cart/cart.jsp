@@ -20,7 +20,6 @@
 img {width:50px; height:50px; }
 </style>
 <body>
-
 <%
 	pageContext.setAttribute("menu", "cart");
 %>
@@ -31,13 +30,11 @@ img {width:50px; height:50px; }
 		response.sendRedirect("../loginform.jsp?fail=login-required");
 		return;
 	}
-
 	CartDao cartDao = CartDao.getInstance();
 	ProductDao productDao = ProductDao.getInstance();
 
 	List<Cart> carts = cartDao.selectAllCartListByUserNo(loginedUserInfo.getUserNo());
  %>
- 
 <div class="container">    
 <div class="row justify-content-start">
 	<div class="col-sm-2">
@@ -45,7 +42,7 @@ img {width:50px; height:50px; }
 		</div>
 		<div class="col-10">
 			<div class="row mb-3">
-				<form class="" method="post" action="../order/orderCartForm.jsp">
+				<form id="form-cart" onsubmit="checkForm(event)" class="" method="post" action="../order/orderCartForm.jsp">
 					<table class="col ms-1 table table-hover align-middle" id="cart">
 						<thead>
 							<tr class="text-center">
@@ -94,15 +91,15 @@ img {width:50px; height:50px; }
 								</tr>
 								<tr>
 									<td class="text-end col-2" colspan="6"><strong>보유 포인트:</strong></td>
-									<td class="text-end col-1"><%=loginedUserInfo.getPoint() %></td>
+									<td class="text-end col-1" id="user-point"><%=loginedUserInfo.getPoint() %></td>
 								</tr>
-								<!-- TODO 사용할 포인트가 보유 포인트 보다 많으면 에러메세지를 띄워야한다. -->
 								<tr>
 									<td class="text-end col-2" colspan="6"><strong>사용할 포인트:</strong></td>
-									<td class="text-end col-1"><input type="number" name="pointUse" ></td>
+									<td class="text-end col-1"><input type="number" id="use-point" name="pointUse" ></td>
 								</tr>
 							</tfoot>
 					</table>
+					<div class="alert alert-danger align-items-center" id="alert-error-point" role="alert" style="display:none;">사용할포인트가 보유포인트를 초과하지 않도록 입력해주세요.</div>
 					<div class="text-center">
 						<button class="btn btn-primary" type="submit">주문하기</button>
 					</div>		
@@ -110,9 +107,7 @@ img {width:50px; height:50px; }
 			</div>
 		</div>
 	</div>
-</div>
-
-		
+</div>		
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 function plus(cartNo) {
@@ -143,8 +138,21 @@ function changeQty(cartNo) {
 function deletedCart(cartNo) {
 	location.href = "deleteCart.jsp?no=" + cartNo; 
 }
-
-
+<!-- TODO 사용할 포인트가 보유 포인트 보다 많으면 에러메세지를 띄워야한다. -->
+// function기능을 쓰기 위해, 각각의 id를 꼭 부여해줘야한다.
+function checkForm(event) {
+	event.preventDefault();	// submit버튼을 클릭했을 때 폼의 입력값이 서버로 제출되는 동작이 일어나지 않게 한다.	
+	var userPoint = parseInt(document.getElementById("user-point").textContent);	// 보유 포인트를 읽어서 숫자로 바꾼다.
+	var usePoint = parseInt(document.getElementById("use-point").value);			// 입력필드에 입력된 사용할 포인트를 읽어서 숫자로 바꾼다.
+	var alertElement = document.getElementById("alert-error-point");				// 경고를 표시하는 엘리먼트객체를 조회한다.
+	var formElement = document.getElementById("form-cart");							// 폼엘리먼트를 조회한다.	
+	if (usePoint > userPoint) {
+		alertElement.style.display = "";	// 경고를 표시하는 엘리먼트가 화면에 표시되게 한다.
+		return;
+	}	
+	alertElement.style.display = "none";	// 경고를 표시하는 엘리먼트가 화면에 표시되지 않게 한다.
+	formElement.submit();					// 폼엘리먼트의 submit()메소드를 실행해서 폼입력값을 서버로 제출한다.	
+}
 </script>
 </body>
 </html>
