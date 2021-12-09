@@ -11,7 +11,7 @@
 <title></title>
 </head>
 <%
-pageContext.setAttribute("userInfo", "home");
+pageContext.setAttribute("menu", "userInfo");
 String failReason = request.getParameter("fail");
 %>
 <body>

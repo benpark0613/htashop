@@ -19,6 +19,8 @@
 </head>
 <body>
 <%
+	pageContext.setAttribute("menu", "order");
+
 	OrderListDao orderListDao = new OrderListDao();
 	CriteriaOrderList criteria = new CriteriaOrderList();
 	
