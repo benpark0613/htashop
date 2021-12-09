@@ -131,6 +131,7 @@
 							</a>
 						</li>
 						<%
+							System.out.println(totalRecords);
 							for(int no = pagination.getBeginPage(); no <= pagination.getEndPage(); no++){
 						%>
 						<li class="page-item <%=no == pagination.getPageNo() ? "active" : "" %>">

@@ -40,6 +40,7 @@ a { text-decoration:none;
 <%
 	String failReason = request.getParameter("fail");
 	String quit = request.getParameter("quit");
+	String change = request.getParameter("userInfoChange");
 	if("unlogined".equals(failReason)){
 %>
 			<div class="alert alert-danger d-flex align-items-center" role="alert">로그인 후 이용하세요!</div>
@@ -50,15 +51,17 @@ a { text-decoration:none;
 <%
 	if("complete".equals(quit)){
 %>
-		<div class="alert alert-danger d-flex align-items-center" role="alert">회원탈퇴가 완료되었습니다.</div>
+		<div class="alert alert-success d-flex align-items-center" role="alert">회원탈퇴가 완료되었습니다.</div>
+<%
+	}
+	if("complete".equals(change)){
+%>
+
+		<div class="alert alert-success d-flex align-items-center" role="alert">회원정보 변경이 완료되었습니다.</div>
+
 <%
 	}
 %>
-
-
-
-
-
 
 			<div class="row mt-2">
 <%
