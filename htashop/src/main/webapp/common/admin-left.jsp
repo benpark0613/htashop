@@ -21,10 +21,15 @@
 		<li class="list-group-item <%="orderMain".equals(leftMenu) ? "fw-bold" : "" %>"><a href="main.jsp" class="link-dark nav-link align-middle">영업관리</a></li>
 		<li class="list-group-item <%="orderList".equals(leftMenu) ? "fw-bold" : "" %>"><a href="orderList.jsp" class="link-dark nav-link align-middle">전체주문조회</a></li>
 <%
+	} else if ("orderList".equals(leftMenu)) {
+%>
+		<li class="list-group-item <%="orderMain".equals(leftMenu) ? "fw-bold" : "" %>"><a href="main.jsp" class="link-dark nav-link align-middle">영업관리</a></li>
+		<li class="list-group-item <%="orderList".equals(leftMenu) ? "fw-bold" : "" %>"><a href="orderList.jsp" class="link-dark nav-link align-middle">전체주문조회</a></li>
+<%
 	// 게시판관리
 	} else if ("boardMain".equals(leftMenu)) {
 %>
-		<li class="list-group-item <%="boardMain".equals(leftMenu) ? "fw-bold" : "" %>"><a href="board-main.jsp" class="link-dark nav-link align-middle">영업관리</a></li>
+		<li class="list-group-item"><a href="../order-mg/main.jsp" class="fw-bold link-dark nav-link align-middle <%="orderList".equals(leftMenu) ? "active" : "" %>" >영업관리</a></li>
 <%
 	} else if("board-all".equals(leftMenu) || "board-ListAll".equals(leftMenu)) {
 %>

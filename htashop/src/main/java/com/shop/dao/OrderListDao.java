@@ -294,6 +294,10 @@ public class OrderListDao {
 			sql += "AND O.ORDER_STATE = '배송완료' ";
 		}
 		
+		else if("입금완료".equals(criteria.getState())) {
+			sql += "AND O.ORDER_STATE = '입금완료' ";
+		}
+		
 		else if("입금전".equals(criteria.getState())) {
 			sql += "AND O.ORDER_STATE = '입금전' ";
 		}
@@ -405,6 +409,9 @@ public class OrderListDao {
 		}
 		else if("배송완료".equals(criteria.getState())) {
 			sql += "AND O.ORDER_STATE = '배송완료' ";
+		}
+		else if("입금완료".equals(criteria.getState())) {
+			sql += "AND O.ORDER_STATE = '입금완료' ";
 		}
 			
 		else if("입금전".equals(criteria.getState())) {
@@ -539,6 +546,9 @@ public class OrderListDao {
 		else if("배송준비중".equals(state)) {
 			pstmt.setString(1, "배송준비중");
 		}
+		else if("입금완료".equals(state)) {
+			pstmt.setString(1, "입금완료");
+		}
 		else if("배송중".equals(state)) {
 			pstmt.setString(1, "배송중");
 		}
@@ -574,6 +584,43 @@ public class OrderListDao {
 		pstmt.close();
 		connection.close();
 
+	}
+	
+	public void updateState(int orderNo, String state) throws SQLException{
+
+		String sql = "update SHOP_ORDER "
+				+ "   set ORDER_STATE = ? "
+				+ "   where ORDER_NO = ? ";
+
+		Connection connection = getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(sql);
+		if("배송완료처리".equals(state)) {
+			pstmt.setString(1, "배송완료");
+			pstmt.setInt(2, orderNo);
+		}
+		else if("배송중처리".equals(state)) {
+			pstmt.setString(1, "배송중");
+			pstmt.setInt(2, orderNo);
+		}
+		else if("입금확인처리".equals(state)) {
+			pstmt.setString(1, "입금확인");
+			pstmt.setInt(2, orderNo);
+		}
+		else if("배송대기처리".equals(state)) {
+			pstmt.setString(1, "배송대기");
+			pstmt.setInt(2, orderNo);
+		}
+		else if("배송준비중처리".equals(state)) {
+			pstmt.setString(1, "배송준비중");
+			pstmt.setInt(2, orderNo);
+		}
+		else if("입금완료처리".equals(state)) {
+			pstmt.setString(1, "입금완료");
+			pstmt.setInt(2, orderNo);
+		}
+
+		pstmt.executeUpdate();
+		connection.close();
 	}
 
 
