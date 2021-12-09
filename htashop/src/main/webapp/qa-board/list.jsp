@@ -29,9 +29,9 @@ a { text-decoration:none;
 			<div class="col-sm-10">
 				<div class="row mt-2" id="container_title">
 					<div class="col">
-						<h1 class="fs-6">
-							<strong>Q & A</strong> | 상품 Q&A 게시판입니다.
-						</h1>
+						<h4 class="fs-6">
+							<strong>Q & A</strong> | 상품 Q&A 게시판
+						</h4>
 					</div>
 				</div>
 				<%

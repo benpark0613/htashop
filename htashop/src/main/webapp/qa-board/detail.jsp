@@ -20,11 +20,11 @@
 			<div class="col-2">
 				<%@ include file="../common/left.jsp"%>
 			</div>
-			<div class="col">
-				<div class="row mb-3">
+			<div class="col-sm-10">
+				<div class="row mt-2" id="container_title">
 					<div class="col">
-						<h4>
-							<font color=#777777>Q & A</font> | 상품 Q&A입니다.
+						<h4 class="fs-6">
+							<font color=#777777>Q & A</font> | Q&A 상세
 						</h4>
 					</div>
 				</div>
