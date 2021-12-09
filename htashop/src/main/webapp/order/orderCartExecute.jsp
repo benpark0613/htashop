@@ -44,6 +44,8 @@
 		orderCartDto.setCustomerPoint(loginedUserInfo.getPoint() + orderCartDto.getExpectedPoint() - orderCartDto.getPointUsed());
 		orderDao.orderTransaction(orderCartDto);
 	}
+	CartDao cartDao = CartDao.getInstance();
+	cartDao.deleteCartByNo(loginedUserInfo.getUserNo());
 	
 	response.sendRedirect("order-completed.jsp");
 	
