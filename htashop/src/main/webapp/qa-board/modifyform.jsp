@@ -27,6 +27,13 @@
 			QaBoard qaBoard = qaBoardDao.getQuestionByNo(no);
 			%>
 			<div class="col">
+				<div class="row mt-2" id="container_title">
+					<div class="col">
+						<h4 class="fs-6">
+							<font color=#777777>Q & A</font> | Q&A 수정
+						</h4>
+					</div>
+				</div>
 				<form method="post" action="modify.jsp?">
 					<input type="hidden" name="productNo"
 						value="<%=qaBoard.getProductNo()%>"> <input type="hidden"
@@ -87,6 +94,7 @@
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js">
+		
 	</script>
 </body>
 </html>
