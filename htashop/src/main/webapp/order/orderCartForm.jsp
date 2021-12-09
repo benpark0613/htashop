@@ -88,6 +88,9 @@
 					</h1>
 					<hr>
 					<form method="post" action="orderCartExecute.jsp">
+						<input type="hidden" name="pointUse" id="pointUse" value="<%=pointUse%>">
+						
+					
 						<table class="table table-hover " id="cart">
 							<thead>
 								<tr>

@@ -25,10 +25,10 @@
 	
 	// 2. 비밀번호로 조회하기
 	// "문자".equals(변수명)
-	if (!user.getPassword().equals(secretPassword)) {
-		response.sendRedirect("loginform.jsp?fail=password");
-		return;
-	}
+//	if (!user.getPassword().equals(secretPassword)) {
+//		response.sendRedirect("loginform.jsp?fail=password");
+//		return;
+//	}
 
 	
 	// 위 조건들을 통과했으면 세션객체에 사용자정보 저장

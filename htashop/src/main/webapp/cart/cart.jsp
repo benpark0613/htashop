@@ -45,6 +45,7 @@ img {width:50px; height:50px; }
 		</div>
 		<div class="col-10">
 			<div class="row mb-3">
+			
 				<form class="" method="post" action="../order/orderCartForm.jsp">
 					<table class="col ms-1 table table-hover align-middle" id="cart">
 						<thead>
@@ -99,7 +100,7 @@ img {width:50px; height:50px; }
 								<!-- TODO 사용할 포인트가 보유 포인트 보다 많으면 에러메세지를 띄워야한다. -->
 								<tr>
 									<td class="text-end col-2" colspan="6"><strong>사용할 포인트:</strong></td>
-									<td class="text-end col-1"><input type="number" name="pointUse" ></td>
+									<td class="text-end col-1"><input type="number" id="pointUse" name="pointUse"></td>
 								</tr>
 							</tfoot>
 					</table>

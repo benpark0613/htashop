@@ -1,3 +1,8 @@
+<%@page import="com.shop.vo.Order"%>
+<%@page import="com.shop.vo.OrderList"%>
+<%@page import="com.shop.vo.Product"%>
+<%@page import="com.shop.dao.ProductDao"%>
+<%@page import="com.shop.dao.OrderListDao"%>
 <%@page import="com.shop.dao.OrderDao"%>
 <%@page import="com.shop.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -15,10 +20,6 @@
 	}
 
 	OrderDao orderDao = OrderDao.getInstance();
-	
-
-
-	
 	
 	OrderListDao orderListDao = new OrderListDao();
 	ProductDao productDao = ProductDao.getInstance();

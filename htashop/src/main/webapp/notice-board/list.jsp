@@ -15,19 +15,19 @@
 </head>
 <body>
 <%
-	pageContext.setAttribute("menu", "notice");
+pageContext.setAttribute("menu", "notice");
 	pageContext.setAttribute("leftMenu", "notice");
 %>
 <%@ include file="../common/navbar.jsp"%>
 <%
-	String pageNo = request.getParameter("pageNo");
+String pageNo = request.getParameter("pageNo");
 	String searchField = request.getParameter("searchField");
 	String searchText = request.getParameter("searchText");
 
 	NoticeBoardDao noticeBoardDao = NoticeBoardDao.getInstance();
 	List<NoticeBoardListDto> noticeBoards = null;	
 	Pagination pagination = null;
-			
+	
 	if (searchField != null && !searchField.isEmpty() && searchText != null && !searchText.isEmpty()) {
 		int totalRecords = noticeBoardDao.getTotalRecords(searchField, searchText);
 		pagination = new Pagination(pageNo, totalRecords);
@@ -37,8 +37,6 @@
 		pagination = new Pagination(pageNo, totalRecords);
 		noticeBoards = noticeBoardDao.getNoticeBoardList(pagination.getBegin(), pagination.getEnd());	
 	}
-	
-	
 %>
 	<div class="container">
 		<div class="row mb-3">
