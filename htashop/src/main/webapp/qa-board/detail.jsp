@@ -71,31 +71,32 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
-		<div class="mb-3 text-end">
-			<a href="modifyform.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pageNo%>"
-				" class="btn btn-dark">수정</a> <a
-				href="remove.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pageNo%>"
-				" class="btn btn-dark">삭제</a>
-				<a href="list.jsp?pageNo=<%=pageNo%>" class="btn btn-secondary">목록</a>
-		</div>
-		<%
-		if ("admin".equals(loginedUserInfo.getId())){
-		%>
-		<form method="post" action="reply.jsp">
-			<input type="hidden" name="no" value="<%=qaBoard.getNo()%>">
-			<div class="mb-3">
-				<label class="col-1 col-form-label text-front">댓글</label>
-				<textarea rows="6" class="form-control" name="reply"></textarea>
-			</div>
-			<div class="row mb-3">
-				<div class="col">
-					<div class="mb-3 text-end">
-						<button type="submit" class="btn btn-primary" name=>댓글등록</button>
-					</div>
+
+				<div class="mb-3 text-end">
+					<a href="modifyform.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pageNo%>"
+						" class="btn btn-dark">수정</a> <a
+						href="remove.jsp?no=<%=qaBoard.getNo()%>&pageNo=<%=pageNo%>"
+						" class="btn btn-dark">삭제</a> <a
+						href="list.jsp?pageNo=<%=pageNo%>" class="btn btn-secondary">목록</a>
 				</div>
+				<%
+				if ("admin".equals(loginedUserInfo.getId())) {
+				%>
+				<form method="post" action="reply.jsp">
+					<input type="hidden" name="no" value="<%=qaBoard.getNo()%>">
+					<div class="mb-3">
+						<label class="col-1 col-form-label text-front">댓글</label>
+						<textarea rows="6" class="form-control" name="reply"></textarea>
+					</div>
+					<div class="row mb-3">
+						<div class="col">
+							<div class="mb-3 text-end">
+								<button type="submit" class="btn btn-primary" name=>댓글등록</button>
+							</div>
+						</div>
+					</div>
 			</div>
+		</div>
 		</form>
 		<%
 		}
@@ -105,13 +106,13 @@
 		} else if (!qaBoard.getUserId().equals(loginedUserInfo.getId()) || !"admin".equals(loginedUserInfo.getId())) {
 		response.sendRedirect("list.jsp?fail=other");
 		return;
-		}else if ("notAdmin".equals(fail)){
+		} else if ("notAdmin".equals(fail)) {
 		%>
 		<div class="alert alert-danger">
 			<strong>[관리자 권한]</strong> 관리자만 댓글을 달 수 있습니다.
 		</div>
 		<%
-		}else if ("other".equals(fail)){
+		} else if ("other".equals(fail)) {
 		%>
 		<div class="alert alert-danger">
 			<strong>[불가]</strong> 관리자 또는 작성자의 권한입니다..
