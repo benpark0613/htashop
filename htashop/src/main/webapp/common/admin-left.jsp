@@ -29,7 +29,7 @@
 	// 게시판관리
 	} else if ("boardMain".equals(leftMenu)) {
 %>
-		<li class="list-group-item"><a href="../order-mg/main.jsp" class="fw-bold link-dark nav-link align-middle <%="orderList".equals(leftMenu) ? "active" : "" %>" >영업관리</a></li>
+		<li class="list-group-item"><a href="../board-mg/board-mg.jsp" class="fw-bold link-dark nav-link align-middle <%="orderList".equals(leftMenu) ? "active" : "" %>" >게시글 현황</a></li>
 <%
 	} else if("board-all".equals(leftMenu) || "board-ListAll".equals(leftMenu)) {
 %>
