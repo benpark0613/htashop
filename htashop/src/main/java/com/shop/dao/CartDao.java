@@ -187,19 +187,20 @@ public class CartDao {
 		connection.close();
 	}
 	
-	// 장바구니 번호 조회하여, 해당 장바구니 정보를 삭제
-	public void deleteCartByNo(int cartNo) throws SQLException {
+	// userNo 조회하여, 해당 장바구니 정보를 삭제
+	public void deleteCartByNo(int userNo) throws SQLException {
 		String sql = "delete shop_cart "
-				   + "where cart_no= ? ";
+				   + "where user_no= ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setInt(1, cartNo);
+		pstmt.setInt(1, userNo);
 		
 		pstmt.executeUpdate();
 		
 		pstmt.close();
 		connection.close();
+		
 		
 	}
 	
