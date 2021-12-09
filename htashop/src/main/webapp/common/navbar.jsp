@@ -50,7 +50,7 @@
 			</ul>
 			
 			<div>
-      			<a href="search.jsp" class="btn btn-light"  type="button"><i class="bi bi-search"></i></a>
+      			<a href="/htashop/search.jsp" class="btn btn-light"  type="button"><i class="bi bi-search"></i></a>
     		</div>
     		
 		</div>
