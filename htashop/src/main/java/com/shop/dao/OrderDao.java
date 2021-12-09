@@ -126,10 +126,12 @@ public class OrderDao {
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
-				+ "where ORDER_STATE = '배송완료' ";
+				+ "where ORDER_STATE = '배송완료' "
+			    + "AND USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
 		int cnt = rs.getInt("cnt");
@@ -142,10 +144,12 @@ public class OrderDao {
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
-				+ "where ORDER_STATE = '입금전' ";
+				+ "where ORDER_STATE = '입금전' "
+				+ "AND USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
 		int cnt = rs.getInt("cnt");
@@ -158,10 +162,12 @@ public class OrderDao {
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
-				+ "where ORDER_STATE = '배송준비중' ";
+				+ "where ORDER_STATE = '배송준비중' "
+				+ "AND USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
 		int cnt = rs.getInt("cnt");
@@ -174,10 +180,13 @@ public class OrderDao {
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
-				+ "where ORDER_STATE = '배송중' ";
+				+ "where ORDER_STATE = '배송중' "
+				+ "AND USER_NO = ? ";
+
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
 		int cnt = rs.getInt("cnt");
@@ -190,10 +199,12 @@ public class OrderDao {
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
-				+ "where ORDER_STATE = '취소' ";
+				+ "where ORDER_STATE = '취소' "
+				+ "AND USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
 		int cnt = rs.getInt("cnt");
@@ -206,10 +217,12 @@ public class OrderDao {
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
-				+ "where ORDER_STATE = '교환' ";
-		
+				+ "where ORDER_STATE = '교환' "
+				+ "AND USER_NO = ? ";
+
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
 		int cnt = rs.getInt("cnt");
@@ -222,10 +235,12 @@ public class OrderDao {
 		
 		String sql = "select count(*) cnt "
 				+ "from SHOP_ORDER "
-				+ "where ORDER_STATE = '반품' ";
+				+ "where ORDER_STATE = '반품' "
+				+ "AND USER_NO = ? ";
 		
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
+		pstmt.setInt(1, userNo);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
 		int cnt = rs.getInt("cnt");

@@ -194,6 +194,7 @@ public class OrderListDao {
 		else if("반품".equals(criteria.getOption())) {
 			sql += "and order_state = '반품' "; 
 		}
+		
 
 		Connection connection = getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -281,8 +282,8 @@ public class OrderListDao {
 		if("전체".equals(criteria.getState())) {
 			
 		}
-		else if("상품준비중".equals(criteria.getState())) {
-			sql += "AND O.ORDER_STATE = '상품준비중' ";
+		else if("배송준비중".equals(criteria.getState())) {
+			sql += "AND O.ORDER_STATE = '배송준비중' ";
 		}
 		else if("배송대기".equals(criteria.getState())) {
 			sql += "AND O.ORDER_STATE = '배송대기' ";
@@ -398,8 +399,8 @@ public class OrderListDao {
 		if("전체".equals(criteria.getState())) {
 			
 		}
-		else if("상품준비중".equals(criteria.getState())) {
-			sql += "AND O.ORDER_STATE = '상품준비중' ";
+		else if("배송준비중".equals(criteria.getState())) {
+			sql += "AND O.ORDER_STATE = '배송준비중' ";
 		}
 		else if("배송대기".equals(criteria.getState())) {
 			sql += "AND O.ORDER_STATE = '배송대기' ";

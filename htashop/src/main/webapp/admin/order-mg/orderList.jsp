@@ -125,7 +125,7 @@
 													<label class="btn btn-outline-secondary" for="입금전">입금전</label> 
 												<input type="radio" class="btn-check" value="입금완료" id="입금완료" name="state" autocomplete="off" <%="입금완료".equals(state) ? "checked" : ""%>> 
 													<label class="btn btn-outline-secondary" for="입금완료">입금완료</label> 
-												<input type="radio" class="btn-check" value="상품준비중" id="배송준비중" name="state" autocomplete="off" <%="배송준비중".equals(state) ? "checked" : ""%>> 
+												<input type="radio" class="btn-check" value="배송준비중" id="배송준비중" name="state" autocomplete="off" <%="배송준비중".equals(state) ? "checked" : ""%>> 
 													<label class="btn btn-outline-secondary" for="배송준비중">배송준비중</label> 
 												<input type="radio" class="btn-check" value="배송대기" id="배송대기" name="state" autocomplete="off" <%="배송대기".equals(state) ? "checked" : ""%>> 
 													<label class="btn btn-outline-secondary" for="배송대기">배송대기</label> 
@@ -141,7 +141,6 @@
 							<div class="row text-center">
 								<div class="col">
 									<button class="btn btn-secondary" onclick="searchBoards(1)">검색</button>
-									<button class="btn btn-secondary" type="reset" value="초기화">초기화</button>
 								</div>
 							</div>
 						</form>
@@ -202,17 +201,24 @@
 				<div class="col text-center">
 					<div class="container">
 						<ul class="pagination justify-content-center">
-							<li class="page-item <%=pagination.isExistPrev() ? "" : "disabled"%>"><a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getPrevPage()%>)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
+							<li class="page-item <%=pagination.isExistPrev() ? "" : "disabled"%>">
+								<a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getPrevPage()%>)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
 <%
 	for (int no = pagination.getBeginPage(); no <= pagination.getEndPage(); no++) {
 %>
-							<li class="page-item <%=no == pagination.getPageNo() ? "active" : ""%>"><a class="page-link" href="" onclick="moveToPage(event, <%=no%>)"><%=no%></a></li>
-<%
+							<li class="page-item <%=no == pagination.getPageNo() ? "active" : ""%>">
+								<a class="page-link" href="" onclick="moveToPage(event, <%=no%>)"><%=no%>
+								</a>
+							</li>
+<%	
 	}
 %>
-							<li class="page-item <%=!pagination.isExistNext() ? "disabled" : ""%>"><a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getNextPage()%>)" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
+							<li class="page-item <%=!pagination.isExistNext() ? "disabled" : "" %>">
+								<a class="page-link" href="" onclick="moveToPage(event, <%=pagination.getNextPage()%>)" aria-label="Next"><span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>

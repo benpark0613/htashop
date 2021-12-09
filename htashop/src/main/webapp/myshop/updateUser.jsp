@@ -34,55 +34,59 @@
     	user.setTel(tel);
     	user.setEmail(email);
     	
-    	UserDao userDao = new UserDao();
-    	userDao.updateUser(user);
+
     	
-    	if(password == null){
+    	if(password.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=password");
     		return;
     	}
     	if(password != passwordConfirm){
     		response.sendRedirect("userInfo.jsp?fail=confirmPassword");
+    		return;
     	}
-    	if(name == null){
+    	if(name.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=name");
     		return;
     	}
-    	if(email == null){
+    	if(email.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=email");
     		return;
     	}
     	
-    	if(tel1 == null){
+    	if(tel1.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=tel");
     		return;
     	}
-    	if(tel2 == null){
+    	if(tel2.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=tel");
     		return;
     	}
-    	if(tel3 == null){
+    	if(tel3.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=tel");
     		return;
     	}
     	
-    	if(region == null){
+    	if(region.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=region");
     		return;
     	}
     	
-    	if(year == null){
+    	if(year.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=birthday");
     		return;
     	}
-    	if(month == null){
+    	if(month.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=birthday");
     		return;
     	}
-    	if(day == null){
+    	if(day.isEmpty()){
     		response.sendRedirect("userInfo.jsp?fail=birthday");
     		return;
     	}
     	
-    	response.sendRedirect("userInfo.jsp");
+    	UserDao userDao = new UserDao();
+    	userDao.updateUser(user);
+
+    	
+    		response.sendRedirect("../index.jsp?userInfoChange=complete");
   %>
