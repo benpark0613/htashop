@@ -38,7 +38,7 @@
 				qaBoard.setViewCount(qaBoard.getViewCount() + 1);
 				qaBoardDao.updateViewCount(qaBoard);
 
-				if (loginedUserInfo != null
+				if (loginedUserInfo != null                        
 						&& (qaBoard.getUserId().equals(loginedUserInfo.getId()) || "admin".equals(loginedUserInfo.getId()))) {
 				%>
 				<div class="col">
