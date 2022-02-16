@@ -11,7 +11,7 @@
 ## 개발환경
 - Model1 개발방식
 - HTML, CSS, Bootstrap
-- JAVA, JSP, Oracle Database
+- JAVA, JSP, SQL, Oracle Database
 - ApacheTomcat server
 - GIT, SourceTree 
 
